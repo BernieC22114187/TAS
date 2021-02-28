@@ -1,14 +1,16 @@
 import React from 'react';
 import { View, VirtualizedList, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity} from 'react-native';
 
+
+
+
+
 const TrayLunch = () => {
     return (
         <ScrollView>
             <SafeAreaView>
                 <View style = {styles.container}>
-                    <View style = {styles.topBar}>
-                        <Text style = {styles.topBarText}> Tray Lunch </Text> 
-                    </View>
+                    
                     <Text style = {styles.text}> Dishes </Text>
                     <View style = {styles.grayBox}>
                         <TouchableOpacity style = {styles.dish}>

@@ -28,9 +28,10 @@ const UselessTextInputMultiline = () => {
       }}>
       <UselessTextInput
         multiline
-        numberOfLines={4}
-        onChangeText={text => onChangeText(text)}
+        numberOfLines = {4}
+        onChangeText = {text => onChangeText(text)}
         value={value}
+        
       />
     </View>
   );

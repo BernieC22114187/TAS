@@ -11,6 +11,7 @@ import Add from './src/pages/Add';
 import TrayLunch from './src/pages/TrayLunch'
 import Settings from './src/pages/Settings';
 import Home from './src/pages/Home';
+import index from './src/pages/index';
 
 function DetailsScreen({navigation} ){
   return (
@@ -20,7 +21,7 @@ function DetailsScreen({navigation} ){
   )  
 } 
 
-function HomeScreen({navigation} ){
+function HomeScreen({navigation}){
   return (
     <View>
       <Text>Detail Screen</Text>
