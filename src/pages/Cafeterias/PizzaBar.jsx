@@ -5,7 +5,7 @@ import { View, VirtualizedList, Text, StyleSheet, ScrollView, SafeAreaView, Touc
 
 
 
-const TrayLunch = () => {
+const PizzaBar = ({navigation}) => {
     return (
         <ScrollView>
             <SafeAreaView>
@@ -13,7 +13,7 @@ const TrayLunch = () => {
                     
                     <Text style = {styles.text}> Dishes </Text>
                     <View style = {styles.grayBox}>
-                        <TouchableOpacity style = {styles.dish}>
+                        <TouchableOpacity style = {styles.dish} onPress = {() => navigation.navigate('Dish Selection')}>
                              
                         </TouchableOpacity>
                         <TouchableOpacity style = {styles.dish}>
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 17,
-        paddingLeft: 130,
+        paddingLeft: 124,
         marginHorizontal: 30,
         justifyContent: 'center',
         color: 'white',
@@ -152,4 +152,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default TrayLunch;
+export default PizzaBar;

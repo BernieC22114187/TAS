@@ -8,7 +8,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import BotBar from './src/components/BotBu';
 import Add from './src/pages/Add';
-import TrayLunch from './src/pages/TrayLunch'
+import TrayLunch from './src/pages/Cafeterias/TrayLunch'
 import Settings from './src/pages/Settings';
 import Home from './src/pages/Home';
 import index from './src/pages/index';
@@ -41,7 +41,7 @@ function HomeStackScreen(){
 }
 
 const HomeStack = createStackNavigator();
-
+ 
 function SettingsScreen(){
   return (
     <View style = {{flex:1, justifyContent: 'center', alignItems: 'center'}}>
@@ -71,9 +71,9 @@ export default function App() {
             else if(route.name === "Home"){ 
               iconName = focused? 'home' : 'home-outline';
             }
-            else if(route.name === "HomeStackScreen"){ 
-              iconName = focused? 'planet' : 'planet-outline';
-            }
+            // else if(route.name === "HomeStackScreen"){ 
+            //   iconName = focused? 'planet' : 'planet-outline';
+            // }
 
             return <Ionicons name = {iconName} size = {size} color = {color}/>
           },
@@ -90,7 +90,7 @@ export default function App() {
         <Tab.Screen name = "Home" component = {Home}/>
         <Tab.Screen name = "Add" component = {Add}/>
         <Tab.Screen name = "Settings" component = {Settings}/>
-        <Tab.Screen name = "HomeStackScreen" component = {HomeStackScreen}/>
+        {/* <Tab.Screen name = "HomeStackScreen" component = {HomeStackScreen}/> */}
         
       </Tab.Navigator>
     </NavigationContainer>

@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import BotBar from '../components/BotBu';
-import TrayLunch from './TrayLunch'
+import TrayLunch from './Cafeterias/TrayLunch'
 import index from './index'
 
 
@@ -17,23 +17,20 @@ export const AddScreen = ({navigation}) =>{
                     
                     <Text style = {styles.text}> Cafeterias </Text>
                     
-                    <TouchableOpacity style = {styles.button} onPress = {() => navigation.navigate('TrayLunch')}>
+                    <TouchableOpacity style = {styles.button} onPress = {() => navigation.navigate('Tray Lunch')}>
                         <Text style = {styles.buttontext}>
                             Tray Lunch
                             </Text>
                                     
                     </TouchableOpacity>
                     
-                    
-                    
-                    
-                    
-                    <TouchableOpacity style = {styles.button}>
+                
+                    <TouchableOpacity style = {styles.button} onPress = {() => navigation.navigate('Salad Bar')}>
                         <Text style = {styles.buttontext}>
                             Salad bar
                             </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style = {styles.button}>
+                    <TouchableOpacity style = {styles.button} onPress = {() => navigation.navigate('Pizza Bar')}>
                         <Text style = {styles.buttontext}>
                             Pizza Bar
                             </Text>
@@ -55,7 +52,6 @@ export const AddScreen = ({navigation}) =>{
                     </TouchableOpacity>
                     <BotBar/>
                 </View>
-                
             </SafeAreaView>
         </ScrollView>
     )
@@ -68,12 +64,13 @@ const styles = StyleSheet.create({
 
     },
     text: {
-        fontSize: 17,
-        paddingLeft: 110,
+        fontSize: 20,
+        paddingLeft: 105,
         marginHorizontal: 30,
         justifyContent: 'center',
         color: 'white',
-        backgroundColor: '#6C757D'
+        backgroundColor: '#6C757D',
+        marginVertical: 10,
     },
     button: {
         margin: 5,

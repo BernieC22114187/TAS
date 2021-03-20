@@ -4,19 +4,14 @@ import { NavigationContainer, useNavigation } from '@react-navigation/native' ;
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { createStackNavigator } from '@react-navigation/stack';
-import BotBar from '../components/BotBu';
-import TrayLunch from './Cafeterias/TrayLunch'
-import Nav from './Cafeterias/TrayLunch'
-import SaladBar from './Cafeterias/SaladBar'
-import PizzaBar from './Cafeterias/PizzaBar'
-import index from './index'
-import AddScreen from './AddScreen';
-import DishSelection from './Cafeterias/DishSelection';
+
+
+import DishSelection from './DishSelection';
 
 
 
 const Stack = createStackNavigator();
-const Add = ({}) => {  
+const Nav = ({}) => {  
 
     
     
@@ -28,11 +23,9 @@ const Add = ({}) => {
             component={AddScreen}
             
             />
-            
             <Stack.Screen name = "Tray Lunch" component = {TrayLunch}/>
             <Stack.Screen name = "Salad Bar" component = {SaladBar}/>
             <Stack.Screen name = "Pizza Bar" component = {PizzaBar}/>
-            <Stack.Screen name = "Dish Selection" component = {DishSelection}/>
         </Stack.Navigator>
         
         
@@ -41,4 +34,4 @@ const Add = ({}) => {
 
 
 
-export default Add;
+export default Nav;
