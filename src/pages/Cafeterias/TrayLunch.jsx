@@ -32,12 +32,12 @@ const TrayLunch = ({navigation}) => {
                         <TouchableOpacity style = {styles.dish} onPress = {() => navigation.navigate('Dish Selection')}>
                              
                         </TouchableOpacity>
-                        <TouchableOpacity style = {styles.dish}>
+                        <TouchableOpacity style = {styles.dish} onPress = {() => navigation.navigate('Dish Selection')}>
                         </TouchableOpacity>
-                        <TouchableOpacity style = {styles.dish}>
+                        <TouchableOpacity style = {styles.dish} onPress = {() => navigation.navigate('Dish Selection')}>
                         </TouchableOpacity>
                         
-                        <TouchableOpacity style = {styles.dish}>
+                        <TouchableOpacity style = {styles.dish} onPress = {() => navigation.navigate('Dish Selection')}>
                         </TouchableOpacity>
                     </View>
                     <View style = {styles.blackBox}>

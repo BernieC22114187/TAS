@@ -2,7 +2,7 @@ import React from "react";
 import { NavigationContainer, useNavigation } from '@react-navigation/native' ;
 import { createStackNavigator } from '@react-navigation/stack';
 
-import {TrayLunch  } from './Cafeterias/TrayLunch';
+// import {TrayLunch  } from './Cafeterias/TrayLunch';
 
 const AuthStack = createStackNavigator();
 

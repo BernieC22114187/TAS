@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState }from 'react';
 import { View, Button, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity, ScreenContainer, TouchableWithoutFeedback} from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native' ;
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -7,11 +7,14 @@ import { createStackNavigator } from '@react-navigation/stack';
 import BotBar from '../../components/BotBu';
 import TrayLunch from './TrayLunch'
 import index from '../index'
-  
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Icon } from 'react-native-elements/dist/icons/Icon';
 
 
+var a = [0,0,0,0,0]
 
-const DishSelection = (props) => {
+
+const DishSelection = () => {
     // function onchecked(id){
     
     //     const data = this.state.data
@@ -19,9 +22,10 @@ const DishSelection = (props) => {
     //     data[index].checked = !data[index].checked
     //     this.setState(data)
     // }
-    function checkBoxTest(){
-        alert("value changed")
-    }
+    // function checkBoxTest(){
+    //     checked = {True}
+    // }
+    const [isSelected, setSelection] = useState(a);
     return(
         <ScrollView>
             <SafeAreaView>
@@ -29,26 +33,65 @@ const DishSelection = (props) => {
                     <Text style = {styles.text}> Dishes </Text>
                 </View>
                
-                <TouchableOpacity style = {styles.item}>
+                <TouchableOpacity style = {styles.item} onPress = {() => {if (a[0] === 0) {a[0] = 1} else if (a[0] === 1) {a[0] = 0}  setSelection(!isSelected); console.log(a)}}>
                     <View style = {styles.itemLeft}>
+                        <Ionicons name = {a[0] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
                         <View style = {styles.square}></View>
                         <Text style = {styles.itemText}> Dish 1 </Text>
                     </View>
-                    <CheckBox checkedIcon = 'checkmark-circle' value = {false} onChange = {() => this.checkBoxTest}></CheckBox>
+                    {/* <View style = {styles.circular}></View> */}
+                    {/* <CheckBox    checked = {isSelected} onPress = {() => setSelection(!isSelected) } ></CheckBox> */}
+                    
+                </TouchableOpacity>
+                <TouchableOpacity style = {styles.item} onPress = {() => {if (a[1] === 0) {a[1] = 1} else if (a[1] === 1) {a[1] = 0}  setSelection(!isSelected); console.log(a)}}>
+                    <View style = {styles.itemLeft}>
+                        <Ionicons name = {a[1] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
+                        <View style = {styles.square}></View>
+                        <Text style = {styles.itemText}> Dish 2 </Text>
+                    </View>
+                    {/* <View style = {styles.circular}></View> */}
+                    {/* <CheckBox   checked = {isSelected} onPress = {() => setSelection(!isSelected)}></CheckBox> */}
+                    
+                </TouchableOpacity>
+                <TouchableOpacity style = {styles.item}>
+                    <View style = {styles.itemLeft}>
+                        <View style = {styles.square}></View>
+                        <Text style = {styles.itemText}> Dish 3 </Text>
+                    </View>
+                    {/* <View style = {styles.circular}></View> */}
+                    {/* <CheckBox   checked = {isSelected} onPress = {() => setSelection(!isSelected)}></CheckBox> */}
+                    
+                </TouchableOpacity>
+                <TouchableOpacity style = {styles.item}>
+                    <View style = {styles.itemLeft}>
+                        <View style = {styles.square}></View>
+                        <Text style = {styles.itemText}> Dish 4 </Text>
+                    </View>
+                    {/* <View style = {styles.circular}></View> */}
+                    {/* <CheckBox checked = {isSelected} onPress = {() => setSelection(!isSelected)}></CheckBox> */}
+                    
+                </TouchableOpacity>
+                <TouchableOpacity style = {styles.item}>
+                    <View style = {styles.itemLeft}>
+                        <View style = {styles.square}></View>
+                        <Text style = {styles.itemText}> Dish 5 </Text>
+                    </View>
+                    {/* <View style = {styles.circular}></View> */}
+                    {/* <CheckBox  checked = {isSelected} onPress = {() => setSelection(!isSelected)}></CheckBox> */}
                     
                 </TouchableOpacity>
                         
                 
                 <View style = {styles.blackBox}>
                 </View>
-                <TouchableOpacity style = {styles.addToPlate}>
+                {/* <TouchableOpacity style = {styles.addToPlate}>
                     <Text style = {styles.cleartext}>
                         Add to Plate
                     </Text>
-                </TouchableOpacity>
-                <TouchableOpacity style = {styles.clear}>
+                </TouchableOpacity> */}
+                <TouchableOpacity style = {styles.clear} onPress = {() => setSelection(!isSelected)}>
                     <Text style = {styles.cleartext}>
-                        Clear
+                        Select/De-Select All
                     </Text>
                 </TouchableOpacity>
             </SafeAreaView>
@@ -63,8 +106,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between',
-        marginVertical: 20,   
+        // justifyContent: 'space-between',
+        marginVertical: 5,   
         width: 300,
         height: 50,
         marginLeft: 35,

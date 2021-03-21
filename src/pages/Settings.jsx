@@ -1,6 +1,7 @@
 import React from 'react';
 import { TextInput, View, VirtualizedList, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity} from 'react-native';
-import Input from '../components/TextInput';
+// import Input from '../components/TextInput';
+import { Input } from 'react-native-elements';
 import BotBar from '../components/BotBu';
 //import CustomizedTables from '../components/TableComp'
 
@@ -15,7 +16,20 @@ const Settings = () => {
                     <Text style = {styles.text}> Profile Name </Text>
                     <View style = {styles.grayBox}>
                         <TouchableOpacity style = {styles.setting}>
-                            <Input/>
+                            <Text style = {styles.labels}>Mass: </Text>
+                            <TextInput placeholder='mass in kg ' style = {styles.inputBox}></TextInput>
+                        </TouchableOpacity>
+                        <TouchableOpacity style = {styles.setting}>
+                            <Text style = {styles.labels}>Height: </Text>
+                            <TextInput placeholder='height in cm' style = {styles.inputBox}/>
+                        </TouchableOpacity>
+                        <TouchableOpacity style = {styles.setting}>
+                            <Text style = {styles.labels}>Birthdate: </Text>
+                            <TextInput placeholder='Birthdate ' style = {styles.inputBox}/>
+                        </TouchableOpacity>
+                        <TouchableOpacity style = {styles.setting}>
+                            <Text style = {styles.labels}>Gender: </Text>
+                            <TextInput placeholder='M/F/Other' style = {styles.inputBox}/>
                         </TouchableOpacity>
                         <TouchableOpacity style = {styles.setting}>
                         </TouchableOpacity>
@@ -47,6 +61,10 @@ const Settings = () => {
 
 
 const styles = StyleSheet.create({
+    inputBox: {
+        width: 100,
+        marginHorizontal: 50,
+    },
     save:{
         margin: 5,
         marginHorizontal: 37,
@@ -75,17 +93,22 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: 300,
     },
+    labels: {
+        fontSize: 16,
+    },
+
     setting:{
         flex: 1,
+        flexDirection: 'row',                       
         backgroundColor: '#FFFFFF', // # + color code 
         alignItems: 'center',
-    
-        height:100,
+        paddingLeft: 5,
+        paddingRight: 10,
+        height: 30,
         width: 300,
-        paddingLeft: 50,
-        paddingBottom: 10,
+        // paddingLeft: 0,
+        // paddingBottom: 10,
         marginHorizontal: 58,
-         
         marginVertical: 5,
         
     },
@@ -110,11 +133,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#EBEBEB', // # + color code 
         alignItems: 'center',
         justifyContent: 'center',
-        height: 200,
+        height: 600,
         width: 320,
-        paddingVertical: 20,
+        paddingVertical: 30,
         paddingHorizontal: 100, //why does increasing padding increase size?
-        marginLeft: 50, 
+        marginLeft: 28, 
         marginHorizontal: 20,
         marginTop: 10,
         marginBottom: 10,
