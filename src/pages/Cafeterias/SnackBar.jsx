@@ -5,7 +5,7 @@ import { View, VirtualizedList, Text, StyleSheet, ScrollView, SafeAreaView, Touc
 
 
 
-const PizzaBar = ({navigation}) => {
+const SnackBar = ({navigation}) => {
     return (
         <ScrollView>
             <SafeAreaView>
@@ -154,4 +154,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default PizzaBar;
+export default SnackBar;

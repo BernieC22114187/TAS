@@ -9,6 +9,8 @@ import TrayLunch from './Cafeterias/TrayLunch'
 import Nav from './Cafeterias/TrayLunch'
 import SaladBar from './Cafeterias/SaladBar'
 import PizzaBar from './Cafeterias/PizzaBar'
+import SnackBar from './Cafeterias/SnackBar'
+import FitnessCafe from './Cafeterias/FitnessCafe'
 import index from './index'
 import AddScreen from './AddScreen';
 import DishSelection from './Cafeterias/DishSelection';
@@ -32,6 +34,8 @@ const Add = ({}) => {
             <Stack.Screen name = "Tray Lunch" component = {TrayLunch}/>
             <Stack.Screen name = "Salad Bar" component = {SaladBar}/>
             <Stack.Screen name = "Pizza Bar" component = {PizzaBar}/>
+            <Stack.Screen name = "Snack Bar" component = {SnackBar}/>
+            <Stack.Screen name = "Fitness Cafe" component = {FitnessCafe}/>
             <Stack.Screen name = "Dish Selection" component = {DishSelection}/>
         </Stack.Navigator>
         

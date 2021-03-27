@@ -40,10 +40,8 @@ const DishSelection = () => {
                         <Text style = {styles.itemText}> Dish 1 </Text>
                         <Ionicons name = {a[0] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
                     </View>
-                   
-                    
                 </TouchableOpacity>
-
+ 
                 <TouchableOpacity style = {styles.item} onPress = {() => {if (a[1] === 0) {a[1] = 1} else if (a[1] === 1) {a[1] = 0}  setSelection(!isSelected); console.log(a)}}>
                     <View style = {styles.itemLeft}>
                         
@@ -51,8 +49,6 @@ const DishSelection = () => {
                         <Text style = {styles.itemText}> Dish 2 </Text>
                         <Ionicons name = {a[1] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
                     </View>
-                   
-                    
                 </TouchableOpacity>
                 <TouchableOpacity style = {styles.item} onPress = {() => {if (a[2] === 0) {a[2] = 1} else if (a[2] === 1) {a[2] = 0}  setSelection(!isSelected); console.log(a)}}>
                     <View style = {styles.itemLeft}>
@@ -61,31 +57,24 @@ const DishSelection = () => {
                         <Text style = {styles.itemText}> Dish 3 </Text>
                         <Ionicons name = {a[2] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
                     </View>
-                    
                 </TouchableOpacity>
                 <TouchableOpacity style = {styles.item} onPress = {() => {if (a[3] === 0) {a[3] = 1} else if (a[3] === 1) {a[3] = 0}  setSelection(!isSelected); console.log(a)}}>
                     <View style = {styles.itemLeft}>
-                        
                         <View style = {styles.square}></View>
                         <Text style = {styles.itemText}> Dish 4 </Text>
                         <Ionicons name = {a[3] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
                     </View>
-                    
-                    
                 </TouchableOpacity>
                 <TouchableOpacity style = {styles.item} onPress = {() => {if (a[4] === 0) {a[4] = 1} else if (a[4] === 1) {a[4] = 0}  setSelection(!isSelected); console.log(a)}}>
                     <View style = {styles.itemLeft}>
-                        
                         <View style = {styles.square}></View>
                         <Text style = {styles.itemText}> Dish 5 </Text>
                         <Ionicons name = {a[4] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
                     </View>
-                    
-                    
                 </TouchableOpacity>
                 <View style = {styles.blackBox}>
                 </View>
-                
+
                 <TouchableOpacity style = {styles.clear} onPress = {() => {
                     if (a.includes(1)) {for (let i = 0; i < a.length; i++){a[i] = 0}} else{for (let i = 0; i < a.length; i++){a[i] = 1}}}}>
                     <Text style = {styles.cleartext}>

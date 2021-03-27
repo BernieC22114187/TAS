@@ -35,17 +35,17 @@ export const AddScreen = ({navigation}) =>{
                             Pizza Bar
                             </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style = {styles.button}>
+                    <TouchableOpacity style = {styles.button} onPress = {() => navigation.navigate('Snack Bar')}>
                         <Text style = {styles.buttontext}>
                             Snack bar
                             </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style = {styles.button}>
+                    <TouchableOpacity style = {styles.button} onPress = {() => navigation.navigate('Fitness Cafe')}>
                         <Text style = {styles.buttontext}>
                             Fitness Cafe
                             </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style = {styles.lastbutton}>
+                    <TouchableOpacity style = {styles.lastbutton}> 
                         <Text style = {styles.buttontext}>
                             Other:
                             </Text>

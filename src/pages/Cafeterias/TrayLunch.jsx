@@ -10,12 +10,9 @@ import DishSelection from './DishSelection'
 const Stack = createStackNavigator();
 const Nav = ({}) => { 
     return (
-        
         <Stack.Navigator>
-            
             <Stack.Screen name = "Dish Selection" component = {DishSelection}/>
         </Stack.Navigator>
-        
         
     )
 }
@@ -29,14 +26,16 @@ const TrayLunch = ({navigation}) => {
                     
                     <Text style = {styles.text}> Dishes </Text>
                     <View style = {styles.grayBox}>
-                        <TouchableOpacity style = {styles.dish} onPress = {() => navigation.navigate('Dish Selection')}>
+                    <TouchableOpacity style = {styles.dish} onPress = {() => navigation.navigate('Dish Selection')}>
                              
                         </TouchableOpacity>
                         <TouchableOpacity style = {styles.dish} onPress = {() => navigation.navigate('Dish Selection')}>
+                            
                         </TouchableOpacity>
                         <TouchableOpacity style = {styles.dish} onPress = {() => navigation.navigate('Dish Selection')}>
                         </TouchableOpacity>
-                        
+                        <TouchableOpacity style = {styles.dish} onPress = {() => navigation.navigate('Dish Selection')}>
+                        </TouchableOpacity>
                         <TouchableOpacity style = {styles.dish} onPress = {() => navigation.navigate('Dish Selection')}>
                         </TouchableOpacity>
                     </View>
@@ -52,8 +51,7 @@ const TrayLunch = ({navigation}) => {
                             Clear
                         </Text>
                     </TouchableOpacity>
-                    
-                    
+    
                 </View>
             </SafeAreaView>
         </ScrollView>
