@@ -75,7 +75,7 @@ export default function App() {
             // else if(route.name === "HomeStackScreen"){ 
             //   iconName = focused? 'planet' : 'planet-outline';
             // }
-
+ 
             return <Ionicons name = {iconName} size = {size} color = {color}/>
           },
 

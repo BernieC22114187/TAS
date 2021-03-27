@@ -12,9 +12,6 @@ import DishSelection from './DishSelection';
 
 const Stack = createStackNavigator();
 const Nav = ({}) => {  
-
-    
-    
     return (
         
         <Stack.Navigator>
