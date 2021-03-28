@@ -1,5 +1,5 @@
 import React, { useState }from 'react';
-import { View, Button, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity, ScreenContainer, TouchableWithoutFeedback} from 'react-native';
+import { View, Button, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity, RefreshControl, ScreenContainer, TouchableWithoutFeedback} from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native' ;
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { CheckBox } from 'react-native-elements'
@@ -26,6 +26,11 @@ const DishSelection = () => {
     //     checked = {True}
     // }
     const [isSelected, setSelection] = useState(a);
+    const [refreshing, setRefreshing] = React.useState(false);
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        wait(1000).then(() => setRefreshing(false));
+      }, []); 
     return(
         <ScrollView>
             <SafeAreaView>
@@ -75,8 +80,13 @@ const DishSelection = () => {
                 <View style = {styles.blackBox}>
                 </View>
 
-                <TouchableOpacity style = {styles.clear} onPress = {() => {
-                    if (a.includes(1)) {for (let i = 0; i < a.length; i++){a[i] = 0}} else{for (let i = 0; i < a.length; i++){a[i] = 1}}}}>
+                <TouchableOpacity style = {styles.clear} refreshControl = {
+                        <RefreshControl
+                          refreshing={refreshing}
+                          onRefresh={onRefresh}
+                        />
+                    } onPress = {() => {
+                    if (a.includes(1)) {for (let i = 0; i < a.length; i++){a[i] = 0}} else{for (let i = 0; i < a.length; i++){a[i] = 1}}}}  >
                     <Text style = {styles.cleartext}>
                         Select/De-Select All
                     </Text>
