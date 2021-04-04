@@ -16,6 +16,7 @@ const BotBar = () => { // const (constant thing that doesn't really change)
 const styles = StyleSheet.create({
     container: {
         margin: 5,
+        marginTop: 20,
         marginHorizontal: 37,
         padding: 10,
         paddingTop: 10,

@@ -26,17 +26,16 @@ const Add = ({}) => {
         
         <Stack.Navigator>
             <Stack.Screen
-            name="Add"
+            name="Add" 
             component={AddScreen}
-            
             />
             
-            <Stack.Screen name = "Tray Lunch" component = {TrayLunch}/>
-            <Stack.Screen name = "Salad Bar" component = {SaladBar}/>
-            <Stack.Screen name = "Pizza Bar" component = {PizzaBar}/>
-            <Stack.Screen name = "Snack Bar" component = {SnackBar}/>
-            <Stack.Screen name = "Fitness Cafe" component = {FitnessCafe}/>
-            <Stack.Screen name = "Dish Selection" component = {DishSelection}/>
+            <Stack.Screen name = "Tray Lunch" component = {DishSelection}/>
+            <Stack.Screen name = "Salad Bar" component = {DishSelection}/>
+            <Stack.Screen name = "Pizza Bar" component = {DishSelection}/>
+            <Stack.Screen name = "Snack Bar" component = {DishSelection}/>
+            <Stack.Screen name = "Fitness Cafe" component = {DishSelection}/>
+            {/* <Stack.Screen name = "Dish Selection" component = {DishSelection}/> */}
         </Stack.Navigator>
         
         

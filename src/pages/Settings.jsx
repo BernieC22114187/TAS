@@ -32,11 +32,11 @@ const Settings = () => {
                             <TextInput placeholder='M/F/Other' style = {styles.inputBox}/>
                         </TouchableOpacity>
                         <TouchableOpacity style = {styles.setting}>
+                            <Text style = {styles.labels}>Body Fat: </Text>
+                            <TextInput placeholder='Percentage' style = {styles.inputBox}/>
                         </TouchableOpacity>
-                        <TouchableOpacity style = {styles.setting}>
-                        </TouchableOpacity>
-                        <TouchableOpacity style = {styles.setting}>
-                        </TouchableOpacity>
+                        
+                        
                         
                     </View>
                     <View style = {styles.blackBox}>

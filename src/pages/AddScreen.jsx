@@ -45,7 +45,7 @@ export const AddScreen = ({navigation}) =>{
                             Fitness Cafe
                             </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style = {styles.lastbutton}> 
+                    <TouchableOpacity style = {styles.button}> 
                         <Text style = {styles.buttontext}>
                             Other:
                             </Text>
@@ -60,25 +60,31 @@ export const AddScreen = ({navigation}) =>{
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        flexDirection: 'row',
         justifyContent: 'center',
+        flexWrap: 'wrap',
 
     },
     text: {
+        marginTop: 20,
         fontSize: 20,
-        paddingLeft: 105,
+        paddingHorizontal: 95,
         marginHorizontal: 30,
         justifyContent: 'center',
         color: 'white',
         backgroundColor: '#6C757D',
+        width: 300,
         marginVertical: 10,
     },
     button: {
         margin: 5,
-        marginHorizontal: 80,
+        marginHorizontal: 10,
+    
         padding: 10,
-        paddingTop: 10,
-        height: 70,
+        marginVertical: 10,
+        height: 80,
         borderRadius: 9,
+        width: 140,
         backgroundColor: '#D0D0D0',
         justifyContent: 'center',
         alignItems: 'center'
