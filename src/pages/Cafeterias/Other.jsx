@@ -2,41 +2,40 @@ import React from 'react';
 import { TextInput, View, VirtualizedList, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity} from 'react-native';
 // import Input from '../components/TextInput';
 import { Input } from 'react-native-elements';
-import BotBar from '../components/BotBu';
+
 //import CustomizedTables from '../components/TableComp'
 
-const Settings = () => {
+const Other = () => {
     return (
-        <ScrollView>
+        <ScrollView> 
+            
             <SafeAreaView>
                 <View style = {styles.container}>
-                    <View style = {styles.topBar}>
-                        <Text style = {styles.topBarText}> Settings </Text> 
-                    </View>
-                    <Text style = {styles.text}> Profile Name </Text>
+
+                    <Text style = {styles.text}> Total </Text>
                     <View style = {styles.grayBox}>
-                        <TouchableOpacity style = {styles.setting}>
-                            <Text style = {styles.labels}>Mass: </Text>
-                            <TextInput placeholder='mass in kg ' style = {styles.inputBox}></TextInput>
+                        <TouchableOpacity style = {styles.setting}> 
+                            <Text style = {styles.labels}>Total Fat: </Text>
+                            <TextInput placeholder='Amount in g ' style = {styles.inputBox}></TextInput>
                         </TouchableOpacity>
                         <TouchableOpacity style = {styles.setting}>
-                            <Text style = {styles.labels}>Height: </Text>
-                            <TextInput placeholder='height in cm' style = {styles.inputBox}/>
+                            <Text style = {styles.labels}>Cholesterol: </Text>
+                            <TextInput placeholder='Amount in mg' style = {styles.inputBox}/>
                         </TouchableOpacity>
                         <TouchableOpacity style = {styles.setting}>
-                            <Text style = {styles.labels}>Birthdate: </Text>
-                            <TextInput placeholder='Birthdate ' style = {styles.inputBox}/>
+                            <Text style = {styles.labels}>Sodium: </Text>
+                            <TextInput placeholder='Amount in mg ' style = {styles.inputBox}/>
                         </TouchableOpacity>
                         <TouchableOpacity style = {styles.setting}>
-                            <Text style = {styles.labels}>Gender: </Text>
-                            <TextInput placeholder='M/F/Other' style = {styles.inputBox}/>
+                            <Text style = {styles.labels}>Total Carbs: </Text>
+                            <TextInput placeholder='Amount in g' style = {styles.inputBox}/>
                         </TouchableOpacity>
                         <TouchableOpacity style = {styles.setting}>
-                            <Text style = {styles.labels}>Body Fat: </Text>
-                            <TextInput placeholder='Percentage' style = {styles.inputBox}/>
+                            <Text style = {styles.labels}>Protein: </Text>
+                            <TextInput placeholder='Amount in g' style = {styles.inputBox}/>
                         </TouchableOpacity>
                         
-                        
+                         
                         
                     </View>
                     <View style = {styles.blackBox}>
@@ -63,8 +62,6 @@ const Settings = () => {
 const styles = StyleSheet.create({
     inputBox: {
         width: 100,
-        
-        
     },
  
     save:{
@@ -93,6 +90,7 @@ const styles = StyleSheet.create({
         borderRadius: 9,
         backgroundColor: '#FF0000',
         justifyContent: 'center',
+        
         alignItems: 'center',
         width: 300,
     },
@@ -169,7 +167,8 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 17,
-        paddingLeft: 97,
+        marginTop: 20,
+        paddingLeft: 130, 
         marginHorizontal: 30,
         justifyContent: 'center',
         color: 'white',
@@ -196,4 +195,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Settings;
+export default Other;

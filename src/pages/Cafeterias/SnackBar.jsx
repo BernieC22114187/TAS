@@ -1,53 +1,178 @@
-import React from 'react';
-import { View, VirtualizedList, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity} from 'react-native';
+import React, { useState }from 'react';
+import { View, Button, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity, RefreshControl, ScreenContainer, TouchableWithoutFeedback, SafeAreaViewBase} from 'react-native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native' ;
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { CheckBox } from 'react-native-elements'
+import { createStackNavigator } from '@react-navigation/stack';
+import BotBar from '../../components/BotBu';
+
+import index from '../index'
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Icon } from 'react-native-elements/dist/icons/Icon';
 
 
+var a = [0,0,0,0,0,0,0,0,0]
 
 
-
-const SnackBar = ({navigation}) => {
-    return (
+const SnackBar = () => {
+    // function onchecked(id){
+    
+    //     const data = this.state.data
+    //     const index = data.findIndex(x=>x.id==id);
+    //     data[index].checked = !data[index].checked
+    //     this.setState(data)
+    // }
+    // function checkBoxTest(){
+    //     checked = {True}
+    // }
+    const [isSelected, setSelection] = useState(a);
+    const [refreshing, setRefreshing] = React.useState(false);
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        wait(1000).then(() => setRefreshing(false));
+      }, []); 
+    return(
         <ScrollView>
             <SafeAreaView>
-                <View style = {styles.container}>
-                    
+                <View>
                     <Text style = {styles.text}> Dishes </Text>
-                    <View style = {styles.grayBox}>
-                        <TouchableOpacity style = {styles.dish} onPress = {() => navigation.navigate('Dish Selection')}>
-                             
-                        </TouchableOpacity>
-                        <TouchableOpacity style = {styles.dish} onPress = {() => navigation.navigate('Dish Selection')}>
-                             
-                        </TouchableOpacity>
-                        <TouchableOpacity style = {styles.dish} onPress = {() => navigation.navigate('Dish Selection')}>
-                        </TouchableOpacity>
-                        <TouchableOpacity style = {styles.dish} onPress = {() => navigation.navigate('Dish Selection')}>
-                        </TouchableOpacity>
-                        <TouchableOpacity style = {styles.dish} onPress = {() => navigation.navigate('Dish Selection')}>
-                        </TouchableOpacity>
-                    </View>
-                    <View style = {styles.blackBox}>
-                    </View>
-                    <TouchableOpacity style = {styles.addToPlate}>
-                        <Text style = {styles.cleartext}>
-                            Add to Plate
-                        </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style = {styles.clear}>
-                        <Text style = {styles.cleartext}>
-                            Clear
-                        </Text>
-                    </TouchableOpacity>
-                    
-                    
                 </View>
+                <View  style = {styles.viewStyle}>
+
+                    <TouchableOpacity style = {styles.item} onPress = {() => {if (a[0] === 0) {a[0] = 1} else if (a[0] === 1) {a[0] = 0}  setSelection(!isSelected); console.log(a)}}>
+                        <View style = {styles.itemLeft}>
+                            
+                            
+                            <Text style = {styles.itemText}> Dish 1 </Text>
+                            <Ionicons name = {a[0] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
+                        </View>
+                    </TouchableOpacity>
+    
+                    <TouchableOpacity style = {styles.item} onPress = {() => {if (a[1] === 0) {a[1] = 1} else if (a[1] === 1) {a[1] = 0}  setSelection(!isSelected); console.log(a)}}>
+                        <View style = {styles.itemLeft}>
+                            
+                            
+                            <Text style = {styles.itemText}> Dish 2 </Text>
+                            <Ionicons name = {a[1] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity style = {styles.item} onPress = {() => {if (a[2] === 0) {a[2] = 1} else if (a[2] === 1) {a[2] = 0}  setSelection(!isSelected); console.log(a)}}>
+                        <View style = {styles.itemLeft}>
+                            
+                            
+                            <Text style = {styles.itemText}> Dish 3 </Text>
+                            <Ionicons name = {a[2] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity style = {styles.item} onPress = {() => {if (a[3] === 0) {a[3] = 1} else if (a[3] === 1) {a[3] = 0}  setSelection(!isSelected); console.log(a)}}>
+                        <View style = {styles.itemLeft}>
+                            
+                            <Text style = {styles.itemText}> Dish 4 </Text>
+                            <Ionicons name = {a[3] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity style = {styles.item} onPress = {() => {if (a[4] === 0) {a[4] = 1} else if (a[4] === 1) {a[4] = 0}  setSelection(!isSelected); console.log(a)}}>
+                        <View style = {styles.itemLeft}>
+                            
+                            <Text style = {styles.itemText}> Dish 5 </Text>
+                            <Ionicons name = {a[4] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity style = {styles.item} onPress = {() => {if (a[5] === 0) {a[5] = 1} else if (a[5] === 1) {a[5] = 0}  setSelection(!isSelected); console.log(a)}}>
+                        <View style = {styles.itemLeft}>
+                            
+                            <Text style = {styles.itemText}> Dish 6 </Text>
+                            <Ionicons name = {a[5] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity style = {styles.item} onPress = {() => {if (a[6] === 0) {a[6] = 1} else if (a[6] === 1) {a[6] = 0}  setSelection(!isSelected); console.log(a)}}>
+                        <View style = {styles.itemLeft}>
+                            
+                            <Text style = {styles.itemText}> Dish 7 </Text>
+                            <Ionicons name = {a[6] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity style = {styles.item} onPress = {() => {if (a[7] === 0) {a[7] = 1} else if (a[7] === 1) {a[7] = 0}  setSelection(!isSelected); console.log(a)}}>
+                        <View style = {styles.itemLeft}>
+                            
+                            <Text style = {styles.itemText}> Dish 8 </Text>
+                            <Ionicons name = {a[7] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
+                        </View>
+                    </TouchableOpacity>
+
+                    
+                
+                </View>
+                <View style = {styles.blackBox}>
+                </View>
+                <TouchableOpacity style = {styles.clear} refreshControl = {
+                        <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={onRefresh}
+                        />
+                    } onPress = {() => {
+                    if (a.includes(1)) {
+                        for (let i = 0; i < a.length; i++){a[i] = 0}} 
+                    else {for (let i = 0; i < a.length; i++){a[i] = 1} 
+                        
+                        } setSelection(!isSelected); console.log(a)} }  >
+                    <Text style = {styles.cleartext}>
+                        Select/De-Select All
+                    </Text>
+                </TouchableOpacity>
+                
+                
             </SafeAreaView>
         </ScrollView>
     )
+
 }
-
-
 const styles = StyleSheet.create({
+    viewStyle:{
+        flexDirection: 'row',   
+        flexWrap: 'wrap',
+        marginLeft:30,
+    },
+    item:{
+        backgroundColor: '#FFF',
+       
+        // borderRadius: 10,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginVertical: 5,   
+        width: 153,
+        height: 50,
+        marginLeft: 3,
+    },
+    itemLeft: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        // flexWrap: 'wrap', 
+
+    },
+    // square:{
+    //     width: 24,
+    //     height: 24,
+    //     backgroundColor: '#55BCF6',
+    //     opacity: 0.4,
+    //     borderRadius:5,
+    //     marginRight: 0, 
+
+    // },
+    itemText: {
+        maxWidth: '80%',
+        
+        marginRight: 70, 
+        
+    },
+    circular: {
+        width: 20,
+        height: 20,
+        borderColor: '#55BCF6',
+        borderWidth: 2,
+        borderRadius: 5,   
+    },
     dish:{
         flex: 1,
         backgroundColor: '#FFFFFF', // # + color code 
@@ -79,7 +204,7 @@ const styles = StyleSheet.create({
     },
     cleartext: {
         color: 'white',
-        fontSize: 16
+        fontSize: 16,
     },
     addToPlate:{
         margin: 5,
@@ -101,7 +226,7 @@ const styles = StyleSheet.create({
         height: 200,
         width: 320,
         paddingVertical: 20,
-        paddingHorizontal: 100, 
+        paddingHorizontal: 50, 
         
         marginHorizontal: 27,
         marginTop: 10,
@@ -131,7 +256,8 @@ const styles = StyleSheet.create({
         marginHorizontal: 30,
         justifyContent: 'center',
         color: 'white',
-        backgroundColor: '#6C757D'
+        backgroundColor: '#6C757D',
+        marginVertical: 20,
     },
     topBar: {
         flex: 1,
@@ -153,5 +279,4 @@ const styles = StyleSheet.create({
         fontSize: 20
     }
 })
-
 export default SnackBar;

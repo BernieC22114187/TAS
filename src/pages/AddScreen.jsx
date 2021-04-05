@@ -45,7 +45,7 @@ export const AddScreen = ({navigation}) =>{
                             Fitness Cafe
                             </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style = {styles.button}> 
+                    <TouchableOpacity style = {styles.button} onPress = {() => navigation.navigate('Other')}> 
                         <Text style = {styles.buttontext}>
                             Other:
                             </Text>
