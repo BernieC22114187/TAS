@@ -1,69 +1,88 @@
 import React from 'react';
-import { TextInput, View, VirtualizedList, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity} from 'react-native';
+import { Dimensions, Image, ImageBackground, TextInput, View, VirtualizedList, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity} from 'react-native';
 // import Input from '../components/TextInput';
 import { Input } from 'react-native-elements';
+const nutritionFacts = {uri : "https://www.fda.gov/files/calories_on_the_new_nutrition_facts_label.png"}
 
+var width = Dimensions.get('window').width;
+var height = Dimensions.get('window').width;
 //import CustomizedTables from '../components/TableComp'
-
+const image = { uri: "https://wallpaperaccess.com/full/1189703.jpg" };
 const Other = () => {
     return (
-        <ScrollView> 
-            
-            <SafeAreaView>
-                <View style = {styles.container}>
+        <ImageBackground source={image} style={styles.image}>
+            <ScrollView> 
+                <SafeAreaView>
+                    <View style = {styles.container}>
 
-                    <Text style = {styles.text}> Total </Text>
-                    <View style = {styles.grayBox}>
-                        <TouchableOpacity style = {styles.setting}> 
-                            <Text style = {styles.labels}>Total Fat: </Text>
-                            <TextInput placeholder='Amount in g ' style = {styles.inputBox}></TextInput>
-                        </TouchableOpacity>
-                        <TouchableOpacity style = {styles.setting}>
-                            <Text style = {styles.labels}>Cholesterol: </Text>
-                            <TextInput placeholder='Amount in mg' style = {styles.inputBox}/>
-                        </TouchableOpacity>
-                        <TouchableOpacity style = {styles.setting}>
-                            <Text style = {styles.labels}>Sodium: </Text>
-                            <TextInput placeholder='Amount in mg ' style = {styles.inputBox}/>
-                        </TouchableOpacity>
-                        <TouchableOpacity style = {styles.setting}>
-                            <Text style = {styles.labels}>Total Carbs: </Text>
-                            <TextInput placeholder='Amount in g' style = {styles.inputBox}/>
-                        </TouchableOpacity>
-                        <TouchableOpacity style = {styles.setting}>
-                            <Text style = {styles.labels}>Protein: </Text>
-                            <TextInput placeholder='Amount in g' style = {styles.inputBox}/>
-                        </TouchableOpacity>
+                        <Text style = {styles.text}> Total </Text>
+                        <View style = {styles.grayBox}>
+                            <TouchableOpacity style = {styles.setting}> 
+                                <Text style = {styles.labels}>Total Fat: </Text>
+                                <TextInput placeholder='Amount in g ' style = {styles.inputBox}></TextInput>
+                            </TouchableOpacity>
+                            <TouchableOpacity style = {styles.setting}>
+                                <Text style = {styles.labels}>Cholesterol: </Text>
+                                <TextInput placeholder='Amount in mg' style = {styles.inputBox}/>
+                            </TouchableOpacity>
+                            <TouchableOpacity style = {styles.setting}>
+                                <Text style = {styles.labels}>Sodium: </Text>
+                                <TextInput placeholder='Amount in mg ' style = {styles.inputBox}/>
+                            </TouchableOpacity>
+                            <TouchableOpacity style = {styles.setting}>
+                                <Text style = {styles.labels}>Total Carbs: </Text>
+                                <TextInput placeholder='Amount in g' style = {styles.inputBox}/>
+                            </TouchableOpacity>
+                            <TouchableOpacity style = {styles.setting}>
+                                <Text style = {styles.labels}>Protein: </Text>
+                                <TextInput placeholder='Amount in g' style = {styles.inputBox}/>
+                            </TouchableOpacity>
+                            
+                            
+                            
+                        </View>
+                        {/* <View style = {styles.blackBox}>
                         
-                         
+                        </View> */}
+                        <Image source = {nutritionFacts} style = {styles.Facts}></Image>
+                        {/* <TouchableOpacity style = {styles.save}>
+                            <Text style = {styles.saveText}>
+                                Save
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style = {styles.reset}>
+                            <Text style = {styles.saveText}>
+                                Reset
+                            </Text>
+                        </TouchableOpacity> */}
+                        
                         
                     </View>
-                    <View style = {styles.blackBox}>
-                    </View>
-                    {/* <TouchableOpacity style = {styles.save}>
-                        <Text style = {styles.saveText}>
-                            Save
-                        </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style = {styles.reset}>
-                        <Text style = {styles.saveText}>
-                            Reset
-                        </Text>
-                    </TouchableOpacity> */}
-                    
-                    
-                </View>
-            </SafeAreaView>
-        </ScrollView>
+                </SafeAreaView>
+            </ScrollView>
+        </ImageBackground>
+        
     )
 }
 
 
 const styles = StyleSheet.create({
+    Facts: {
+        flex : 1,
+        width: width * 0.853,
+        height: 500,
+        marginHorizontal: width * 0.08,
+        marginTop: 10,
+        marginBottom: 10, 
+    },
     inputBox: {
         width: 100,
     },
- 
+    image: {
+        flex: 1, 
+        resizeMode: "cover",
+        justifyContent: "center"
+    },
     save:{
         margin: 5,
         marginHorizontal: 37,

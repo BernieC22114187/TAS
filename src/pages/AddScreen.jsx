@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Button, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity, ScreenContainer} from 'react-native';
+import { ImageBackground, View, Button, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity, ScreenContainer} from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native' ;
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
@@ -8,56 +8,65 @@ import BotBar from '../components/BotBu';
 import TrayLunch from './Cafeterias/TrayLunch'
 import index from './index'
 
+const image =  { uri: "https://is5-ssl.mzstatic.com/image/thumb/Purple111/v4/89/70/d0/8970d083-e8fa-c2ec-0fc6-bdc5fd57db09/source/512x512bb.jpg"}
 
 export const AddScreen = ({navigation}) =>{
     return (
-        <ScrollView>
-            <SafeAreaView>
-                <View style = {styles.container}>
+        <ImageBackground source={image} style={styles.image}>
+            <ScrollView>
+                <SafeAreaView>
+                    <View style = {styles.container}>
+                        
+                        <Text style = {styles.text}> Cafeterias </Text>
+                        
+                        <TouchableOpacity style = {styles.button} onPress = {() => navigation.navigate('Tray Lunch')}>
+                            <Text style = {styles.buttontext}>
+                                Tray Lunch
+                                </Text>
+                                        
+                        </TouchableOpacity>
+                        
                     
-                    <Text style = {styles.text}> Cafeterias </Text>
-                    
-                    <TouchableOpacity style = {styles.button} onPress = {() => navigation.navigate('Tray Lunch')}>
-                        <Text style = {styles.buttontext}>
-                            Tray Lunch
-                            </Text>
-                                    
-                    </TouchableOpacity>
-                    
-                
-                    <TouchableOpacity style = {styles.button} onPress = {() => navigation.navigate('Salad Bar')}>
-                        <Text style = {styles.buttontext}>
-                            Salad bar
-                            </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style = {styles.button} onPress = {() => navigation.navigate('Pizza Bar')}>
-                        <Text style = {styles.buttontext}>
-                            Pizza Bar
-                            </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style = {styles.button} onPress = {() => navigation.navigate('Snack Bar')}>
-                        <Text style = {styles.buttontext}>
-                            Snack bar
-                            </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style = {styles.button} onPress = {() => navigation.navigate('Fitness Cafe')}>
-                        <Text style = {styles.buttontext}>
-                            Fitness Cafe
-                            </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style = {styles.button} onPress = {() => navigation.navigate('Other')}> 
-                        <Text style = {styles.buttontext}>
-                            Other:
-                            </Text>
-                    </TouchableOpacity>
-                    <BotBar/>
-                </View>
-            </SafeAreaView>
-        </ScrollView>
+                        <TouchableOpacity style = {styles.button} onPress = {() => navigation.navigate('Salad Bar')}>
+                            <Text style = {styles.buttontext}>
+                                Salad bar
+                                </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style = {styles.button} onPress = {() => navigation.navigate('Pizza Bar')}>
+                            <Text style = {styles.buttontext}>
+                                Pizza Bar
+                                </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style = {styles.button} onPress = {() => navigation.navigate('Snack Bar')}>
+                            <Text style = {styles.buttontext}>
+                                Snack bar
+                                </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style = {styles.button} onPress = {() => navigation.navigate('Fitness Cafe')}>
+                            <Text style = {styles.buttontext}>
+                                Fitness Cafe
+                                </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style = {styles.button} onPress = {() => navigation.navigate('Other')}> 
+                            <Text style = {styles.buttontext}>
+                                Other:
+                                </Text>
+                        </TouchableOpacity>
+                        <BotBar/>
+                    </View>
+                </SafeAreaView>
+            </ScrollView>
+        </ImageBackground>
+        
     )
 
 }
 const styles = StyleSheet.create({
+    image: {
+        flex: 1,
+        resizeMode: "cover",
+        justifyContent: "center"
+    },
     container: {
         flex: 1,
         flexDirection: 'row',

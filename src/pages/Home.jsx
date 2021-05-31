@@ -1,7 +1,12 @@
-import React from 'react';
-import { View, Button, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity} from 'react-native';
+import React, {useState} from 'react';
+import {Image, ImageBackground, View, Button, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity} from 'react-native';
 import {Dimensions} from "react-native";
 import BotBar from '../components/BotBu';
+import allCharts from '../components/charts'
+
+const image = { uri: "https://r1.ilikewallpaper.net/iphone-11-wallpapers/download/79815/Clementines-with-leaves-iphone-11-wallpaper-ilikewallpaper_com.jpg" };
+const infographic = {uri: "https://thumbs.dreamstime.com/z/healthy-vegetables-infographics-chart-graph-healthy-vegetables-infographics-chart-graph-quality-vector-99710155.jpg"};
+      
 import {
     LineChart,
     BarChart,
@@ -11,36 +16,59 @@ import {
     StackedBarChart
   } from "react-native-chart-kit";
 var width = Dimensions.get('window').width;
-const chartConfig = {
-    // backgroundGradientFrom: "#1E2923",
-    // backgroundGradientFromOpacity: 0,
-    // backgroundGradientTo: "#08130D",
-    // backgroundGradientToOpacity: 0.5,
-    color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
-    strokeWidth: 2, // optional, default 3
-    barPercentage: 0.8,
-    useShadowColorFromDataset: false // optional
+var height = Dimensions.get('window').width;
+// const chartConfig = {
+//     // backgroundGradientFrom: "#1E2923",
+//     // backgroundGradientFromOpacity: 0,
+//     // backgroundGradientTo: "#08130D",
+//     // backgroundGradientToOpacity: 0.5,
+//     color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
+//     strokeWidth: 2, // optional, default 3
+//     barPercentage: 0.8,
+//     useShadowColorFromDataset: false // optional
+//   };
+//   const data = {
+//     labels: ["January", "February", "March", "April", "May", "June"],
+//     datasets: [
+//       {
+//         data: [20, 45, 28, 80, 99, 43],
+//         color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
+//         strokeWidth: 2 // optional
+//       }
+//     ],
+//     legend: ["Rainy Days"] // optional
+//   };
+//   const data2 = {
+//     labels: ["January", "February", "March", "April", "May", "June"],
+//     datasets: [
+//       {
+//         data: [20, 45, 28, 80, 99, 43]
+//       }
+//     ]
+//   };
+
+  const ProgressData = {
+    labels: ["Total Fat", "Protein", "Cholesterol"], // optional
+    data: [0.4, 0.6, 0.8]
   };
-  const data = {
-    labels: ["January", "February", "March", "April", "May", "June"],
-    datasets: [
-      {
-        data: [20, 45, 28, 80, 99, 43],
-        color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
-        strokeWidth: 2 // optional
-      }
-    ],
-    legend: ["Rainy Days"] // optional
-  };
-  const data2 = {
-    labels: ["January", "February", "March", "April", "May", "June"],
-    datasets: [
-      {
-        data: [20, 45, 28, 80, 99, 43]
-      }
-    ]
-  };
+  
+  const LineData = {
+      labels: ["January", "February", "March", "April", "May", "June"],
+      datasets: [
+        {
+          data: [20, 45, 28, 80, 99, 43]
+        },
+        {
+          data: [28, 80, 99, 43, 20, 45]
+        }
+      ],
+      legend: ["Rainy Days", "Sunny Days"] // optional
+  }
+
+// const ChartsData = {"ProgressRing": ProgressData, "LineChart": LineData}
 const Home = () => {
+    // const [ChartType, setChartType] = useState("ProgressRing"); //re renders the view
+    
     return (
         // <View>
         //     <Text>Bezier Line Chart</Text>
@@ -63,59 +91,84 @@ const Home = () => {
         //     />
         // </View>
         
-        <ScrollView>
-            <SafeAreaView>
-                <View style = {styles.container}>
-                    
-                    <View style = {styles.topBar}>
-                        <Text style = {styles.topBarText}> Home </Text> 
-                    </View>
-                    
-                    
-                    <Text style = {styles.text}> Stats </Text>
-                    <View style = {styles.blackBox}>
-                    </View>
-                    <View style = {styles.blackBox}>
-                    </View>
-                    <TouchableOpacity style = {styles.Suggestions}>
-                        <Text style = {styles.cleartext}>
-                            Suggestions
-                        </Text>
-                    </TouchableOpacity>
-                    <View style = {styles.grayBox}>
-                        <TouchableOpacity style = {styles.dish}>
-                             
-                        </TouchableOpacity>
-                        <TouchableOpacity style = {styles.dish}>
-                        </TouchableOpacity>
-                        <TouchableOpacity style = {styles.dish}>
-                        </TouchableOpacity>
+        
+            <ImageBackground source={image} style={styles.image} >
+                <ScrollView>
+                <SafeAreaView>
+                    <View style = {styles.container}>
                         
-                        <TouchableOpacity style = {styles.dish}>
-                        </TouchableOpacity>
-                    </View>
+                            <View style = {styles.topBar}>
+                                <Text style = {styles.topBarText}> Home </Text> 
+                            </View>
+                            
+                            
+                            <Text style = {styles.text}> Stats </Text>
+                            <Image source = {infographic} style = {styles.graphic}>
 
+                            </Image>
+                            {/* <View style = {styles.blackBox}>
+
+                            </View> */}
+                            {/* <View >
+                                <allCharts inputdata = {ChartsData[ChartType]} width = {Dimensions.get('window').width * 0.9}>
+                                </allCharts>
+                            </View>  */}
+                            <TouchableOpacity style = {styles.Suggestions}>
+                                <Text style = {styles.cleartext}>
+                                    Suggestions
+                                </Text>
+
+                            </TouchableOpacity> 
+                            <View style = {styles.grayBox}>
+                                <TouchableOpacity style = {styles.dish} onPress = {() => setChartType("ProgressRing")}>
+                                    
+                                </TouchableOpacity>
+                                <TouchableOpacity style = {styles.dish} onPress = {() => setChartType("LineChart")}>
+                                </TouchableOpacity>
+                                <TouchableOpacity style = {styles.dish}>
+                                </TouchableOpacity>
+                                
+                                <TouchableOpacity style = {styles.dish}>
+                                </TouchableOpacity>
+                            </View> 
+                            
+                            
+                        
+                    </View>   
                     
-                </View>
-                
-            </SafeAreaView>
-        </ScrollView>
+                </SafeAreaView>
+                </ScrollView>
+            </ImageBackground>
+         
     )
 }
 
 
 const styles = StyleSheet.create({
+    graphic:{
+        flex : 1,
+        width: width * 0.853,
+        height: 375,
+        marginHorizontal: width * 0.08,
+        marginTop: 10,
+        marginBottom: 10,
+    },
+    image: {
+        flex: 1,
+        resizeMode: "cover",
+        justifyContent: "center" 
+      },
     grayBox:{
         flex: 1,
         backgroundColor: '#EBEBEB', // # + color code 
         alignItems: 'center',
         justifyContent: 'center',
-        height: 200,
-        width: 320,
-        paddingVertical: 20,
+        height: height * 0.3,
+        width: width * 0.853,
+        paddingVertical: width*0.853 *0.35,
         paddingHorizontal: 100, 
         
-        marginHorizontal: 29,
+        marginHorizontal: width * 0.08,
         marginTop: 10,
         marginBottom: 10,
     },
@@ -211,11 +264,11 @@ const styles = StyleSheet.create({
     },
     topBar: {
         flex: 1,
-        backgroundColor: '#264653', // # + color code 
+        backgroundColor: '#004C6A', // # + color code 
         alignItems: 'center',
         justifyContent: 'center',
-        height: 70,
-        width: 375,
+        height: 70, 
+        width: width,
         paddingHorizontal: 0,
         paddingVertical: 23,
        

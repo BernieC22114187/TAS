@@ -1,61 +1,66 @@
 import React from 'react';
-import { TextInput, View, VirtualizedList, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity} from 'react-native';
+import { ImageBackground, TextInput, View, VirtualizedList, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity} from 'react-native';
 // import Input from '../components/TextInput';
 import { Input } from 'react-native-elements';
 import BotBar from '../components/BotBu';
 //import CustomizedTables from '../components/TableComp'
 
+const image = { uri: "https://i.pinimg.com/originals/0f/b9/c1/0fb9c122d7aa2a4e408e9b893526d1e1.jpg" };
 const Settings = () => {
     return (
-        <ScrollView>
-            <SafeAreaView>
-                <View style = {styles.container}>
-                    <View style = {styles.topBar}>
-                        <Text style = {styles.topBarText}> Settings </Text> 
-                    </View>
-                    <Text style = {styles.text}> Profile Name </Text>
-                    <View style = {styles.grayBox}>
-                        <TouchableOpacity style = {styles.setting}>
-                            <Text style = {styles.labels}>Mass: </Text>
-                            <TextInput placeholder='mass in kg ' style = {styles.inputBox}></TextInput>
+        <ImageBackground source={image} style={styles.image} >
+            <ScrollView>
+                <SafeAreaView>
+                    <View style = {styles.container}>
+                        <View style = {styles.topBar}>
+                            <Text style = {styles.topBarText}> Settings </Text> 
+                        </View>
+                        <Text style = {styles.text}> Profile Name </Text>
+                        <View style = {styles.grayBox}>
+                            <TouchableOpacity style = {styles.setting}>
+                                <Text style = {styles.labels}>Mass: </Text>
+                                <TextInput placeholder='mass in kg ' style = {styles.inputBox}></TextInput>
+                            </TouchableOpacity>
+                            
+                            <TouchableOpacity style = {styles.setting}>
+                                <Text style = {styles.labels}>Height: </Text>
+                                <TextInput placeholder='height in cm' style = {styles.inputBox}/>
+                            </TouchableOpacity>
+                            <TouchableOpacity style = {styles.setting}>
+                                <Text style = {styles.labels}>Birthdate: </Text>
+                                <TextInput placeholder='Birthdate ' style = {styles.inputBox}/>
+                            </TouchableOpacity>
+                            <TouchableOpacity style = {styles.setting}>
+                                <Text style = {styles.labels}>Gender: </Text>
+                                <TextInput placeholder='M/F/Other' style = {styles.inputBox}/>
+                            </TouchableOpacity>
+                            <TouchableOpacity style = {styles.setting}>
+                                <Text style = {styles.labels}>Body Fat: </Text>
+                                <TextInput placeholder='Percentage' style = {styles.inputBox}/>
+                            </TouchableOpacity>
+                            
+                            
+                            
+                        </View>
+                        {/* <View style = {styles.blackBox}>
+                        </View> */}
+                        {/* <TouchableOpacity style = {styles.save}>
+                            <Text style = {styles.saveText}>
+                                Save
+                            </Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style = {styles.setting}>
-                            <Text style = {styles.labels}>Height: </Text>
-                            <TextInput placeholder='height in cm' style = {styles.inputBox}/>
-                        </TouchableOpacity>
-                        <TouchableOpacity style = {styles.setting}>
-                            <Text style = {styles.labels}>Birthdate: </Text>
-                            <TextInput placeholder='Birthdate ' style = {styles.inputBox}/>
-                        </TouchableOpacity>
-                        <TouchableOpacity style = {styles.setting}>
-                            <Text style = {styles.labels}>Gender: </Text>
-                            <TextInput placeholder='M/F/Other' style = {styles.inputBox}/>
-                        </TouchableOpacity>
-                        <TouchableOpacity style = {styles.setting}>
-                            <Text style = {styles.labels}>Body Fat: </Text>
-                            <TextInput placeholder='Percentage' style = {styles.inputBox}/>
-                        </TouchableOpacity>
+                        <TouchableOpacity style = {styles.reset}>
+                            <Text style = {styles.saveText}>
+                                Reset
+                            </Text>
+                        </TouchableOpacity> */}
                         
                         
-                        
                     </View>
-                    <View style = {styles.blackBox}>
-                    </View>
-                    {/* <TouchableOpacity style = {styles.save}>
-                        <Text style = {styles.saveText}>
-                            Save
-                        </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style = {styles.reset}>
-                        <Text style = {styles.saveText}>
-                            Reset
-                        </Text>
-                    </TouchableOpacity> */}
-                    
-                    
-                </View>
-            </SafeAreaView>
-        </ScrollView>
+                </SafeAreaView>
+            </ScrollView>
+        </ImageBackground>
+        
     )
 }
 
@@ -64,9 +69,12 @@ const styles = StyleSheet.create({
     inputBox: {
         width: 100,
         
-        
     },
- 
+    image: {
+        flex: 1, 
+        resizeMode: "cover",
+        justifyContent: "center"
+    },
     save:{
         margin: 5,
         marginHorizontal: 37,
@@ -177,7 +185,7 @@ const styles = StyleSheet.create({
     },
     topBar: {
         flex: 1,
-        backgroundColor: '#264653', // # + color code 
+        backgroundColor: '#004C6A', // # + color code 
         alignItems: 'center',
         justifyContent: 'center',
         height: 70,

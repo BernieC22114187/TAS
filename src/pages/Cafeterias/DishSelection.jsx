@@ -1,5 +1,5 @@
 import React, { useState }from 'react';
-import { View, Button, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity, RefreshControl, ScreenContainer, TouchableWithoutFeedback, SafeAreaViewBase} from 'react-native';
+import { ImageBackground, View, Button, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity, RefreshControl, ScreenContainer, TouchableWithoutFeedback, SafeAreaViewBase} from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native' ;
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { CheckBox } from 'react-native-elements'
@@ -9,6 +9,7 @@ import TrayLunch from './TrayLunch'
 import index from '../index'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Icon } from 'react-native-elements/dist/icons/Icon';
+
 
 
 var a = [0,0,0,0,0,0,0,0,0]
@@ -32,102 +33,106 @@ const DishSelection = () => {
         wait(1000).then(() => setRefreshing(false));
       }, []); 
     return(
-        <ScrollView>
-            <SafeAreaView>
-                <View>
-                    <Text style = {styles.text}> Dishes </Text>
-                </View>
-                <View  style = {styles.viewStyle}>
+        
+            <ScrollView>
+                <SafeAreaView>
+                    <View>
+                        <Text style = {styles.text}> Dishes </Text>
+                    </View>
+                    <View  style = {styles.viewStyle}>
 
-                    <TouchableOpacity style = {styles.item} onPress = {() => {if (a[0] === 0) {a[0] = 1} else if (a[0] === 1) {a[0] = 0}  setSelection(!isSelected); console.log(a)}}>
-                        <View style = {styles.itemLeft}>
-                            
-                            
-                            <Text style = {styles.itemText}> Dish 1 </Text>
-                            <Ionicons name = {a[0] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
-                        </View>
-                    </TouchableOpacity>
-    
-                    <TouchableOpacity style = {styles.item} onPress = {() => {if (a[1] === 0) {a[1] = 1} else if (a[1] === 1) {a[1] = 0}  setSelection(!isSelected); console.log(a)}}>
-                        <View style = {styles.itemLeft}>
-                            
-                            
-                            <Text style = {styles.itemText}> Dish 2 </Text>
-                            <Ionicons name = {a[1] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity style = {styles.item} onPress = {() => {if (a[2] === 0) {a[2] = 1} else if (a[2] === 1) {a[2] = 0}  setSelection(!isSelected); console.log(a)}}>
-                        <View style = {styles.itemLeft}>
-                            
-                            
-                            <Text style = {styles.itemText}> Dish 3 </Text>
-                            <Ionicons name = {a[2] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity style = {styles.item} onPress = {() => {if (a[3] === 0) {a[3] = 1} else if (a[3] === 1) {a[3] = 0}  setSelection(!isSelected); console.log(a)}}>
-                        <View style = {styles.itemLeft}>
-                            
-                            <Text style = {styles.itemText}> Dish 4 </Text>
-                            <Ionicons name = {a[3] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity style = {styles.item} onPress = {() => {if (a[4] === 0) {a[4] = 1} else if (a[4] === 1) {a[4] = 0}  setSelection(!isSelected); console.log(a)}}>
-                        <View style = {styles.itemLeft}>
-                            
-                            <Text style = {styles.itemText}> Dish 5 </Text>
-                            <Ionicons name = {a[4] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity style = {styles.item} onPress = {() => {if (a[5] === 0) {a[5] = 1} else if (a[5] === 1) {a[5] = 0}  setSelection(!isSelected); console.log(a)}}>
-                        <View style = {styles.itemLeft}>
-                            
-                            <Text style = {styles.itemText}> Dish 6 </Text>
-                            <Ionicons name = {a[5] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity style = {styles.item} onPress = {() => {if (a[6] === 0) {a[6] = 1} else if (a[6] === 1) {a[6] = 0}  setSelection(!isSelected); console.log(a)}}>
-                        <View style = {styles.itemLeft}>
-                            
-                            <Text style = {styles.itemText}> Dish 7 </Text>
-                            <Ionicons name = {a[6] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity style = {styles.item} onPress = {() => {if (a[7] === 0) {a[7] = 1} else if (a[7] === 1) {a[7] = 0}  setSelection(!isSelected); console.log(a)}}>
-                        <View style = {styles.itemLeft}>
-                            
-                            <Text style = {styles.itemText}> Dish 8 </Text>
-                            <Ionicons name = {a[7] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
-                        </View>
-                    </TouchableOpacity>
+                        <TouchableOpacity style = {styles.item} onPress = {() => {if (a[0] === 0) {a[0] = 1} else if (a[0] === 1) {a[0] = 0}  setSelection(!isSelected); console.log(a)}}>
+                            <View style = {styles.itemLeft}>
+                                
+                                
+                                <Text style = {styles.itemText}> Dish 1 </Text>
+                                <Ionicons name = {a[0] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
+                            </View>
+                        </TouchableOpacity>
+        
+                        <TouchableOpacity style = {styles.item} onPress = {() => {if (a[1] === 0) {a[1] = 1} else if (a[1] === 1) {a[1] = 0}  setSelection(!isSelected); console.log(a)}}>
+                            <View style = {styles.itemLeft}>
+                                
+                                
+                                <Text style = {styles.itemText}> Dish 2 </Text>
+                                <Ionicons name = {a[1] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity style = {styles.item} onPress = {() => {if (a[2] === 0) {a[2] = 1} else if (a[2] === 1) {a[2] = 0}  setSelection(!isSelected); console.log(a)}}>
+                            <View style = {styles.itemLeft}>
+                                
+                                
+                                <Text style = {styles.itemText}> Dish 3 </Text>
+                                <Ionicons name = {a[2] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity style = {styles.item} onPress = {() => {if (a[3] === 0) {a[3] = 1} else if (a[3] === 1) {a[3] = 0}  setSelection(!isSelected); console.log(a)}}>
+                            <View style = {styles.itemLeft}>
+                                
+                                <Text style = {styles.itemText}> Dish 4 </Text>
+                                <Ionicons name = {a[3] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity style = {styles.item} onPress = {() => {if (a[4] === 0) {a[4] = 1} else if (a[4] === 1) {a[4] = 0}  setSelection(!isSelected); console.log(a)}}>
+                            <View style = {styles.itemLeft}>
+                                
+                                <Text style = {styles.itemText}> Dish 5 </Text>
+                                <Ionicons name = {a[4] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity style = {styles.item} onPress = {() => {if (a[5] === 0) {a[5] = 1} else if (a[5] === 1) {a[5] = 0}  setSelection(!isSelected); console.log(a)}}>
+                            <View style = {styles.itemLeft}>
+                                
+                                <Text style = {styles.itemText}> Dish 6 </Text>
+                                <Ionicons name = {a[5] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity style = {styles.item} onPress = {() => {if (a[6] === 0) {a[6] = 1} else if (a[6] === 1) {a[6] = 0}  setSelection(!isSelected); console.log(a)}}>
+                            <View style = {styles.itemLeft}>
+                                
+                                <Text style = {styles.itemText}> Dish 7 </Text>
+                                <Ionicons name = {a[6] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity style = {styles.item} onPress = {() => {if (a[7] === 0) {a[7] = 1} else if (a[7] === 1) {a[7] = 0}  setSelection(!isSelected); console.log(a)}}>
+                            <View style = {styles.itemLeft}>
+                                
+                                <Text style = {styles.itemText}> Dish 8 </Text>
+                                <Ionicons name = {a[7] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
+                            </View>
+                        </TouchableOpacity>
 
-                    
-                
-                </View>
-                <View style = {styles.blackBox}>
-                </View>
-                <TouchableOpacity style = {styles.clear} refreshControl = {
-                        <RefreshControl
-                        refreshing={refreshing}
-                        onRefresh={onRefresh}
-                        />
-                    } onPress = {() => {
-                    if (a.includes(1)) {
-                        for (let i = 0; i < a.length; i++){a[i] = 0}} 
-                    else {for (let i = 0; i < a.length; i++){a[i] = 1} 
                         
-                        } setSelection(!isSelected); console.log(a)} }  >
-                    <Text style = {styles.cleartext}>
-                        Select/De-Select All
-                    </Text>
-                </TouchableOpacity>
-                
-                
-            </SafeAreaView>
-        </ScrollView>
+                    
+                    </View>
+                    <View style = {styles.blackBox}>
+                    </View>
+                    <TouchableOpacity style = {styles.clear} refreshControl = {
+                            <RefreshControl
+                            refreshing={refreshing}
+                            onRefresh={onRefresh}
+                            />
+                        } onPress = {() => {
+                        if (a.includes(1)) {
+                            for (let i = 0; i < a.length; i++){a[i] = 0}} 
+                        else {for (let i = 0; i < a.length; i++){a[i] = 1} 
+                            
+                            } setSelection(!isSelected); console.log(a)} }  >
+                        <Text style = {styles.cleartext}>
+                            Select/De-Select All
+                        </Text>
+                    </TouchableOpacity>
+                    
+                    
+                </SafeAreaView>
+            </ScrollView>
+        
+        
     )
 
 }
 const styles = StyleSheet.create({
+    
     viewStyle:{
         flexDirection: 'row',   
         flexWrap: 'wrap',
