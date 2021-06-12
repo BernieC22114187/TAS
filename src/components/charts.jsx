@@ -47,7 +47,7 @@ const lineChart = ({inputdata, chartConfig, width}) => {
             height={256}
             verticalLabelRotation={30}
             chartConfig={chartConfig}
-            bezier
+            // bezier
       />
     )
     

@@ -21,6 +21,7 @@ export const login = async() => {
     } catch(error){
         console.error(error);
     }
+    
 }
 
 export const register = async() => {

@@ -11,7 +11,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Icon } from 'react-native-elements/dist/icons/Icon';
 
 const image = {uri : "https://www.desktopbackground.org/download/480x800/2014/12/24/876325_vegetable-wallpapers_2560x1600_h.jpg"}
-var a = [0,0,0,0,0,0,0,0,0]
+var a = [0,0,0,0,0,0,0,0,0] // use this to count up all the nutrition info
 const nutritionFacts = {uri : "https://www.fda.gov/files/calories_on_the_new_nutrition_facts_label.png"}
 
 var width = Dimensions.get('window').width;
