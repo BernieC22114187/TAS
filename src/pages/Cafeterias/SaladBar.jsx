@@ -19,7 +19,7 @@ var height = Dimensions.get('window').width;
   
 const SaladBar = () => {
     // function onchecked(id){
-    
+
     //     const data = this.state.data
     //     const index = data.findIndex(x=>x.id==id);
     //     data[index].checked = !data[index].checked

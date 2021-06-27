@@ -106,6 +106,7 @@ const FitnessCafe = () => {
                     </View>
                     <View style = {styles.blackBox}>
                     </View>
+                    
                     <TouchableOpacity style = {styles.clear} refreshControl = {
                             <RefreshControl
                             refreshing={refreshing}

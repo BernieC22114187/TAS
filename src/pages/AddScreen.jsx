@@ -19,38 +19,38 @@ export const AddScreen = ({navigation}) =>{
                         
                         <Text style = {styles.text}> Cafeterias </Text>
                         
-                        <TouchableOpacity style = {styles.button} onPress = {() => navigation.navigate('Tray Lunch')}>
+                        <TouchableOpacity style = {styles.button} onPress = {() => navigation.navigate('Tray Lunch')}> 
                             <Text style = {styles.buttontext}>
                                 Tray Lunch
                                 </Text>
                                         
                         </TouchableOpacity>
-                        
+                        {/* onPress={login} */}
                     
                         <TouchableOpacity style = {styles.button} onPress = {() => navigation.navigate('Salad Bar')}>
                             <Text style = {styles.buttontext}>
                                 Salad bar
-                                </Text>
+                            </Text>
                         </TouchableOpacity>
                         <TouchableOpacity style = {styles.button} onPress = {() => navigation.navigate('Pizza Bar')}>
                             <Text style = {styles.buttontext}>
                                 Pizza Bar
-                                </Text>
+                            </Text>
                         </TouchableOpacity>
                         <TouchableOpacity style = {styles.button} onPress = {() => navigation.navigate('Snack Bar')}>
                             <Text style = {styles.buttontext}>
                                 Snack bar
-                                </Text>
+                            </Text>
                         </TouchableOpacity>
                         <TouchableOpacity style = {styles.button} onPress = {() => navigation.navigate('Fitness Cafe')}>
                             <Text style = {styles.buttontext}>
                                 Fitness Cafe
-                                </Text>
+                            </Text>
                         </TouchableOpacity>
                         <TouchableOpacity style = {styles.button} onPress = {() => navigation.navigate('Other')}> 
                             <Text style = {styles.buttontext}>
                                 Other:
-                                </Text>
+                            </Text>
                         </TouchableOpacity>
                         <BotBar/>
                     </View>
