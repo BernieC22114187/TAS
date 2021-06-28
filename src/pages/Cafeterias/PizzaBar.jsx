@@ -12,7 +12,7 @@ import { Icon } from 'react-native-elements/dist/icons/Icon';
 
 const image = {uri : "https://i.pinimg.com/originals/5f/09/c9/5f09c90e15081595ff7984f42da4a90b.png"}
 var a = [0,0,0,0,0,0,0,0,0]
-var dict = {Dish1 : 0, Dish2 : 0, Dish3 : 0, Dish4 : 0, Dish5 : 0, Dish6 : 0};
+var dict = {"Dish1" : 0, "Dish2" : 0, "Dish3" : 0, "Dish4" : 0, "Dish5" : 0, "Dish6": 0};
 const nutritionFacts = {uri : "https://www.fda.gov/files/calories_on_the_new_nutrition_facts_label.png"}
 
 var width = Dimensions.get('window').width;
@@ -37,8 +37,7 @@ const PizzaBar = () => {
       }, []); 
     const buttonNumber = () => {
         
-        const collection = 
-        for (const [key, value] of Object.entries(object1)) {
+        const collection =  dict.map((d) => 
             <TouchableOpacity
                 key={dict[key]}
                 style={{
@@ -54,17 +53,13 @@ const PizzaBar = () => {
                     marginLeft: 3,
                 }}
             >
-                <View style = {styles.itemLeft}>
-                            
-                            
+                <View style = {styles.itemLeft}>   
                     <Text style = {styles.itemText}> {key} </Text>
                     <Ionicons name = {dict[key] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
                 </View>
                 
             </TouchableOpacity>
             
-            
-        
            
             
         );
