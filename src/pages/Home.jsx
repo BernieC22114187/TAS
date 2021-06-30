@@ -142,9 +142,9 @@
 //                 source={{ uri: 'https://eatforum.org/content/uploads/2018/05/table_with_food_top_view_900x700.jpg' }}
 //                 // source = {{ uri: 'https://assets.nutrislice.com/asset/serve/image/jpg/117235/thumbnail2' }} // April 19th 
 //             />
-//             <View>
-//                 <TASCharts data={allData[ChartType]} type = {ChartType}></TASCharts>
-//             </View>
+            // <View>
+            //     <TASCharts data={allData[ChartType]} type = {ChartType}></TASCharts>
+            // </View>
 //         </View>
 //     )
 // }
@@ -242,7 +242,8 @@ import {
     ContributionGraph,
     StackedBarChart
   } from "react-native-chart-kit";
-var width = Dimensions.get('window').width;
+var totalWidth = Dimensions.get('window').width;
+var totalHeight = Dimensions.get('window').height;
 const chartConfig = {
     // backgroundGradientFrom: "#1E2923",
     // backgroundGradientFromOpacity: 0,
@@ -273,6 +274,11 @@ const chartConfig = {
     ]
   };
 const Home = () => {
+    var allData = {"Progress" : ProgressData}
+    var ProgressData = {
+        labels: ["Total Fat", "Protein", "Cholesterol"], // optional
+        data: [0.4, 0.6, 0.8]
+      };
     return (
         // <View>
         //     <Text>Bezier Line Chart</Text>
@@ -309,6 +315,16 @@ const Home = () => {
                     </View>
                     <View style = {styles.blackBox}>
                     </View>
+                    {/* <ProgressChart 
+                        data = {[0.4, 0.6, 0.8]} 
+                        width={Dimensions.get('window').width * 0.7}
+                        height={220}
+                        >
+
+                    </ProgressChart> */}
+                    {/* <View>
+                        <TASCharts data={allData["Progress"]} type = {ChartType}></TASCharts>
+                    </View> */}
                     <TouchableOpacity style = {styles.Suggestions}>
                         <Text style = {styles.cleartext}>
                             Suggestions
@@ -342,28 +358,28 @@ const styles = StyleSheet.create({
         backgroundColor: '#EBEBEB', // # + color code 
         alignItems: 'center',
         justifyContent: 'center',
-        height: 200,
-        width: 320,
-        paddingVertical: 20,
-        paddingHorizontal: 100, 
+        height: 0.2999*totalHeight, //200
+        width: 0.8533 * totalWidth, //320
+        paddingVertical: 0.0299 * totalHeight, //20
+        paddingHorizontal: 0.2667 * totalWidth, //100
         
-        marginHorizontal: 29,
-        marginTop: 10,
-        marginBottom: 10,
+        marginHorizontal: 0.077333 * totalWidth, //29
+        marginTop: 0.014993 * totalHeight, //10
+        marginBottom: 0.014993 * totalHeight, //10
     },
     dish:{
         flex: 1,
         backgroundColor: '#FFFFFF', // # + color code 
         alignItems: 'center',
         
-        height:40,
-        width: 300,
-        paddingLeft: 5,
-        paddingVertical: 15,
+        height: 0.05997 * totalHeight, //40
+        width: 0.8 * totalWidth, //300
+        paddingLeft: 0.0133 * totalWidth, // 5
+        paddingVertical: 0.022488 * totalHeight, //15
         
-        marginHorizontal: 58,
+        marginHorizontal: 0.15467 * totalWidth, // 58
          
-        marginVertical: 5,
+        marginVertical: 0.007496 * totalHeight, //6
         
     },
     blackBox:{
@@ -384,26 +400,26 @@ const styles = StyleSheet.create({
         backgroundColor: '#24AA18', // # + color code 
         alignItems: 'center',
         justifyContent: 'center',
-        height:55,
-        width: 300,
-        paddingLeft: 5,
-        paddingVertical: 8,
+        height: totalHeight * 0.0825, //55
+        width: totalWidth*0.8, //300
+        paddingLeft: 0.0133333 * totalWidth, //5
+        paddingVertical: totalHeight * 0.01199, //8
         
-        marginHorizontal: 37,
+        marginHorizontal: 0.0987 * totalWidth, //37
          
-        marginTop: 10,
-        marginBottom: 10,
+        marginTop: totalHeight * 0.014993, //10
+        marginBottom: totalHeight * 0.014993,
     },
     container: {
         flex: 1,
         justifyContent: 'center',
-        width: width, 
+        width: totalWidth, 
 
     },
     text: {
-        fontSize: 17,
-        paddingLeft: 130,
-        marginHorizontal: 30,
+        fontSize: totalWidth * 0.0453,//17
+        paddingLeft: 0.3567 * totalWidth, 
+        marginHorizontal: totalWidth * 0.08, // 30
         justifyContent: 'center',
         color: 'white',
         backgroundColor: '#6C757D'
@@ -446,14 +462,14 @@ const styles = StyleSheet.create({
         backgroundColor: '#264653', // # + color code 
         alignItems: 'center',
         justifyContent: 'center',
-        height: 70,
-        width: 375,
+        height: 0.105 * totalHeight, // 70
+        width: totalWidth, // 375
         paddingHorizontal: 0,
-        paddingVertical: 23,
+        paddingVertical: totalHeight*0.032, // 23
        
         
-        marginTop: 10,
-        marginBottom: 10,
+        marginTop: 0.015 * totalHeight,
+        marginBottom: 0.015 * totalHeight,
     
     },
     clear: {
@@ -475,11 +491,11 @@ const styles = StyleSheet.create({
     },
     cleartext: {
         color: 'white',
-        fontSize: 16
+        fontSize: 0.04267 * totalWidth, // 16
     },
     topBarText: {
         color: 'white',
-        fontSize: 20
+        fontSize: totalWidth * 0.053//20
     }
 })
 

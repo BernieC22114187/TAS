@@ -1,10 +1,11 @@
 import React from 'react';
-import { ImageBackground, TextInput, View, VirtualizedList, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity} from 'react-native';
+import { Dimensions, ImageBackground, TextInput, View, VirtualizedList, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity} from 'react-native';
 // import Input from '../components/TextInput';
 import { Input } from 'react-native-elements';
 import BotBar from '../components/BotBu';
 //import CustomizedTables from '../components/TableComp'
-
+var totalWidth = Dimensions.get('window').width;
+var totalHeight = Dimensions.get('window').height;
 const image = { uri: "https://i.pinimg.com/originals/0f/b9/c1/0fb9c122d7aa2a4e408e9b893526d1e1.jpg" };
 const Settings = () => {
     return (
@@ -115,14 +116,14 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',    
         backgroundColor: '#FFFFFF', // # + color code 
         alignItems: 'center',
-        paddingLeft: 5,
-        paddingRight: 10,
-        height: 30,
-        width: 300,
+        paddingLeft: 0.0133 * totalWidth, //5
+        paddingRight: 0.02667 * totalWidth, //10
+        height: 0.0449775 * totalHeight,//30
+        width: 0.8 * totalWidth, //300
         // paddingLeft: 0,
         // paddingBottom: 10,
-        marginHorizontal: 58,
-        marginVertical: 5,
+        marginHorizontal: 0.15466* totalWidth, //58
+        marginVertical: 0.00749625* totalHeight, //5,
         
     },
     
@@ -146,14 +147,14 @@ const styles = StyleSheet.create({
         backgroundColor: '#EBEBEB', // # + color code 
         alignItems: 'center',
         justifyContent: 'center',
-        height: 400,
-        width: 320,
-        paddingVertical: 10,
-        paddingHorizontal: 100, //why does increasing padding increase size?
-        marginLeft: 28, 
-        marginHorizontal: 20,
-        marginTop: 10,
-        marginBottom: 2,
+        height: 0.5997 * totalHeight, //400
+        width: 0.8533 * totalWidth, //320
+        paddingVertical: 0.014993 * totalHeight, //10
+        paddingHorizontal: 0.2667 * totalWidth, //100
+        marginLeft: 0.07466 * totalWidth, //28
+        marginHorizontal: 0.0533 * totalWidth, //20
+        marginTop: 0.014993 * totalHeight, //10
+        marginBottom: 0.014993 * totalHeight, //10
     },
     blackBox:{
         flex: 1,
@@ -176,31 +177,31 @@ const styles = StyleSheet.create({
 
     },
     text: {
-        fontSize: 17,
-        paddingLeft: 97,
-        marginHorizontal: 30,
+        fontSize: totalWidth * 0.0453,//17
+        paddingLeft: 0.280 * totalWidth, 
+        marginHorizontal: totalWidth * 0.08, // 30
         justifyContent: 'center',
         color: 'white',
         backgroundColor: '#6C757D'
     },
     topBar: {
         flex: 1,
-        backgroundColor: '#004C6A', // # + color code 
+        backgroundColor: '#264653', // # + color code 
         alignItems: 'center',
         justifyContent: 'center',
-        height: 70,
-        width: 375,
+        height: 0.105 * totalHeight, // 70
+        width: totalWidth, // 375
         paddingHorizontal: 0,
-        paddingVertical: 23,
+        paddingVertical: totalHeight*0.032, // 23
        
         
-        marginTop: 10,
-        marginBottom: 10,
+        marginTop: 0.015 * totalHeight,
+        marginBottom: 0.015 * totalHeight,
     
     },
     topBarText: {
         color: 'white',
-        fontSize: 20
+        fontSize: totalWidth * 0.053//20
     }
 })
 

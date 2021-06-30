@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, SafeAreaView, Button } from 'react-native';
+import { Dimensions, StyleSheet, Text, View, SafeAreaView, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -12,7 +12,8 @@ import TrayLunch from './src/pages/Cafeterias/TrayLunch'
 import Settings from './src/pages/Settings';
 import Home from './src/pages/Home';
 import index from './src/pages/index';
-
+var totalWidth = Dimensions.get('window').width;
+var totalHeight = Dimensions.get('window').height;
 function DetailsScreen({navigation} ){
   return (
     <View>
@@ -58,7 +59,7 @@ export default function App() {
   return (
     
     <NavigationContainer>
-      <Tab.Navigator //add styles here
+      <Tab.Navigator style = {styles.tabBarStyle}//add styles here
         screenOptions = {({route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             let iconName; //changeable variable
@@ -104,4 +105,7 @@ const styles = StyleSheet.create({
     alignItems: 'center', 
     justifyContent: 'center', 
   }, 
+  tabBarStyle: {
+    height: 0.1 * totalHeight,
+  },
 });

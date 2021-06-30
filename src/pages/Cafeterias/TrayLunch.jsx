@@ -9,14 +9,14 @@ import BotBar from '../../components/BotBu';
 import index from '../index'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Icon } from 'react-native-elements/dist/icons/Icon';
-
+var totalWidth = Dimensions.get('window').width;
+var totalHeight = Dimensions.get('window').height;
 const image = {uri : "https://paperpirateship.files.wordpress.com/2020/04/iphone-x-wallpapers-ramen.png"}
 var a = [0,0,0,0,0,0,0,0,0]
 
 const nutritionFacts = {uri : "https://www.fda.gov/files/calories_on_the_new_nutrition_facts_label.png"}
 
-var width = Dimensions.get('window').width;
-var height = Dimensions.get('window').width;
+
   
 const TrayLunch = () => {
     // function onchecked(id){
@@ -138,11 +138,11 @@ const TrayLunch = () => {
 const styles = StyleSheet.create({
     Facts: {
         flex : 1,
-        width: width * 0.853,
-        height: 500,
-        marginHorizontal: width * 0.08,
-        marginTop: 10,
-        marginBottom: 10, 
+        width: totalWidth * 0.853,
+        height: 0.74962*totalHeight, //500,
+        marginHorizontal: totalWidth * 0.08,
+        marginVertical: 0.01499*totalHeight, //10,
+        
     },
     image: {
         flex: 1,
@@ -161,11 +161,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginVertical: 5,   
-        borderRadius: 9,
-        width: 153,
-        height: 50,
-        marginLeft: 3,
+        marginVertical: 0.007496*totalHeight, //5,   
+        borderRadius: 0.024*totalWidth, //9,
+        width: 0.408*totalWidth, //153,
+        height: 0.07496*totalHeight, //50,
+        marginLeft: 0.008*totalWidth, //3,
     },
     itemLeft: {
         flexDirection: 'row',
@@ -184,8 +184,9 @@ const styles = StyleSheet.create({
     // },
     itemText: {
         maxWidth: '80%',
-        
-        marginRight: 70, 
+        fontSize: 0.02929*totalWidth, //30,
+        marginRight: 0.186666*totalWidth, //70, 
+        marginLeft: 0.02929*totalWidth, //30,
         
     },
     circular: {
@@ -211,22 +212,23 @@ const styles = StyleSheet.create({
         
     },
     clear: {
-        margin: 5,
-        marginHorizontal: 37,
-        padding: 10,
-        paddingTop: 10,
-        height: 70,
-        borderRadius: 9,
+        // margin: 5,
+        marginHorizontal: 0.09866*totalWidth, //37,
+        paddingVertical: 0.01499250*totalHeight, //10,
+        paddingHorizontal: 0.026666*totalWidth, //10,
+        paddingTop: 0.01499250*totalHeight, //10,
+        height: 0.1049475*totalHeight, //70,
+        borderRadius: 0.024*totalWidth, //9,
         backgroundColor: '#FF0000',
         justifyContent: 'center',
         alignItems: 'center',
-        width: 300,
+        width: 0.8*totalWidth, //300,
     
         
     },
     cleartext: {
         color: 'white',
-        fontSize: 16,
+        fontSize: 0.042666*totalWidth, //16,
     },
     addToPlate:{
         margin: 5,
@@ -273,32 +275,33 @@ const styles = StyleSheet.create({
 
     },
     text: {
-        fontSize: 17,
-        paddingLeft: 124,
-        marginHorizontal: 30,
+        
+        fontSize: totalWidth * 0.0453,//17
+        paddingLeft: 0.33 * totalWidth, 
+        marginHorizontal: totalWidth * 0.08, // 30
         justifyContent: 'center',
         color: 'white',
         backgroundColor: '#6C757D',
-        marginVertical: 20,
+        marginVertical: totalHeight * 0.014992, // 10
     },
     topBar: {
         flex: 1,
         backgroundColor: '#264653', // # + color code 
         alignItems: 'center',
         justifyContent: 'center',
-        height: 70,
-        width: 375,
+        height: 0.105 * totalHeight, // 70
+        width: totalWidth, // 375
         paddingHorizontal: 0,
-        paddingVertical: 23,
+        paddingVertical: totalHeight*0.032, // 23
        
         
-        marginTop: 10,
-        marginBottom: 10,
+        marginTop: 0.015 * totalHeight,
+        marginBottom: 0.015 * totalHeight,
     
     },
     topBarText: {
         color: 'white',
-        fontSize: 20
+        fontSize: totalWidth * 0.053//20
     }
 })
 export default TrayLunch;

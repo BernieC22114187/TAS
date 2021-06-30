@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImageBackground, View, Button, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity, ScreenContainer} from 'react-native';
+import {Dimensions, ImageBackground, View, Button, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity, ScreenContainer} from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native' ;
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
@@ -7,7 +7,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import BotBar from '../components/BotBu';
 import TrayLunch from './Cafeterias/TrayLunch'
 import index from './index'
-
+var totalWidth = Dimensions.get('window').width;
+var totalHeight = Dimensions.get('window').height;
 const image =  { uri: "https://is5-ssl.mzstatic.com/image/thumb/Purple111/v4/89/70/d0/8970d083-e8fa-c2ec-0fc6-bdc5fd57db09/source/512x512bb.jpg"}
 
 export const AddScreen = ({navigation}) =>{
@@ -75,25 +76,26 @@ const styles = StyleSheet.create({
 
     },
     text: {
-        marginTop: 20,
-        fontSize: 20,
-        paddingHorizontal: 95,
-        marginHorizontal: 30,
+        marginTop: 0.02998500*totalHeight, //20,
+        fontSize: 0.053333*totalWidth,//20,
+        paddingHorizontal: 0.25333*totalWidth, //95,
+        marginHorizontal: 0.08 * totalHeight, //30,
         justifyContent: 'center',
         color: 'white',
         backgroundColor: '#6C757D',
-        width: 300,
-        marginVertical: 10,
+        width: 0.8*totalWidth, //300,
+        marginVertical: 0.0149925*totalHeight, //10,
     },
     button: {
-        margin: 5,
-        marginHorizontal: 10,
+        // margin: 5,
+        marginHorizontal: 0.02667*totalWidth, //10,
     
-        padding: 10,
-        marginVertical: 10,
-        height: 80,
-        borderRadius: 9,
-        width: 140,
+        paddingVertical: 0.0149925*totalHeight, //10,
+        paddingHorizontal: 0.0266667*totalWidth, //10, 
+        marginVertical: 0.0149925*totalHeight, //10,
+        height: 0.1199400* totalHeight, //80,
+        borderRadius: 0.024*totalWidth, //9,
+        width: 0.373333*totalWidth, //140,
         backgroundColor: '#D0D0D0',
         justifyContent: 'center',
         alignItems: 'center'
@@ -113,26 +115,26 @@ const styles = StyleSheet.create({
         padding: 10,
         justifyContent: 'center',
         color: 'black',
-        fontSize: 17,
+        fontSize: 30, //0.04533*totaWidth, //17, // for some reason can't change size of this
     },
     topBar: {
         flex: 1,
         backgroundColor: '#264653', // # + color code 
         alignItems: 'center',
         justifyContent: 'center',
-        height: 70,
-        width: 375,
+        height: 0.105 * totalHeight, // 70
+        width: totalWidth, // 375
         paddingHorizontal: 0,
-        paddingVertical: 23,
+        paddingVertical: totalHeight*0.032, // 23
        
         
-        marginTop: 10,
-        marginBottom: 10,
+        marginTop: 0.015 * totalHeight,
+        marginBottom: 0.015 * totalHeight,
     
     },
     topBarText: {
         color: 'white',
-        fontSize: 20
+        fontSize: totalWidth * 0.053//20
     }
 })
 
