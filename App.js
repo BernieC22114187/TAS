@@ -12,6 +12,7 @@ import TrayLunch from './src/pages/Cafeterias/TrayLunch'
 import Settings from './src/pages/Settings';
 import Home from './src/pages/Home';
 import index from './src/pages/index';
+import { getData } from './src/api/member_api';
 var totalWidth = Dimensions.get('window').width;
 var totalHeight = Dimensions.get('window').height;
 function DetailsScreen({navigation} ){
@@ -71,6 +72,8 @@ export default function App() {
               iconName = focused? 'settings' : 'settings-outline';
             }
             else if(route.name === "Home"){ 
+              
+              console.log(getData());
               iconName = focused? 'home' : 'home-outline';
             }
             // else if(route.name === "HomeStackScreen"){ 

@@ -12,6 +12,7 @@ import { Icon } from 'react-native-elements/dist/icons/Icon';
 
 const image = {uri : "https://www.desktopbackground.org/download/480x800/2014/12/24/876325_vegetable-wallpapers_2560x1600_h.jpg"}
 var a = [0,0,0,0,0,0,0,0,0] // use this to count up all the nutrition info
+var dict = {"Dish1" : 0, "Dish2" : 0, "Dish3" : 0, "Dish4" : 0, "Dish5" : 0, "Dish6": 0};
 const nutritionFacts = {uri : "https://www.fda.gov/files/calories_on_the_new_nutrition_facts_label.png"}
 
 var totalWidth = Dimensions.get('window').width;
@@ -28,6 +29,28 @@ const SaladBar = () => {
     // function checkBoxTest(){
     //     checked = {True}
     // }
+    const buttonNumber = () => {
+        
+        const collection =  Object.entries(dict).map(([key, value]) => 
+            <TouchableOpacity
+                key={dict[key]}
+                style={
+                    styles.item
+                }
+                onPress = {() => {dict[key] =  (dict[key] === 1? 0:1);}}
+            >
+                <View style = {styles.itemLeft}>   
+                    <Text style = {styles.itemText}> {key} </Text>
+                    <Ionicons name = {dict[key] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
+                </View>
+                
+            </TouchableOpacity>
+            
+           
+            
+        );
+        return collection;
+    }
     const [isSelected, setSelection] = useState(a);
     const [refreshing, setRefreshing] = React.useState(false);
     const onRefresh = React.useCallback(() => {
@@ -52,7 +75,7 @@ const SaladBar = () => {
                             </View>
                         </TouchableOpacity>
         
-                        <TouchableOpacity style = {styles.item} onPress = {() => {if (a[1] === 0) {a[1] = 1} else if (a[1] === 1) {a[1] = 0}  setSelection(!isSelected); console.log(a)}}>
+                        <TouchableOpacity style = {styles.item}e onPrss = {() => {if (a[1] === 0) {a[1] = 1} else if (a[1] === 1) {a[1] = 0}  setSelection(!isSelected); console.log(a)}}>
                             <View style = {styles.itemLeft}>
                                 
                                 

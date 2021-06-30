@@ -111,11 +111,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    buttonText:{
+    buttontext:{
         padding: 10,
         justifyContent: 'center',
         color: 'black',
-        fontSize: 30, //0.04533*totaWidth, //17, // for some reason can't change size of this
+        fontSize: 0.04533*totalWidth, //17, 
     },
     topBar: {
         flex: 1,

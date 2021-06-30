@@ -16,7 +16,6 @@ const BotBar = () => { // const (constant thing that doesn't really change)
 }
 const styles = StyleSheet.create({
     container: {
-        
         marginVertical: 0.0074962*totalHeight,//5,
         marginTop: 0.029985*totalHeight, //20,
         marginHorizontal: 0.112*totalWidth, //42,
@@ -29,12 +28,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         width: 0.8*totalWidth, //300,
-    
-        
     },
     text: {
         color: 'white',
-        fontSize: 16
+        fontSize: 0.042666*totalWidth, //16,
     }
 })
 

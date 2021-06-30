@@ -39,10 +39,11 @@ const PizzaBar = () => {
         
         const collection =  Object.entries(dict).map(([key, value]) => 
             <TouchableOpacity
-                key={dict[key]}
+                key={key}
                 style={
                     styles.item
                 }
+                onPress = {() => {if (dict[key] === 0) {dict[key] = 1} else if (dict[key] === 1) {dict[key] = 0}  setSelection(!isSelected); console.log(dict)}}
             >
                 <View style = {styles.itemLeft}>   
                     <Text style = {styles.itemText}> {key} </Text>
@@ -74,12 +75,8 @@ const PizzaBar = () => {
                     </View>
                     <View  style = {styles.viewStyle}>
                         
-                        <View>
-                            {buttonNumber()}
-                        </View>
-
-        
-                    
+                        {buttonNumber()}
+                                           
                     </View>
                     {/* <View style = {styles.blackBox}>
                     </View> */}
@@ -91,11 +88,11 @@ const PizzaBar = () => {
                             onRefresh={onRefresh}
                             />
                         } onPress = {() => {
-                        if (dict.includes(1)) {
+                        if (dict.includes(1)) { // change this 
                             for (var key in dict){dict[key] = 0}} 
-                        else {for (let i = 0; i < a.length; i++){a[i] = 1} 
+                        else {for (let i = 0; i < dict.length; i++){dict[i] = 1} 
                             
-                            } setSelection(!isSelected); console.log(a)} }  >
+                            } setSelection(!isSelected); console.log(dict)} }  >
                         <Text style = {styles.cleartext}>
                             Select/De-Select All
                         </Text>
