@@ -1,5 +1,5 @@
 import React, { useState }from 'react';
-import { Dimensions, ImageBackground, View, Button, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity, RefreshControl, ScreenContainer, TouchableWithoutFeedback, SafeAreaViewBase} from 'react-native';
+import { Image, Dimensions, ImageBackground, View, Button, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity, RefreshControl, ScreenContainer, TouchableWithoutFeedback, SafeAreaViewBase} from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native' ;
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { CheckBox } from 'react-native-elements'
@@ -9,9 +9,12 @@ import BotBar from '../../components/BotBu';
 import index from '../index'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Icon } from 'react-native-elements/dist/icons/Icon';
+import { register } from '../../api/saveNutritionInfo_api';
 
 const image = {uri : "https://i.pinimg.com/736x/83/1b/64/831b64fca86705ec34511e69414cf435.jpg"}
+var dict = {"Dish1" : 0, "Dish2" : 0, "Dish3" : 0, "Dish4" : 0, "Dish5" : 0, "Dish6": 0};
 var a = [0,0,0,0,0,0,0,0,0]
+const nutritionFacts = {uri : "https://www.fda.gov/files/calories_on_the_new_nutrition_facts_label.png"}
 var totalWidth = Dimensions.get('window').width;
 var totalHeight = Dimensions.get('window').height;
 
@@ -32,6 +35,37 @@ const FitnessCafe = () => {
         setRefreshing(true);
         wait(1000).then(() => setRefreshing(false));
       }, []); 
+    const buttonNumber = () => {
+        
+        const collection =  Object.entries(dict).map(([key, value]) => 
+            <TouchableOpacity
+                key={key}
+                style={
+                    styles.item
+                }
+                onPress = {() => {if (dict[key] === 0) {dict[key] = 1} else if (dict[key] === 1) {dict[key] = 0}  setSelection(!isSelected); console.log(dict)}}
+            >
+                <View style = {styles.itemLeft}>   
+                    <Text style = {styles.itemText}> {key} </Text>
+                    <Ionicons name = {dict[key] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
+                </View>
+                
+            </TouchableOpacity>
+            
+           
+            
+        );
+        return collection;
+    }
+    // function buttonList(props) {
+    //     const listItems = dict.map((number) =>
+    //       <li>{number}</li>
+    //     );
+    //     return (
+    //       <ul>{listItems}</ul>
+    //     );
+    // }
+      
     return(
         <ImageBackground source={image} style={styles.image}>
             <ScrollView>
@@ -40,93 +74,46 @@ const FitnessCafe = () => {
                         <Text style = {styles.text}> Dishes </Text>
                     </View>
                     <View  style = {styles.viewStyle}>
-
-                        <TouchableOpacity style = {styles.item} onPress = {() => {if (a[0] === 0) {a[0] = 1} else if (a[0] === 1) {a[0] = 0}  setSelection(!isSelected); console.log(a)}}>
-                            <View style = {styles.itemLeft}>
-                                
-                                
-                                <Text style = {styles.itemText}> Dish 1 </Text>
-                                <Ionicons name = {a[0] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
-                            </View>
-                        </TouchableOpacity>
-        
-                        <TouchableOpacity style = {styles.item} onPress = {() => {if (a[1] === 0) {a[1] = 1} else if (a[1] === 1) {a[1] = 0}  setSelection(!isSelected); console.log(a)}}>
-                            <View style = {styles.itemLeft}>
-                                
-                                
-                                <Text style = {styles.itemText}> Dish 2 </Text>
-                                <Ionicons name = {a[1] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity style = {styles.item} onPress = {() => {if (a[2] === 0) {a[2] = 1} else if (a[2] === 1) {a[2] = 0}  setSelection(!isSelected); console.log(a)}}>
-                            <View style = {styles.itemLeft}>
-                                
-                                
-                                <Text style = {styles.itemText}> Dish 3 </Text>
-                                <Ionicons name = {a[2] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity style = {styles.item} onPress = {() => {if (a[3] === 0) {a[3] = 1} else if (a[3] === 1) {a[3] = 0}  setSelection(!isSelected); console.log(a)}}>
-                            <View style = {styles.itemLeft}>
-                                
-                                <Text style = {styles.itemText}> Dish 4 </Text>
-                                <Ionicons name = {a[3] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity style = {styles.item} onPress = {() => {if (a[4] === 0) {a[4] = 1} else if (a[4] === 1) {a[4] = 0}  setSelection(!isSelected); console.log(a)}}>
-                            <View style = {styles.itemLeft}>
-                                
-                                <Text style = {styles.itemText}> Dish 5 </Text>
-                                <Ionicons name = {a[4] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity style = {styles.item} onPress = {() => {if (a[5] === 0) {a[5] = 1} else if (a[5] === 1) {a[5] = 0}  setSelection(!isSelected); console.log(a)}}>
-                            <View style = {styles.itemLeft}>
-                                
-                                <Text style = {styles.itemText}> Dish 6 </Text>
-                                <Ionicons name = {a[5] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity style = {styles.item} onPress = {() => {if (a[6] === 0) {a[6] = 1} else if (a[6] === 1) {a[6] = 0}  setSelection(!isSelected); console.log(a)}}>
-                            <View style = {styles.itemLeft}>
-                                
-                                <Text style = {styles.itemText}> Dish 7 </Text>
-                                <Ionicons name = {a[6] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity style = {styles.item} onPress = {() => {if (a[7] === 0) {a[7] = 1} else if (a[7] === 1) {a[7] = 0}  setSelection(!isSelected); console.log(a)}}>
-                            <View style = {styles.itemLeft}>
-                                
-                                <Text style = {styles.itemText}> Dish 8 </Text>
-                                <Ionicons name = {a[7] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
-                            </View>
-                        </TouchableOpacity>
-
                         
-                    
+                        {buttonNumber()}
+                                           
                     </View>
-                    <View style = {styles.blackBox}>
-                    </View>
+                    {/* <View style = {styles.blackBox}>
+                    </View> */}
+                    <Image source = {nutritionFacts} style = {styles.Facts}></Image>
                     
                     <TouchableOpacity style = {styles.clear} refreshControl = {
                             <RefreshControl
                             refreshing={refreshing}
                             onRefresh={onRefresh}
+                            
                             />
                         } onPress = {() => {
-                        if (a.includes(1)) {
-                            for (let i = 0; i < a.length; i++){a[i] = 0}} 
-                        else {for (let i = 0; i < a.length; i++){a[i] = 1} 
+                        var x = false;
+                        for (var key in dict){ if (dict[key] == 0) {x = true; break;} } 
+                        if (x) { 
+                            for (var key in dict){dict[key] = 1}
                             
-                            } setSelection(!isSelected); console.log(a)} }  >
+                        } 
+                        else {
+                            for (var key in dict){dict[key] = 0 } 
+                        } 
+                        
+                        setSelection(!isSelected); console.log(dict)} }  >
                         <Text style = {styles.cleartext}>
                             Select/De-Select All
                         </Text>
                     </TouchableOpacity>
                     
-                    
+                    <TouchableOpacity style = {styles.addToPlate} onPress = {()=>{  register(dict)     }}>
+                        <Text style = {styles.cleartext}>
+                            Add to Plate
+                        </Text>
+                    </TouchableOpacity>
                 </SafeAreaView>
+                            
             </ScrollView>
+            
         </ImageBackground>
         
     )

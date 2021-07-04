@@ -10,14 +10,22 @@ import index from '../index'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Icon } from 'react-native-elements/dist/icons/Icon';
 
+import { register } from '../../api/saveNutritionInfo_api';
+import { getConstMenu } from '../../api/menu_api'
+
 const image = {uri : "https://i.pinimg.com/originals/5f/09/c9/5f09c90e15081595ff7984f42da4a90b.png"}
 var a = [0,0,0,0,0,0,0,0,0]
-var dict = {"Dish1" : 0, "Dish2" : 0, "Dish3" : 0, "Dish4" : 0, "Dish5" : 0, "Dish6": 0};
+var rawData = getConstMenu("PizzaBar")
+var dict = {};
+for (var i = 0; i < rawData.length; i++){
+    dict[rawData[i][0]] = 0;
+}
+// {"Dish1" : 0, "Dish2" : 0, "Dish3" : 0, "Dish4" : 0, "Dish5" : 0, "Dish6": 0};
 const nutritionFacts = {uri : "https://www.fda.gov/files/calories_on_the_new_nutrition_facts_label.png"}
 
 var totalWidth = Dimensions.get('window').width;
 var totalHeight = Dimensions.get('window').height;
-  
+
 const PizzaBar = () => {
     // function onchecked(id){
     
@@ -86,25 +94,34 @@ const PizzaBar = () => {
                             <RefreshControl
                             refreshing={refreshing}
                             onRefresh={onRefresh}
+                            
                             />
                         } onPress = {() => {
-                        if (dict.includes(1)) { // change this 
-                            for (var key in dict){dict[key] = 0}} 
-                        else {for (let i = 0; i < dict.length; i++){dict[i] = 1} 
+                        var x = false;
+                        for (var key in dict){ if (dict[key] == 0) {x = true; break;} } 
+                        if (x) { 
+                            for (var key in dict){dict[key] = 1}
                             
-                            } setSelection(!isSelected); console.log(dict)} }  >
+                        } 
+                        else {
+                            for (var key in dict){dict[key] = 0 } 
+                        } 
+                        
+                        setSelection(!isSelected); console.log(dict)} }  >
                         <Text style = {styles.cleartext}>
                             Select/De-Select All
                         </Text>
                     </TouchableOpacity>
                     
-                    <TouchableOpacity style = {styles.addToPlate} onPress = {()=>{  return dict     }}>
+                    <TouchableOpacity style = {styles.addToPlate} onPress = {()=>{  register(dict)     }}>
                         <Text style = {styles.cleartext}>
                             Add to Plate
                         </Text>
                     </TouchableOpacity>
                 </SafeAreaView>
+                            
             </ScrollView>
+            
         </ImageBackground>
         
     )

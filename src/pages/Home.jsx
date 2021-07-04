@@ -234,6 +234,14 @@ import React from 'react';
 import { View, Button, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity} from 'react-native';
 import {Dimensions} from "react-native";
 import BotBar from '../components/BotBu';
+import {memberData} from "../../App.js"
+var progressArray = new Array();
+var count = 0;
+for(var key in memnberData){
+    progressArray[count] = memberData[key];
+    count++;
+}
+
 import {
     LineChart,
     BarChart,
@@ -245,39 +253,24 @@ import {
 var totalWidth = Dimensions.get('window').width;
 var totalHeight = Dimensions.get('window').height;
 const chartConfig = {
-    // backgroundGradientFrom: "#1E2923",
+    backgroundGradientFrom: "#264653",
     // backgroundGradientFromOpacity: 0,
     // backgroundGradientTo: "#08130D",
     // backgroundGradientToOpacity: 0.5,
+    // backgroundColor: "#e26a00",
     color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
     strokeWidth: 2, // optional, default 3
     barPercentage: 0.8,
     useShadowColorFromDataset: false // optional
   };
-  const data = {
-    labels: ["January", "February", "March", "April", "May", "June"],
-    datasets: [
-      {
-        data: [20, 45, 28, 80, 99, 43],
-        color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
-        strokeWidth: 2 // optional
-      }
-    ],
-    legend: ["Rainy Days"] // optional
-  };
-  const data2 = {
-    labels: ["January", "February", "March", "April", "May", "June"],
-    datasets: [
-      {
-        data: [20, 45, 28, 80, 99, 43]
-      }
-    ]
-  };
+
 const Home = () => {
     var allData = {"Progress" : ProgressData}
     var ProgressData = {
-        labels: ["Total Fat", "Protein", "Cholesterol"], // optional
-        data: [0.4, 0.6, 0.8]
+        
+        labels: ["Calories", "Total Fat", "Cholesterol", "Sodium", "Total Carbs", "Protein"], // optional
+        data: progressArray
+        
       };
     return (
         // <View>
@@ -311,10 +304,21 @@ const Home = () => {
                     
                     
                     <Text style = {styles.text}> Stats </Text>
-                    <View style = {styles.blackBox}>
+                    <ProgressChart
+                        data={ProgressData}
+                        width={totalWidth}
+                        height={220}
+                        strokeWidth={10}
+                        radius={32}
+                        chartConfig={chartConfig}
+                        hideLegend={false}
+                        style = {styles.progressRing}
+                        
+                    />
+                    {/* <View style = {styles.blackBox}>
                     </View>
                     <View style = {styles.blackBox}>
-                    </View>
+                    </View> */}
                     {/* <ProgressChart 
                         data = {[0.4, 0.6, 0.8]} 
                         width={Dimensions.get('window').width * 0.7}
@@ -353,6 +357,10 @@ const Home = () => {
 
 
 const styles = StyleSheet.create({
+    progressRing:{
+        flex: 1,
+        margin: 20,
+    },
     grayBox:{
         flex: 1,
         backgroundColor: '#EBEBEB', // # + color code 
@@ -422,7 +430,8 @@ const styles = StyleSheet.create({
         marginHorizontal: totalWidth * 0.08, // 30
         justifyContent: 'center',
         color: 'white',
-        backgroundColor: '#6C757D'
+        backgroundColor: '#6C757D',
+        marginBottom: 20,
     },
     button: {
         flex: 1,

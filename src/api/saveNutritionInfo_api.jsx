@@ -9,11 +9,12 @@ export const register = async(dictionary) => {
                     Accept: 'application/json'
                 },
                 body: JSON.stringify({
-                    dictionary
+                    dishList : dictionary,
                 })
             } 
             
         )
+
         let json = await response.json();
         return json
     } catch(error){

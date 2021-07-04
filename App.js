@@ -53,8 +53,8 @@ function SettingsScreen(){
 }
 const Tab = createBottomTabNavigator();
 
-
-
+var memberData;
+ 
 export default function App() {
   
   return (
@@ -72,7 +72,7 @@ export default function App() {
               iconName = focused? 'settings' : 'settings-outline';
             }
             else if(route.name === "Home"){ 
-              
+              memberData = getData();
               console.log(getData());
               iconName = focused? 'home' : 'home-outline';
             }
