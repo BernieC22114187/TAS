@@ -13,90 +13,26 @@ import Settings from './src/pages/Settings';
 import Home from './src/pages/Home';
 import index from './src/pages/index';
 import { getData } from './src/api/member_api';
+import afterLogin from './router'
 var totalWidth = Dimensions.get('window').width;
 var totalHeight = Dimensions.get('window').height;
-function DetailsScreen({navigation} ){
-  return (
-    <View>
-      <Text>Detail Screen</Text>
-    </View>
-  )  
-} 
+import Login from './src/pages/Login'
+import Register from './src/pages/Login'
 
-function HomeScreen({navigation}){
-  return (
-    <View>
-      <Text>Detail Screen</Text>
-      <Button title = 'go to details' onPress = {() => {navigation.navigate('Details')}}/>
-    </View>
-  )  
-} 
-
-function HomeStackScreen(){
-  return (
-    <HomeStack.Navigator>
-      <HomeStack.Screen name = "Home" component = {HomeScreen}/>
-      <HomeStack.Screen name = "Details" component = {DetailsScreen}/>
-
-    </HomeStack.Navigator>
-  )
-}
-
-const HomeStack = createStackNavigator();
- 
-function SettingsScreen(){
-  return (
-    <View style = {{flex:1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Settings</Text>
-    </View>
-  )
-}
-const Tab = createBottomTabNavigator();
-
-var memberData;
- 
-export default function App() {
+const LoginStackNav = createStackNavigator();
+export default function App() { 
   
   return (
-    
     <NavigationContainer>
-      <Tab.Navigator style = {styles.tabBarStyle}//add styles here
-        screenOptions = {({route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName; //changeable variable
-
-            if (route.name === 'Add' ) {
-              iconName = focused? 'add-circle' : 'add-circle-outline'; //if else
-            }
-            else if(route.name === "Settings"){ 
-              iconName = focused? 'settings' : 'settings-outline';
-            }
-            else if(route.name === "Home"){ 
-              memberData = getData();
-              console.log(getData());
-              iconName = focused? 'home' : 'home-outline';
-            }
-            // else if(route.name === "HomeStackScreen"){ 
-            //   iconName = focused? 'planet' : 'planet-outline';
-            // }
- 
-            return <Ionicons name = {iconName} size = {size} color = {color}/>
-          },
-
-        })}
-        tabBarOptions = {{
-          activeTintColor: '#48CAE4',
-          inactiveTintColor: 'gray',
-        }}
-
-      >
-        <Tab.Screen name = "Home" component = {Home}/>
-        <Tab.Screen name = "Add" component = {Add}/>
-        <Tab.Screen name = "Settings" component = {Settings}/>
-        {/* <Tab.Screen name = "HomeStackScreen" component = {HomeStackScreen}/> */}
-        
-      </Tab.Navigator>
+        <LoginStackNav.Navigator initialRouteName = "Login"
+        screenOptions = {{headerShown: false}} 
+        >
+            <LoginStackNav.Screen name="router" component={afterLogin} />
+            <LoginStackNav.Screen name="Login" component={Login} />
+            {/* <LoginStackNav.Screen name="Register" component={Register} /> */}
+        </LoginStackNav.Navigator>
     </NavigationContainer>
+    
     
   );
 }

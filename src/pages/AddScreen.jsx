@@ -53,7 +53,9 @@ export const AddScreen = ({navigation}) =>{
                                 Other:
                             </Text>
                         </TouchableOpacity>
-                        <BotBar/>
+                        <TouchableOpacity style = {styles.finish} onPress = {() => navigation.navigate('Home')}>
+                            <Text style = {styles.finishText}> Finish </Text>
+                        </TouchableOpacity>
                     </View>
                 </SafeAreaView>
             </ScrollView>
@@ -63,6 +65,24 @@ export const AddScreen = ({navigation}) =>{
 
 }
 const styles = StyleSheet.create({
+    finish: {
+        marginVertical: 0.0074962*totalHeight,//5,
+        marginTop: 0.029985*totalHeight, //20,
+        marginHorizontal: 0.112*totalWidth, //42,
+        paddingVertical: 0.014992*totalHeight, //10,
+        paddingHorizontal: 0.0266666*totalWidth, //10,
+        paddingTop: 0.014992*totalHeight, //10,
+        height: 0.10494*totalHeight,//70,
+        borderRadius: 0.024*totalWidth, //9,
+        backgroundColor: '#3AE041',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 0.8*totalWidth, //300,
+    },
+    finishText: {
+        color: 'white',
+        fontSize: 0.042666*totalWidth, //16,
+    },
     image: {
         flex: 1,
         resizeMode: "cover",

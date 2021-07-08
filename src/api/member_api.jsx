@@ -1,8 +1,8 @@
 
 
 const domain = 'http://localhost:8080/' //try to put domain outside 
-
-export const login = async() => {
+var MEMBERID = "";
+export const login = async(Account, Password) => {
     try {
         let response = await fetch (
             'http://localhost:8080/member/login', {//actual is not this url 
@@ -11,23 +11,25 @@ export const login = async() => {
                     Accept: 'application/json'
                 },
                 body: JSON.stringify({
-                    account: '',
-                    password: ''
+                    account: Account,
+                    password: Password,
                 })
             } 
             
         )
         let json = await response.json();
+        MEMBERID = json["id"];
+
         return json
     } catch(error){
-        console.error(error);
+        console.error(error); 
     }
     
 }
 
 
 
-export const register = async() => {
+export const register = async(Account, Password, Height, Weight) => {
     try {
         let response = await fetch (
             'http://localhost:8080/member/register', {//actual is not this url 
@@ -36,8 +38,11 @@ export const register = async() => {
                     Accept: 'application/json'
                 },
                 body: JSON.stringify({
-                    account: '',
-                    password: ''
+                    account: Account,
+                    password: Password,
+                    weight: Weight,
+                    height: Height,
+                    
                 })
             } 
             
@@ -59,12 +64,14 @@ export const getData = async() => {
 
         )
         let json = await response.json();
+        MEMBERID = json["id"];
         return json
     } catch(error){   
         console.error(error);
     }
     
 }
+export default MEMBERID
 
 // export const getData = async() => {
 

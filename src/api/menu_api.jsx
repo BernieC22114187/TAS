@@ -40,8 +40,11 @@ export const getDailyMenu = async(timestamp) => {
             
         )
         let json = await response.json();
-        
-        return json;
+        var a = json["Main"];
+        var b = json["Side"];
+        var c = json["Fruit"];
+        food = Object.assign({}, a, b, c);
+        return food;
         
     } catch(error){
         console.error(error);

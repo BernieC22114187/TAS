@@ -231,14 +231,17 @@
 // export default Home;
 
 import React from 'react';
-import { View, Button, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity} from 'react-native';
+import { ImageBackground, View, Button, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity} from 'react-native';
 import {Dimensions} from "react-native";
 import BotBar from '../components/BotBu';
-import {memberData} from "../../App.js"
+import {memberData} from "../../router"
+const image = { uri: "https://r1.ilikewallpaper.net/iphone-11-wallpapers/download/79815/Clementines-with-leaves-iphone-11-wallpaper-ilikewallpaper_com.jpg" };
+const infographic = {uri: "https://thumbs.dreamstime.com/z/healthy-vegetables-infographics-chart-graph-healthy-vegetables-infographics-chart-graph-quality-vector-99710155.jpg"};
 var progressArray = new Array();
 var count = 0;
-for(var key in memnberData){
-    progressArray[count] = memberData[key];
+var dailyRecommended = 100; // change this to the # recommended per day for each
+for(var key in memberData){
+    progressArray[count] = memberData[key]/dailyRecommended;
     count++;
 }
 
@@ -269,7 +272,7 @@ const Home = () => {
     var ProgressData = {
         
         labels: ["Calories", "Total Fat", "Cholesterol", "Sodium", "Total Carbs", "Protein"], // optional
-        data: progressArray
+        data: progressArray 
         
       };
     return (
@@ -293,70 +296,85 @@ const Home = () => {
         //         verticalLabelRotation={30}
         //     />
         // </View>
+        <ImageBackground source={image} style={styles.image} >
+            <ScrollView>
+                <SafeAreaView>
+                    <View style = {styles.container}>
+                        
+                        <View style = {styles.topBar}>
+                            <Text style = {styles.topBarText}> Home </Text> 
+                        </View>
+                        
+                        
+                        <Text style = {styles.text}> Stats </Text>
+                        <ProgressChart
+                            data={ProgressData}
+                            width={totalWidth}
+                            height={220}
+                            strokeWidth={10}
+                            radius={32}
+                            chartConfig={chartConfig}
+                            hideLegend={false}
+                            style = {styles.progressRing}
+                            
+                        />
+                        {/* <View style = {styles.blackBox}>
+                        </View>
+                        <View style = {styles.blackBox}>
+                        </View> */}
+                        {/* <ProgressChart 
+                            data = {[0.4, 0.6, 0.8]} 
+                            width={Dimensions.get('window').width * 0.7}
+                            height={220}
+                            >
+
+                        </ProgressChart> */}
+                        {/* <View>
+                            <TASCharts data={allData["Progress"]} type = {ChartType}></TASCharts>
+                        </View> */}
+                        <TouchableOpacity style = {styles.Suggestions}>
+                            <Text style = {styles.cleartext}>
+                                Suggestions
+                            </Text>
+                        </TouchableOpacity>
+                        <View style = {styles.grayBox}>
+                            <TouchableOpacity style = {styles.dish}>
+                                
+                            </TouchableOpacity>
+                            <TouchableOpacity style = {styles.dish}>
+                            </TouchableOpacity>
+                            <TouchableOpacity style = {styles.dish}>
+                            </TouchableOpacity>
+                            
+                            <TouchableOpacity style = {styles.dish}>
+                            </TouchableOpacity>
+                        </View>
+
+                        
+                    </View>
+                    
+                </SafeAreaView>
+            </ScrollView>
+        </ImageBackground>
         
-        <ScrollView>
-            <SafeAreaView>
-                <View style = {styles.container}>
-                    
-                    <View style = {styles.topBar}>
-                        <Text style = {styles.topBarText}> Home </Text> 
-                    </View>
-                    
-                    
-                    <Text style = {styles.text}> Stats </Text>
-                    <ProgressChart
-                        data={ProgressData}
-                        width={totalWidth}
-                        height={220}
-                        strokeWidth={10}
-                        radius={32}
-                        chartConfig={chartConfig}
-                        hideLegend={false}
-                        style = {styles.progressRing}
-                        
-                    />
-                    {/* <View style = {styles.blackBox}>
-                    </View>
-                    <View style = {styles.blackBox}>
-                    </View> */}
-                    {/* <ProgressChart 
-                        data = {[0.4, 0.6, 0.8]} 
-                        width={Dimensions.get('window').width * 0.7}
-                        height={220}
-                        >
-
-                    </ProgressChart> */}
-                    {/* <View>
-                        <TASCharts data={allData["Progress"]} type = {ChartType}></TASCharts>
-                    </View> */}
-                    <TouchableOpacity style = {styles.Suggestions}>
-                        <Text style = {styles.cleartext}>
-                            Suggestions
-                        </Text>
-                    </TouchableOpacity>
-                    <View style = {styles.grayBox}>
-                        <TouchableOpacity style = {styles.dish}>
-                             
-                        </TouchableOpacity>
-                        <TouchableOpacity style = {styles.dish}>
-                        </TouchableOpacity>
-                        <TouchableOpacity style = {styles.dish}>
-                        </TouchableOpacity>
-                        
-                        <TouchableOpacity style = {styles.dish}>
-                        </TouchableOpacity>
-                    </View>
-
-                    
-                </View>
-                
-            </SafeAreaView>
-        </ScrollView>
     )
 }
 
 
 const styles = StyleSheet.create({
+    graphic:{
+        flex : 1,
+        width: totalWidth * 0.853,
+        height: 375,
+        marginHorizontal: totalWidth * 0.08,
+        marginTop: 10,
+        marginBottom: 10,
+    },
+    image: {
+        flex: 1,
+        resizeMode: "cover",
+        justifyContent: "center" 
+      },
     progressRing:{
         flex: 1,
         margin: 20,
@@ -587,7 +605,7 @@ export default Home;
         
         
         
-//             <ImageBackground source={image} style={styles.image} >
+            // <ImageBackground source={image} style={styles.image} >
 //                 <ScrollView>
 //                     <SafeAreaView>
 //                         <View style = {styles.container}>
@@ -656,19 +674,19 @@ export default Home;
 
 
 // const styles = StyleSheet.create({
-//     graphic:{
-//         flex : 1,
-//         width: width * 0.853,
-//         height: 375,
-//         marginHorizontal: width * 0.08,
-//         marginTop: 10,
-//         marginBottom: 10,
-//     },
-//     image: {
-//         flex: 1,
-//         resizeMode: "cover",
-//         justifyContent: "center" 
-//       },
+    // graphic:{
+    //     flex : 1,
+    //     width: width * 0.853,
+    //     height: 375,
+    //     marginHorizontal: width * 0.08,
+    //     marginTop: 10,
+    //     marginBottom: 10,
+    // },
+    // image: {
+    //     flex: 1,
+    //     resizeMode: "cover",
+    //     justifyContent: "center" 
+    //   },
 //     grayBox:{
 //         flex: 1,
 //         backgroundColor: '#EBEBEB', // # + color code 

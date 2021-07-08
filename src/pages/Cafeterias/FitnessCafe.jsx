@@ -9,7 +9,7 @@ import BotBar from '../../components/BotBu';
 import index from '../index'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Icon } from 'react-native-elements/dist/icons/Icon';
-import { register } from '../../api/saveNutritionInfo_api';
+import { save } from '../../api/saveNutritionInfo_api';
 
 const image = {uri : "https://i.pinimg.com/736x/83/1b/64/831b64fca86705ec34511e69414cf435.jpg"}
 var dict = {"Dish1" : 0, "Dish2" : 0, "Dish3" : 0, "Dish4" : 0, "Dish5" : 0, "Dish6": 0};
@@ -105,7 +105,7 @@ const FitnessCafe = () => {
                         </Text>
                     </TouchableOpacity>
                     
-                    <TouchableOpacity style = {styles.addToPlate} onPress = {()=>{  register(dict)     }}>
+                    <TouchableOpacity style = {styles.addToPlate} onPress = {()=>{  save(dict)     }}>
                         <Text style = {styles.cleartext}>
                             Add to Plate
                         </Text>

@@ -11,16 +11,15 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Icon } from 'react-native-elements/dist/icons/Icon';
 
 import { getDailyMenu } from '../../api/menu_api'
-import { register } from '../../api/saveNutritionInfo_api';
+import { save } from '../../api/saveNutritionInfo_api';
 
 var totalWidth = Dimensions.get('window').width;
 var totalHeight = Dimensions.get('window').height;
 const image = {uri : "https://paperpirateship.files.wordpress.com/2020/04/iphone-x-wallpapers-ramen.png"}
 var a = [0,0,0,0,0,0,0,0,0]
 
-const currentDate = new Date();
-const timestamp = currentDate.getTime();
-var dict = getDailyMenu(timestamp)
+
+
 
 //{"Dish1" : 0, "Dish2" : 0, "Dish3" : 0, "Dish4" : 0, "Dish5" : 0, "Dish6": 0};
 const nutritionFacts = {uri : "https://www.fda.gov/files/calories_on_the_new_nutrition_facts_label.png"}
@@ -36,6 +35,14 @@ const TrayLunch = () => {
     // function checkBoxTest(){
     //     checked = {True}
     // }
+    const currentDate = new Date();
+    const timestamp = currentDate.getTime();    
+    var rawData = getDailyMenu(timestamp)
+    var dict = {};
+    for (var i = 0; i < rawData.length; i++){
+        dict[rawData[i][0]] = 0;
+
+    }
     const [isSelected, setSelection] = useState(a);
     const [refreshing, setRefreshing] = React.useState(false);
     const onRefresh = React.useCallback(() => {
@@ -112,7 +119,7 @@ const TrayLunch = () => {
                         </Text>
                     </TouchableOpacity>
                     
-                    <TouchableOpacity style = {styles.addToPlate} onPress = {()=>{  register(dict)     }}>
+                    <TouchableOpacity style = {styles.addToPlate} onPress = {()=>{  save(dict)     }}>
                         <Text style = {styles.cleartext}>
                             Add to Plate
                         </Text>

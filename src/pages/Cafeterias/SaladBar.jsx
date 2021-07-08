@@ -11,16 +11,12 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Icon } from 'react-native-elements/dist/icons/Icon';
 
 import { getConstMenu } from '../../api/menu_api'
-import { register } from '../../api/saveNutritionInfo_api';
+import { save } from '../../api/saveNutritionInfo_api';
 
 const image = {uri : "https://www.desktopbackground.org/download/480x800/2014/12/24/876325_vegetable-wallpapers_2560x1600_h.jpg"}
 var a = [0,0,0,0,0,0,0,0,0] // use this to count up all the nutrition info
 
-var rawData = getConstMenu("SaladBar")
-var dict = {};
-for (var i = 0; i < rawData.length; i++){
-    dict[rawData[i][0]] = 0;
-}
+
 // {"Dish1" : 0, "Dish2" : 0, "Dish3" : 0, "Dish4" : 0, "Dish5" : 0, "Dish6": 0};
 
 const nutritionFacts = {uri : "https://www.fda.gov/files/calories_on_the_new_nutrition_facts_label.png"}
@@ -39,6 +35,11 @@ const SaladBar = () => {
     // function checkBoxTest(){
     //     checked = {True}
     // }
+    var rawData = getConstMenu("SaladBar")
+    var dict = {};
+    for (var i = 0; i < rawData.length; i++){
+        dict[rawData[i][0]] = 0;
+    }
     const [isSelected, setSelection] = useState(a);
     const [refreshing, setRefreshing] = React.useState(false);
     const onRefresh = React.useCallback(() => {
@@ -116,7 +117,7 @@ const SaladBar = () => {
                         </Text>
                     </TouchableOpacity>
                     
-                    <TouchableOpacity style = {styles.addToPlate} onPress = {()=>{  register(dict)     }}>
+                    <TouchableOpacity style = {styles.addToPlate} onPress = {()=>{  save(dict)     }}>
                         <Text style = {styles.cleartext}>
                             Add to Plate
                         </Text>

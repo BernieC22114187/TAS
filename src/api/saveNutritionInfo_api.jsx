@@ -1,15 +1,23 @@
 const domain = 'http://localhost:8080/' //try to put domain outside 
-
-export const register = async(dictionary) => {
+import MEMBERID from './member_api'
+export const save = async(dictionary) => {
     try {
+        var dishes = new Array();
+        for(var key in dictionary){
+            if (dictionary[key] == 1){
+                dishes.push(key)
+            }
+        }
+        const currentDate = new Date();
+        const timestamp = currentDate.getTime();
         let response = await fetch (
-            'http://localhost:8080/nutritioninfo/'  + member_id + '/' + timestamp, { 
+            'http://localhost:8080/nutritioninfo/'  + MEMBERID + '/' + timestamp, { 
                 method: 'POST',
                 headers:{
                     Accept: 'application/json'
                 },
                 body: JSON.stringify({
-                    dishList : dictionary,
+                    dishList : dishes,
                 })
             } 
             

@@ -24,10 +24,13 @@ const Add = ({}) => {
     
     return (
         
-        <Stack.Navigator>
+        <Stack.Navigator 
+        // screenOptions = {{headerShown: false}}
+        >
             <Stack.Screen
             name="Add" 
             component={AddScreen}
+            
             />
             
             <Stack.Screen name = "Tray Lunch" component = {TrayLunch}/>
