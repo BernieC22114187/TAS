@@ -37,7 +37,7 @@ const TrayLunch = () => {
     // }
     const currentDate = new Date();
     const timestamp = currentDate.getTime();    
-    var rawData = getDailyMenu(timestamp)
+    var rawData = getDailyMenu(timestamp) 
     var dict = {};
     for (var i = 0; i < rawData.length; i++){
         dict[rawData[i][0]] = 0;

@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React ,{ useEffect, useState } from 'react';
 import { Dimensions, StyleSheet, Text, View, SafeAreaView, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -58,8 +58,10 @@ function DetailsScreen({navigation} ){
 
 export var memberData;
 const afterLogin = () =>{
+  const item = navigation.getParam('member_id');
+  console.log(item);
     return (
-        
+      
             <Tab.Navigator style = {styles.tabBarStyle} //add styles here
                 screenOptions = { ( {route}    ) => ({
                     
@@ -74,8 +76,8 @@ const afterLogin = () =>{
                     iconName = focused? 'settings' : 'settings-outline';
                     }
                     else if(route.name === "Home"){ 
-                    memberData = getData();
-                    console.log(getData());
+                    // memberData = getData();
+                    // console.log("member data: " + memberData.json()["Calories"]);
                     iconName = focused? 'home' : 'home-outline';
                     }
                     // else if(route.name === "HomeStackScreen"){ 

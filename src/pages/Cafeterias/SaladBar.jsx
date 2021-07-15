@@ -38,7 +38,7 @@ const SaladBar = () => {
     var rawData = getConstMenu("SaladBar")
     var dict = {};
     for (var i = 0; i < rawData.length; i++){
-        dict[rawData[i][0]] = 0;
+        dict[rawData[i]] = 0;
     }
     const [isSelected, setSelection] = useState(a);
     const [refreshing, setRefreshing] = React.useState(false);

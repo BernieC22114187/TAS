@@ -32,11 +32,14 @@ const SnackBar = () => {
     // function checkBoxTest(){
     //     checked = {True}
     // }
-    var rawData = getConstMenu("SnackBar")
+    // console.log("test: " + getConstMenu("SnackBar"))
+    // var rawData = getConstMenu("SnackBar")
+    // console.log("raw: " + rawData);
     var dict = {};
     for (var i = 0; i < rawData.length; i++){
-        dict[rawData[i][0]] = 0;
+        dict[rawData[i]] = 0;
     }
+    // console.log(dict);
     const [isSelected, setSelection] = useState(a);
     const [refreshing, setRefreshing] = React.useState(false);
     const onRefresh = React.useCallback(() => {

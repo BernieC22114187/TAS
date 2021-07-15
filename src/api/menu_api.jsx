@@ -30,7 +30,7 @@ const domain = 'http://localhost:8080/' //try to put domain outside
         
 //     })
 // }
-
+var food;
 export const getDailyMenu = async(timestamp) => {
     try {
         let response = await fetch (
@@ -59,25 +59,25 @@ export const getConstMenu = async(restName) =>{ // snackBar/saladBar....
             } 
         )
         let json = await response.json();
-        if (restName == "snackBar"){
+        if (restName == "SnackBar"){
             var a = json["snackBarPastries"];
-            var b = json["snackBarCookies"];
+            // console.log("snackBarPastries: " + a);
+            var b = json["snackBarCookies"];  
             var c = json["snackBarOther"];
             var d = json["snackBarDesserts"];
             var e = json["snackBarPies"];
             var f = json["snackBarMisc"];
-            food = Object.assign({}, a, b, c, d, e, f); // connects all into one
+            food = a + b + c + d + e + f;
+            // food = Object.assign({}, a, b, c, d, e, f); // connects all into one
+            // console.log("food: " + food);
             return food
         }
-        else if (restName == "saladBar"){
+        else if (restName == "SaladBar"){ 
             return json["saladBar"]
         }
-        else if(restName == "pizzaBar"){
+        else if(restName == "PizzaBar"){
             return json["pizzaBar"];
         }
-        
-
-        
     }
     catch (error){
         console.error(error);

@@ -240,8 +240,12 @@ const infographic = {uri: "https://thumbs.dreamstime.com/z/healthy-vegetables-in
 var progressArray = new Array();
 var count = 0;
 var dailyRecommended = 100; // change this to the # recommended per day for each
-for(var key in memberData){
-    progressArray[count] = memberData[key]/dailyRecommended;
+console.log("memberdata: " + memberData)
+for(var key in memberData){  
+    if (count > 1){
+        progressArray[count] = memberData[key]/dailyRecommended;
+    }
+    
     count++;
 }
 

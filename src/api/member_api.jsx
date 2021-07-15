@@ -55,16 +55,19 @@ export const register = async(Account, Password, Height, Weight) => {
 }
 
 export const getData = async() => {
-    const date = Date.now().toString();
+    const currentDate = new Date();
+    const timestamp = currentDate.getTime();   
     try {
         let response = await fetch (
-            'http://localhost:8080/member/6084e2b31af0dddf9cf68d02', {
+            'http://localhost:8080/nutritioninfo/get/' + "12345/" + "2222", { //MEMBERID timestamp
                 method: 'GET',
             }
-
+ 
         )
         let json = await response.json();
         MEMBERID = json["id"];
+        
+        // console.log("JSON" + json["id"])
         return json
     } catch(error){   
         console.error(error);

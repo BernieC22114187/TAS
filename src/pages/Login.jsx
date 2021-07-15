@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React,{useState } from 'react';
+import React,{useState, useEffect } from 'react';
 import { ScrollView, ImageBackground, TouchableWithoutFeedback, TextInput,Dimensions, StyleSheet, Text, View, SafeAreaView, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -21,6 +21,18 @@ const Login = () =>{
     const [weight, setweight] = useState("");
     const [height, setheight] = useState("");
     const navigation = useNavigation();
+    const [isLoading, setLoading] = useState(true);
+    const [data, setData] = useState([]);
+  
+    useEffect(() => {
+      fetch('http://localhost:8080/nutritioninfo/get/' + "12345/" + "2222")
+        .then((response) => response.json())
+        .then((json) => setData(json))
+        .catch((error) => console.error(error))
+        .finally(() => setLoading(false));
+    }, []);
+    console.log("DATA: " + data);
+
     return (
         // <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <ImageBackground source={image} style={LoginPageStyle.image} >
@@ -42,7 +54,7 @@ const Login = () =>{
                             style={LoginPageStyle.textInput}
                             
                         />
-                        <TouchableOpacity style = {LoginPageStyle.Suggestions} onPress={() => {login(username, password); navigation.navigate("router")}}>
+                        <TouchableOpacity style = {LoginPageStyle.Suggestions} onPress={() => {login(username, password); navigation.navigate("router",{member_id: data.member_id})}}>
                                 <Text style = {LoginPageStyle.cleartext}>
                                     Login
                                 </Text>
