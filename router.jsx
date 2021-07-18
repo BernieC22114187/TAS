@@ -58,8 +58,8 @@ function DetailsScreen({navigation} ){
 
 export var memberData;
 const afterLogin = () =>{
-  const item = navigation.getParam('member_id');
-  console.log(item);
+  // const item = navigation.getParam('member_id');
+  // console.log(item);
     return (
       
             <Tab.Navigator style = {styles.tabBarStyle} //add styles here

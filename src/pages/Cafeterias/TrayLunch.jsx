@@ -37,6 +37,25 @@ const TrayLunch = () => {
     // }
     const currentDate = new Date();
     const timestamp = currentDate.getTime();    
+    
+    const [username, setMembername] = useState("");
+    const [password, setpassword] = useState("");
+    const [weight, setweight] = useState("");
+    const [height, setheight] = useState("");
+    const navigation = useNavigation();
+    const [isLoading, setLoading] = useState(true);
+    const [data, setData] = useState([]);
+  
+    useEffect(() => {
+      fetch('http://localhost:8080/nutritioninfo/get/' + "12345/" + "2222")
+        .then((response) => response.json())
+        .then((json) => setData(json))
+        .catch((error) => console.error(error))
+        .finally(() => setLoading(false));
+    }, []);
+    console.log("DATA: " + data);
+
+    
     var rawData = getDailyMenu(timestamp) 
     var dict = {};
     for (var i = 0; i < rawData.length; i++){

@@ -235,19 +235,16 @@ import { ImageBackground, View, Button, Text, StyleSheet, ScrollView, SafeAreaVi
 import {Dimensions} from "react-native";
 import BotBar from '../components/BotBu';
 import {memberData} from "../../router"
+import {nutritionData} from "./Login"
 const image = { uri: "https://r1.ilikewallpaper.net/iphone-11-wallpapers/download/79815/Clementines-with-leaves-iphone-11-wallpaper-ilikewallpaper_com.jpg" };
 const infographic = {uri: "https://thumbs.dreamstime.com/z/healthy-vegetables-infographics-chart-graph-healthy-vegetables-infographics-chart-graph-quality-vector-99710155.jpg"};
 var progressArray = new Array();
-var count = 0;
+
 var dailyRecommended = 100; // change this to the # recommended per day for each
-console.log("memberdata: " + memberData)
-for(var key in memberData){  
-    if (count > 1){
-        progressArray[count] = memberData[key]/dailyRecommended;
-    }
-    
-    count++;
-}
+console.log("memberdata: " + nutritionData)
+// for(var i = 0; i < 6; i++){  
+//     progressArray[i] = nutritionData[i]/dailyRecommended;
+// }
 
 import {
     LineChart,

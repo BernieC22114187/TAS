@@ -14,26 +14,88 @@ var totalWidth = Dimensions.get('window').width;
 var totalHeight = Dimensions.get('window').height;
 const image = { uri: "https://img.wallpapersafari.com/phone/640/1136/53/22/vmRdMC.jpeg" };
 
-
-const Login = () =>{
+export var nutritionData;
+const Login = () =>{    
+    
     const [username, setMembername] = useState("");
     const [password, setpassword] = useState("");
     const [weight, setweight] = useState("");
     const [height, setheight] = useState("");
+    const [loginORregister, setType] = useState(""); // 1 is login, 2 is register
     const navigation = useNavigation();
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
-  
+    const [MEMBERID, setID] = useState("");
     useEffect(() => {
-      fetch('http://localhost:8080/nutritioninfo/get/' + "12345/" + "2222")
+        console.log("hello")
+        if (loginORregister == "1"){
+            
+            fetch('https://localhost:8080/member/login', {
+                method: 'POST',
+                headers:{
+                    Accept: 'application/json'
+                },
+                body: JSON.stringify({
+                    account: username,
+                    password: password,
+                })
+            })
+            .then((response) => {response.json(); })
+            .then((json) => {
+                setID(json["id"]);
+                console.log("hello")
+                return json["id"]; // return memberid this account
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+        }
+        else if (loginORregister == "2"){
+            fetch('https://localhost:8080/member/register', {
+                method: 'POST',
+                headers:{
+                    Accept: 'application/json'
+                },
+                body: JSON.stringify({
+                    account: username,
+                    password: password,
+                    weight: weight,
+                    height: height,
+
+                })
+            })
+            .then((response) => response.json())
+            .then((json) => {
+                setID(json["id"]);
+                return json["id"]; // return memberid this account
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+        }
+        const currentDate = new Date();
+        const timestamp = currentDate.getTime(); 
+        fetch('http://localhost:8080/nutritioninfo/get/' + MEMBERID + "/" + "2222")//timestamp) // change "localhost:8080" to "backend.tasnutrition.website", change "http" to "https"
         .then((response) => response.json())
         .then((json) => setData(json))
         .catch((error) => console.error(error))
         .finally(() => setLoading(false));
+        console.log("DATA: " + data);
+        var a = data["Calories"];
+        var b = data["Total_Fat"];  
+        var c = data["Cholesterol"];
+        var d = data["Sodium"];
+        var e = data["Total_Carbs"];
+        var f = data["Protein"];
+        nutritionData = a + b + c + d + e + f;
+
+
     }, []);
-    console.log("DATA: " + data);
+    
+    
 
     return (
+        
         // <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <ImageBackground source={image} style={LoginPageStyle.image} >
             <ScrollView>
@@ -54,7 +116,7 @@ const Login = () =>{
                             style={LoginPageStyle.textInput}
                             
                         />
-                        <TouchableOpacity style = {LoginPageStyle.Suggestions} onPress={() => {login(username, password); navigation.navigate("router",{member_id: data.member_id})}}>
+                        <TouchableOpacity style = {LoginPageStyle.Suggestions} onPress={() => {setType("1"); navigation.navigate("router",{member_id: MEMBERID})}}>
                                 <Text style = {LoginPageStyle.cleartext}>
                                     Login
                                 </Text>
@@ -83,7 +145,7 @@ const Login = () =>{
                             style={LoginPageStyle.textInput}
                             
                         />
-                        <TouchableOpacity style = {LoginPageStyle.Suggestions} onPress= {() => {register(username, password, height, weight); navigation.navigate("router")}}>
+                        <TouchableOpacity style = {LoginPageStyle.Suggestions} onPress= {() => {setType("2"); navigation.navigate("router")}}>
                                 <Text style = {LoginPageStyle.cleartext}>
                                     Register
                                 </Text>
