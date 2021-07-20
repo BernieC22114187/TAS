@@ -36,9 +36,7 @@ const SnackBar = () => {
     // var rawData = getConstMenu("SnackBar")
     // console.log("raw: " + rawData);
     var dict = {};
-    for (var i = 0; i < rawData.length; i++){
-        dict[rawData[i]] = 0;
-    }
+    
     // console.log(dict);
     const [isSelected, setSelection] = useState(a);
     const [refreshing, setRefreshing] = React.useState(false);
@@ -46,6 +44,61 @@ const SnackBar = () => {
         setRefreshing(true);
         wait(1000).then(() => setRefreshing(false));
       }, []); 
+
+
+    useEffect(() => {
+        console.log("hello")
+        
+        fetch('https://localhost:8080/otherRest/' + "snackBar", {
+            method: 'GET',
+            headers:{
+                Accept: 'application/json'
+            },
+            
+        })
+        .then((response) => {
+            response.json(); 
+            var a = response["snackBarPastries"];
+            // console.log("snackBarPastries: " + a);
+            var b = response["snackBarCookies"];  
+            var c = response["snackBarOther"];
+            var d = response["snackBarDesserts"];
+            var e = response["snackBarPies"];
+            var f = response["snackBarMisc"];
+            food = a + b + c + d + e + f;
+            for (var i = 0; i < food.length; i++){
+                dict[food[i]] = 0;
+            }
+            // food = Object.assign({}, a, b, c, d, e, f); // connects all into one
+            // console.log("food: " + food);
+            return food
+        })
+        .then((json) => {
+            return json;
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+        
+        
+        const currentDate = new Date();
+        const timestamp = currentDate.getTime(); 
+        fetch('http://localhost:8080/nutritioninfo/get/' + MEMBERID + "/" + "2222")//timestamp) // change "localhost:8080" to "backend.tasnutrition.website", change "http" to "https"
+        .then((response) => response.json())
+        .then((json) => setData(json))
+        .catch((error) => console.error(error))
+        .finally(() => setLoading(false));
+        console.log("DATA: " + data);
+        var a = data["Calories"];
+        var b = data["Total_Fat"];  
+        var c = data["Cholesterol"];
+        var d = data["Sodium"];
+        var e = data["Total_Carbs"];
+        var f = data["Protein"];
+        nutritionData = a + b + c + d + e + f;
+
+
+    }, []);
     const buttonNumber = () => {
         
         const collection =  Object.entries(dict).map(([key, value]) => 

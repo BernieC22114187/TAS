@@ -25,7 +25,7 @@ const Login = () =>{
     const navigation = useNavigation();
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
-    const [MEMBERID, setID] = useState("");
+    const [MEMBERID, setID] = useState(""); 
     useEffect(() => {
         console.log("hello")
         if (loginORregister == "1"){
