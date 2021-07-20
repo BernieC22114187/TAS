@@ -36,72 +36,79 @@ const SnackBar = () => {
     // var rawData = getConstMenu("SnackBar")
     // console.log("raw: " + rawData);
     var dict = {};
-    
+    var food = new Array();
     // console.log(dict);
     const [isSelected, setSelection] = useState(a);
     const [refreshing, setRefreshing] = React.useState(false);
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
         wait(1000).then(() => setRefreshing(false));
-      }, []); 
-
-
-    useEffect(() => {
-        console.log("hello")
+    }, []); 
+    const loadDishes = async() => {
+        try {
         
-        fetch('https://localhost:8080/otherRest/' + "snackBar", {
-            method: 'GET',
-            headers:{
-                Accept: 'application/json'
-            },
+            let response = await fetch (
+                'https://tasnutrition-vo7pqziauq-de.a.run.app/otherRest/get/snackBar', {
+                    method: 'GET',
+                    headers:{
+                        Accept: 'application/json'
+                    }
+                } 
+                
+            )
             
-        })
-        .then((response) => {
-            response.json(); 
-            var a = response["snackBarPastries"];
-            // console.log("snackBarPastries: " + a);
-            var b = response["snackBarCookies"];  
-            var c = response["snackBarOther"];
-            var d = response["snackBarDesserts"];
-            var e = response["snackBarPies"];
-            var f = response["snackBarMisc"];
-            food = a + b + c + d + e + f;
-            for (var i = 0; i < food.length; i++){
-                dict[food[i]] = 0;
+            let json = await response.json();
+            var a = json["snackBarPastries"];
+            var b = json["snackBarCookies"];  
+            var c = json["snackBarOther"];
+            var d = json["snackBarDesserts"];
+            var e = json["snackBarPies"];
+            var f = json["snackBarMisc"];
+            for (var i = 0; i < a.length; i++){
+                food.push(a[i]);
             }
-            // food = Object.assign({}, a, b, c, d, e, f); // connects all into one
-            // console.log("food: " + food);
-            return food
-        })
-        .then((json) => {
-            return json;
-        })
-        .catch((error) => {
-            console.error(error);
-        });
-        
-        
-        const currentDate = new Date();
-        const timestamp = currentDate.getTime(); 
-        fetch('http://localhost:8080/nutritioninfo/get/' + MEMBERID + "/" + "2222")//timestamp) // change "localhost:8080" to "backend.tasnutrition.website", change "http" to "https"
-        .then((response) => response.json())
-        .then((json) => setData(json))
-        .catch((error) => console.error(error))
-        .finally(() => setLoading(false));
-        console.log("DATA: " + data);
-        var a = data["Calories"];
-        var b = data["Total_Fat"];  
-        var c = data["Cholesterol"];
-        var d = data["Sodium"];
-        var e = data["Total_Carbs"];
-        var f = data["Protein"];
-        nutritionData = a + b + c + d + e + f;
+            for (var i = 0; i < b.length; i++){
+                food.push(b[i]);
+            }
+            for (var i = 0; i < c.length; i++){
+                food.push(c[i]);
+            }
+            for (var i = 0; i < d.length; i++){
+                food.push(d[i]);
+            }
+            for (var i = 0; i < e.length; i++){
+                food.push(e[i]);
+            }
+            for (var i = 0; i < f.length; i++){
+                food.push(f[i]);
+            }
+            // console.log("food: " + food)
+            for (var i = 0; i < food.length; i++){
+                
+                dict[food[i] + ""] = 0;
+            }
+            console.log("dictionary length: " + Object.keys(dict).length)
+            // console.log("dictionary type: " + typeof dict)
+            // console.log("dict: " + dict["Bacon Cheese Roll"])
+            
+            
+        } catch(error){
+            console.error(error); 
+        }
+    }
+    
+    // loadDishes();
+    var di = {"Dish1" : 0, "Dish2" : 0, "Dish3" : 0, "Dish4" : 0, "Dish5" : 0, "Dish6": 0};
 
-
-    }, []);
+    var dii = {};
+    for (var i = 0; i < 150; i++){
+        dii[i + ""] = 0;
+    }
+        
     const buttonNumber = () => {
         
         const collection =  Object.entries(dict).map(([key, value]) => 
+            
             <TouchableOpacity
                 key={key}
                 style={
@@ -121,6 +128,7 @@ const SnackBar = () => {
         );
         return collection;
     }
+    
     // function buttonList(props) {
     //     const listItems = dict.map((number) =>
     //       <li>{number}</li>
@@ -138,7 +146,7 @@ const SnackBar = () => {
                         <Text style = {styles.text}> Dishes </Text>
                     </View>
                     <View  style = {styles.viewStyle}>
-                        
+                
                         {buttonNumber()}
                                            
                     </View>

@@ -19,7 +19,7 @@ export const login = async(Account, Password) => {
         )
         let json = await response.json();
         MEMBERID = json["id"];
-
+        
         return json
     } catch(error){
         console.error(error); 

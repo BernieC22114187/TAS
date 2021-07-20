@@ -241,10 +241,8 @@ const infographic = {uri: "https://thumbs.dreamstime.com/z/healthy-vegetables-in
 var progressArray = new Array();
 
 var dailyRecommended = 100; // change this to the # recommended per day for each
-console.log("memberdata: " + nutritionData)
-// for(var i = 0; i < 6; i++){  
-//     progressArray[i] = nutritionData[i]/dailyRecommended;
-// }
+
+
 
 import {
     LineChart,
@@ -269,6 +267,10 @@ const chartConfig = {
   };
 
 const Home = () => {
+    console.log("memberdata: " + nutritionData) 
+    for(var i = 0; i < 6; i++){  
+        progressArray.push(nutritionData[i]/dailyRecommended);
+    }
     var allData = {"Progress" : ProgressData}
     var ProgressData = {
         
@@ -293,7 +295,7 @@ const Home = () => {
         //             }
         //         height={220}
         //         yAxisLabel="$"
-        //         chartConfig={chartConfig}
+        //         chartConfig={chartConfig}        
         //         verticalLabelRotation={30}
         //     />
         // </View>
@@ -315,6 +317,7 @@ const Home = () => {
                             strokeWidth={10}
                             radius={32}
                             chartConfig={chartConfig}
+                            
                             hideLegend={false}
                             style = {styles.progressRing}
                             
