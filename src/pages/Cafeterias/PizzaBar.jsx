@@ -1,4 +1,4 @@
-import React, { useState }from 'react';
+import React, { useEffect, useState }from 'react';
 import { Dimensions, Image, ImageBackground, View, Button, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity, RefreshControl, ScreenContainer, TouchableWithoutFeedback, SafeAreaViewBase} from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native' ;
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -12,10 +12,10 @@ import { Icon } from 'react-native-elements/dist/icons/Icon';
 
 import { save } from '../../api/saveNutritionInfo_api';
 import { getConstMenu } from '../../api/menu_api'
-
+import {CONNECTIONURL} from '../../../App'
 const image = {uri : "https://i.pinimg.com/originals/5f/09/c9/5f09c90e15081595ff7984f42da4a90b.png"}
 var a = [0,0,0,0,0,0,0,0,0]
-
+import {MEMBERID} from '../Login'
 // {"Dish1" : 0, "Dish2" : 0, "Dish3" : 0, "Dish4" : 0, "Dish5" : 0, "Dish6": 0};
 const nutritionFacts = {uri : "https://www.fda.gov/files/calories_on_the_new_nutrition_facts_label.png"}
 
@@ -33,21 +33,100 @@ const PizzaBar = () => {
     // function checkBoxTest(){
     //     checked = {True}
     // }
-    var rawData = getConstMenu("PizzaBar")
-
-    var dict = {};
-    for (var i = 0; i < rawData.length; i++){
-        dict[rawData[i]] = 0;
-    }
+    var dict2 = {};
+    var food = new Array();
+    // console.log(dict);
+    const [dict, setDict] = useState({});
     const [isSelected, setSelection] = useState(a);
     const [refreshing, setRefreshing] = React.useState(false);
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
         wait(1000).then(() => setRefreshing(false));
-      }, []); 
+    }, []); 
+    const loadDishes = async() => {
+        try {
+            let response = await fetch (
+                CONNECTIONURL + '/otherRest/get/snackBar', {
+                    method: 'GET',
+                    headers:{
+                        Accept: 'application/json'
+                    }
+                } 
+                
+            )
+            
+            let json = await response.json();
+            var a = json["pizzaBar"];
+            for (var i = 0; i < a.length; i++){
+                food.push(a[i]);
+            }
+            // console.log("food: " + food)
+            for (var i = 0; i < food.length; i++){
+                dict2[food[i] + ""] = 0;
+            }
+            console.log("dictionary length: " + Object.keys(dict2).length)
+            // console.log("dictionary type: " + typeof dict)
+            // console.log("dict: " + dict["Bacon Cheese Roll"])
+            // for (var key in dict){
+        
+            //     console.log(key + " : " + dict[key] + ", ")
+            // }
+            setDict(dict2);
+            
+        } catch(error){
+            console.error(error); 
+        }
+    }
+    useEffect(() => {
+        loadDishes()
+      }, []);
+    
+    var di = {"Dish1" : 0, "Dish2" : 0, "Dish3" : 0, "Dish4" : 0, "Dish5" : 0, "Dish6": 0};
+
+    var dii = {};
+    for (var i = 0; i < 150; i++){
+        dii[i + ""] = 0;
+    }
+    
+    const saveNutritionInfo = async() => {
+        var now = new Date();
+        var startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        var timestamp = startOfDay / 1000;
+        var list = new Array();
+        for (var key in dict){
+            if(dict[key] ==  1){
+                list.push(key)
+            }
+            
+        }
+        try {
+            let response = await fetch (
+
+                CONNECTIONURL + '/nutritioninfo/get/' + MEMBERID + "/" +timestamp, {
+                    method: 'POST',
+                    headers:{
+                        Accept: 'application/json'
+                    },
+                    body: JSON.stringify({
+                        dishList: list,
+                    })
+
+                } 
+                
+            )
+        }catch(error){
+            console.error(error); 
+        }
+
+    }
+    
+    
+        
     const buttonNumber = () => {
         
+        
         const collection =  Object.entries(dict).map(([key, value]) => 
+            
             <TouchableOpacity
                 key={key}
                 style={
@@ -62,19 +141,10 @@ const PizzaBar = () => {
                 
             </TouchableOpacity>
             
-           
             
         );
         return collection;
     }
-    // function buttonList(props) {
-    //     const listItems = dict.map((number) =>
-    //       <li>{number}</li>
-    //     );
-    //     return (
-    //       <ul>{listItems}</ul>
-    //     );
-    // }
       
     return(
         <ImageBackground source={image} style={styles.image}>
@@ -115,7 +185,7 @@ const PizzaBar = () => {
                         </Text>
                     </TouchableOpacity>
                     
-                    <TouchableOpacity style = {styles.addToPlate} onPress = {()=>{  save(dict)     }}>
+                    <TouchableOpacity style = {styles.addToPlate} onPress = {()=>{  saveNutritionInfo()     }}>
                         <Text style = {styles.cleartext}>
                             Add to Plate
                         </Text>

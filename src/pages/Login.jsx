@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React,{useState, useEffect } from 'react';
-import { ScrollView, ImageBackground, TouchableWithoutFeedback, TextInput,Dimensions, StyleSheet, Text, View, SafeAreaView, Button } from 'react-native';
+import { Alert, ScrollView, ImageBackground, TouchableWithoutFeedback, TextInput,Dimensions, StyleSheet, Text, View, SafeAreaView, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -10,6 +10,7 @@ import { TouchableOpacity } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 
 import {login, register} from '../api/member_api'
+import {CONNECTIONURL} from '../../App'
 var totalWidth = Dimensions.get('window').width;
 var totalHeight = Dimensions.get('window').height;
 const image = { uri: "https://img.wallpapersafari.com/phone/640/1136/53/22/vmRdMC.jpeg" };
@@ -34,8 +35,9 @@ const Login = () =>{
     const buttonFunction = async() => {
         if (loginORregister == "1"){
             try {
+                console.log("URL: " + CONNECTIONURL)
                 let response = await fetch (
-                    'https://tasnutrition-vo7pqziauq-de.a.run.app/member/login', {//actual is not this url 
+                    CONNECTIONURL + '/member/login', {//actual is not this url 
                         method: 'POST',
                         headers:{
                             Accept: 'application/json'
@@ -47,19 +49,44 @@ const Login = () =>{
                     } 
                     
                 )
-                let json = await response.json();
-                MEMBERID = json["id"];
-                console.log(MEMBERID)
+                if(response.ok){
+                    let json = await response.json();
+                    MEMBERID = json["id"];
+                    console.log(MEMBERID)
+                    navigation.navigate("router")  
+                }
+                else{
+                    console.log("Network response was not ok. ")
+                    Alert.alert(
+                        "Login fail",
+                        "Network response was not ok",
+                        [
+                          
+                          { text: "OK", onPress: () => console.log("OK Pressed") }
+                        ]
+                      );
+                    
+                    return;
+                }
                
                 
             } catch(error){
                 console.error(error); 
+                Alert.alert(
+                    "Login fail",
+                    "Username or password is not correct.",
+                    [
+                      
+                      { text: "OK", onPress: () => console.log("OK Pressed") }
+                    ]
+                  );
+                
             }
         }
         else{
             try {
                 let response = await fetch (
-                    'https://tasnutrition-vo7pqziauq-de.a.run.app/member/register', {//actual is not this url 
+                    CONNECTIONURL + '/member/register', {//actual is not this url 
                         method: 'POST',
                         headers:{
                             Accept: 'application/json'
@@ -76,7 +103,7 @@ const Login = () =>{
                 let json = await response.json();
                 MEMBERID = json["id"];
                 console.log(MEMBERID)
-                 
+                navigation.navigate("router")  
         
                
             } catch(error){
@@ -85,13 +112,14 @@ const Login = () =>{
         }
 
     
-        const currentDate = new Date();
-        const timestamp = currentDate.getTime(); 
+        var now = new Date();
+        var startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        var timestamp = startOfDay / 1000;
         
         try {
             
             let response = await fetch (
-                'https://tasnutrition-vo7pqziauq-de.a.run.app/nutritioninfo/get/' + MEMBERID + "/" + "2222", {//actual is not this url 
+                CONNECTIONURL + '/nutritioninfo/get/' + MEMBERID + "/" + timestamp, {//actual is not this url 
                     method: 'GET',
                     headers:{
                         Accept: 'application/json'

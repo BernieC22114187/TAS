@@ -13,6 +13,8 @@ import { Icon } from 'react-native-elements/dist/icons/Icon';
 import { getDailyMenu } from '../../api/menu_api'
 import { save } from '../../api/saveNutritionInfo_api';
 
+import {CONNECTIONURL} from '../../../App'
+
 var totalWidth = Dimensions.get('window').width;
 var totalHeight = Dimensions.get('window').height;
 const image = {uri : "https://paperpirateship.files.wordpress.com/2020/04/iphone-x-wallpapers-ramen.png"}
@@ -35,39 +37,81 @@ const TrayLunch = () => {
     // function checkBoxTest(){
     //     checked = {True}
     // }
-    const currentDate = new Date();
-    const timestamp = currentDate.getTime();    
-    
-    const [username, setMembername] = useState("");
-    const [password, setpassword] = useState("");
-    const [weight, setweight] = useState("");
-    const [height, setheight] = useState("");
-    const navigation = useNavigation();
-    const [isLoading, setLoading] = useState(true);
-    const [data, setData] = useState([]);
-  
-    useEffect(() => {
-      fetch('http://localhost:8080/nutritioninfo/get/' + "12345/" + "2222")
-        .then((response) => response.json())
-        .then((json) => setData(json))
-        .catch((error) => console.error(error))
-        .finally(() => setLoading(false));
-    }, []);
-    console.log("DATA: " + data);
-
-    
-    var rawData = getDailyMenu(timestamp) 
-    var dict = {};
-    for (var i = 0; i < rawData.length; i++){
-        dict[rawData[i][0]] = 0;
-
-    }
     const [isSelected, setSelection] = useState(a);
     const [refreshing, setRefreshing] = React.useState(false);
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
         wait(1000).then(() => setRefreshing(false));
-      }, []); 
+    }, []); 
+
+    const currentDate = new Date();
+    const timestamp = currentDate.getTime();    
+    var dict = {};
+    var food = new Array();
+
+    const loadDishes = async() => {
+        try {
+            let response = await fetch (
+                CONNECTIONURL + '/dailyMenu/get/' + currentDate, {
+                    method: 'GET',
+                    headers:{
+                        Accept: 'application/json'
+                    }
+                } 
+                
+            )
+            let json = await response.json();
+            var a = json["Main"];
+            var b = json["Side"];
+            var c = json["Fruit"];
+            for (var i = 0; i < a.length; i++){
+                food.push(a[i]);
+            }
+            for (var i = 0; i < b.length; i++){
+                food.push(b[i]);
+            }
+            for (var i = 0; i < c.length; i++){
+                food.push(c[i]);
+            }
+            onsole.log("food: " + food)
+            for (var i = 0; i < food.length; i++){
+                
+                dict[food[i] + ""] = 0;
+            }
+
+        } catch(error){
+            console.error(error); 
+        }
+    }
+    loadDishes();
+    const saveNutritionInfo = async() => {
+        var now = new Date();
+        var startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        var timestamp = startOfDay / 1000;
+        var list = new Array();
+        for (var key in dict){
+            list.push(dict[key])
+        }
+        try {
+            let response = await fetch (
+
+                CONNECTIONURL + '/nutritioninfo/get' + MEMBERID + timestamp, {
+                    method: 'POST',
+                    headers:{
+                        Accept: 'application/json'
+                    },
+                    body: JSON.stringify({
+                        dishList: list,
+                    })
+
+                } 
+                
+            )
+        }catch(error){
+            console.error(error); 
+        }
+
+    }
     const buttonNumber = () => {
         
         const collection =  Object.entries(dict).map(([key, value]) => 
@@ -138,7 +182,7 @@ const TrayLunch = () => {
                         </Text>
                     </TouchableOpacity>
                     
-                    <TouchableOpacity style = {styles.addToPlate} onPress = {()=>{  save(dict)     }}>
+                    <TouchableOpacity style = {styles.addToPlate} onPress = {()=>{  saveNutritionInfo()     }}>
                         <Text style = {styles.cleartext}>
                             Add to Plate
                         </Text>

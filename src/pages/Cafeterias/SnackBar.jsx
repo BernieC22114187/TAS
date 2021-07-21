@@ -1,4 +1,4 @@
-import React, { useState }from 'react';
+import React, { useState, useEffect }from 'react';
 import { Dimensions, Image, ImageBackground, View, Button, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity, RefreshControl, ScreenContainer, TouchableWithoutFeedback, SafeAreaViewBase} from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native' ;
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -13,9 +13,11 @@ import { Icon } from 'react-native-elements/dist/icons/Icon';
 import { save } from '../../api/saveNutritionInfo_api';
 import { getConstMenu } from '../../api/menu_api'
 
-import MEMBERID from '../Login'
+import {MEMBERID} from '../Login'
 const image = {uri : "https://wallpaperaccess.com/full/694921.jpg"}
 const nutritionFacts = {uri : "https://www.fda.gov/files/calories_on_the_new_nutrition_facts_label.png"}
+
+import {CONNECTIONURL} from '../../../App'
 
 // {"Dish1" : 0, "Dish2" : 0, "Dish3" : 0, "Dish4" : 0, "Dish5" : 0, "Dish6": 0};
 
@@ -36,9 +38,10 @@ const SnackBar = () => {
     // console.log("test: " + getConstMenu("SnackBar"))
     // var rawData = getConstMenu("SnackBar")
     // console.log("raw: " + rawData);
-    var dict = {};
+    var dict2 = {};
     var food = new Array();
     // console.log(dict);
+    const [dict, setDict] = useState({});
     const [isSelected, setSelection] = useState(a);
     const [refreshing, setRefreshing] = React.useState(false);
     const onRefresh = React.useCallback(() => {
@@ -48,7 +51,7 @@ const SnackBar = () => {
     const loadDishes = async() => {
         try {
             let response = await fetch (
-                'https://tasnutrition-vo7pqziauq-de.a.run.app/otherRest/get/snackBar', {
+                CONNECTIONURL + '/otherRest/get/snackBar', {
                     method: 'GET',
                     headers:{
                         Accept: 'application/json'
@@ -85,21 +88,24 @@ const SnackBar = () => {
             // console.log("food: " + food)
             for (var i = 0; i < food.length; i++){
                 
-                dict[food[i] + ""] = 0;
+                dict2[food[i] + ""] = 0;
             }
-            console.log("dictionary length: " + Object.keys(dict).length)
+            console.log("dictionary length: " + Object.keys(dict2).length)
             // console.log("dictionary type: " + typeof dict)
             // console.log("dict: " + dict["Bacon Cheese Roll"])
             // for (var key in dict){
         
             //     console.log(key + " : " + dict[key] + ", ")
             // }
+            setDict(dict2);
             
         } catch(error){
             console.error(error); 
         }
     }
-    loadDishes();
+    useEffect(() => {
+        loadDishes()
+      }, []);
     
     var di = {"Dish1" : 0, "Dish2" : 0, "Dish3" : 0, "Dish4" : 0, "Dish5" : 0, "Dish6": 0};
 
@@ -112,17 +118,24 @@ const SnackBar = () => {
         var now = new Date();
         var startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
         var timestamp = startOfDay / 1000;
+        var list = new Array();
+        console.log('TIMESTAMP' + timestamp)
+        for (var key in dict){
+            if(dict[key] ==  1){
+                list.push(key)
+            }
+            
+        }
         try {
             let response = await fetch (
 
-                'https://tasnutrition-vo7pqziauq-de.a.run.app/nutritioninfo/get' + MEMBERID + timestamp, {
+                CONNECTIONURL + '/nutritioninfo/get/' + MEMBERID + "/" + timestamp, {
                     method: 'POST',
                     headers:{
                         Accept: 'application/json'
                     },
                     body: JSON.stringify({
-                        account: username,
-                        password: password,
+                        dishList: list,
                     })
 
                 } 
@@ -137,6 +150,7 @@ const SnackBar = () => {
     
         
     const buttonNumber = () => {
+        
         
         const collection =  Object.entries(dict).map(([key, value]) => 
             
@@ -172,7 +186,7 @@ const SnackBar = () => {
         <ImageBackground source={image} style={styles.image}>
             <ScrollView>
                 <SafeAreaView>
-                    <View>
+                    <View >
                         <Text style = {styles.text}> Dishes </Text>
                     </View>
                     <View  style = {styles.viewStyle}>
@@ -201,7 +215,7 @@ const SnackBar = () => {
                             for (var key in dict){dict[key] = 0 } 
                         } 
                         
-                        setSelection(!isSelected); console.log(dict)} }  >
+                        setSelection(!isSelected);} }  >
                         <Text style = {styles.cleartext}>
                             Select/De-Select All
                         </Text>

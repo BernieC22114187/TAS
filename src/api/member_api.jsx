@@ -1,11 +1,11 @@
 
-
+import {CONNECTIONURL} from "../../App"
 const domain = 'http://localhost:8080/' //try to put domain outside 
 var MEMBERID = "";
 export const login = async(Account, Password) => {
     try {
         let response = await fetch (
-            'http://localhost:8080/member/login', {//actual is not this url 
+            CONNECTIONURL + '/member/login', {//actual is not this url 
                 method: 'POST',
                 headers:{
                     Accept: 'application/json'
@@ -32,7 +32,7 @@ export const login = async(Account, Password) => {
 export const register = async(Account, Password, Height, Weight) => {
     try {
         let response = await fetch (
-            'http://localhost:8080/member/register', {//actual is not this url 
+            CONNECTIONURL + '/member/register', {//actual is not this url 
                 method: 'POST',
                 headers:{
                     Accept: 'application/json'
@@ -59,7 +59,7 @@ export const getData = async() => {
     const timestamp = currentDate.getTime();   
     try {
         let response = await fetch (
-            'http://localhost:8080/nutritioninfo/get/' + "12345/" + "2222", { //MEMBERID timestamp
+            CONNECTIONURL + '/nutritioninfo/get/' + "12345/" + "2222", { //MEMBERID timestamp
                 method: 'GET',
             }
  
