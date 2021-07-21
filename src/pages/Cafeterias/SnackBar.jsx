@@ -13,6 +13,7 @@ import { Icon } from 'react-native-elements/dist/icons/Icon';
 import { save } from '../../api/saveNutritionInfo_api';
 import { getConstMenu } from '../../api/menu_api'
 
+import MEMBERID from '../Login'
 const image = {uri : "https://wallpaperaccess.com/full/694921.jpg"}
 const nutritionFacts = {uri : "https://www.fda.gov/files/calories_on_the_new_nutrition_facts_label.png"}
 
@@ -46,7 +47,6 @@ const SnackBar = () => {
     }, []); 
     const loadDishes = async() => {
         try {
-        
             let response = await fetch (
                 'https://tasnutrition-vo7pqziauq-de.a.run.app/otherRest/get/snackBar', {
                     method: 'GET',
@@ -90,20 +90,51 @@ const SnackBar = () => {
             console.log("dictionary length: " + Object.keys(dict).length)
             // console.log("dictionary type: " + typeof dict)
             // console.log("dict: " + dict["Bacon Cheese Roll"])
-            
+            // for (var key in dict){
+        
+            //     console.log(key + " : " + dict[key] + ", ")
+            // }
             
         } catch(error){
             console.error(error); 
         }
     }
+    loadDishes();
     
-    // loadDishes();
     var di = {"Dish1" : 0, "Dish2" : 0, "Dish3" : 0, "Dish4" : 0, "Dish5" : 0, "Dish6": 0};
 
     var dii = {};
     for (var i = 0; i < 150; i++){
         dii[i + ""] = 0;
     }
+    
+    const saveNutritionInfo = async() => {
+        var now = new Date();
+        var startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        var timestamp = startOfDay / 1000;
+        try {
+            let response = await fetch (
+
+                'https://tasnutrition-vo7pqziauq-de.a.run.app/nutritioninfo/get' + MEMBERID + timestamp, {
+                    method: 'POST',
+                    headers:{
+                        Accept: 'application/json'
+                    },
+                    body: JSON.stringify({
+                        account: username,
+                        password: password,
+                    })
+
+                } 
+                
+            )
+        }catch(error){
+            console.error(error); 
+        }
+
+    }
+    
+    
         
     const buttonNumber = () => {
         
@@ -123,7 +154,6 @@ const SnackBar = () => {
                 
             </TouchableOpacity>
             
-           
             
         );
         return collection;
@@ -177,7 +207,7 @@ const SnackBar = () => {
                         </Text>
                     </TouchableOpacity>
                     
-                    <TouchableOpacity style = {styles.addToPlate} onPress = {()=>{  save(dict)     }}>
+                    <TouchableOpacity style = {styles.addToPlate} onPress = {()=>{  saveNutritionInfo()     }}>
                         <Text style = {styles.cleartext}>
                             Add to Plate
                         </Text>

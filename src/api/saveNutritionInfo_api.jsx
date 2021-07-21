@@ -11,7 +11,7 @@ export const save = async(dictionary) => {
         const currentDate = new Date();
         const timestamp = currentDate.getTime();
         let response = await fetch (
-            'http://localhost:8080/nutritioninfo/'  + MEMBERID + '/' + timestamp, { 
+            'http://localhost:8080/nutritioninfo/get/'  + MEMBERID + '/' + timestamp, { 
                 method: 'POST',
                 headers:{
                     Accept: 'application/json'

@@ -15,7 +15,7 @@ var totalHeight = Dimensions.get('window').height;
 const image = { uri: "https://img.wallpapersafari.com/phone/640/1136/53/22/vmRdMC.jpeg" };
 
 export var nutritionData;
-
+export var MEMBERID = "";
 class Member {
     id = String
 }
@@ -29,7 +29,7 @@ const Login = () =>{
     const navigation = useNavigation();
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
-    var MEMBERID = "";
+    
 
     const buttonFunction = async() => {
         if (loginORregister == "1"){
