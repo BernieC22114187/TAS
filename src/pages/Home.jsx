@@ -230,19 +230,19 @@
 
 // export default Home;
 
-import React , { useState, useEffect} from 'react';
-
+import React from 'react';
 import { RefreshControl, ImageBackground, View, Button, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity} from 'react-native';
 import {Dimensions} from "react-native";
 import BotBar from '../components/BotBu';
-import {memberData} from "../../router"
+import {CONNECTIONURL} from "../../App"
+// import {memberData} from "../../router"
 import {nutritionData} from "./Login"
 const image = { uri: "https://r1.ilikewallpaper.net/iphone-11-wallpapers/download/79815/Clementines-with-leaves-iphone-11-wallpaper-ilikewallpaper_com.jpg" };
 const infographic = {uri: "https://thumbs.dreamstime.com/z/healthy-vegetables-infographics-chart-graph-healthy-vegetables-infographics-chart-graph-quality-vector-99710155.jpg"};
 var progressArray = new Array();
-import {CONNECTIONURL} from '../../App'
-var dailyRecommended = 2000; // change this to the # recommended per day for each
 import {MEMBERID} from "./Login"
+var dailyRecommended = 2000; // change this to the # recommended per day for each
+
 
 
 import {
@@ -250,7 +250,7 @@ import {
     BarChart,
     PieChart,
     ProgressChart,
-    ContributionGraph, 
+    ContributionGraph,
     StackedBarChart
   } from "react-native-chart-kit";
 var totalWidth = Dimensions.get('window').width;
@@ -266,25 +266,36 @@ const chartConfig = {
     barPercentage: 0.8,
     useShadowColorFromDataset: false // optional
   };
-var finalNutritionData = nutritionData;
 
 const Home = () => {
-    const [isLoadingEvents, setLoadingServices] = useState(false);
-    const [finalNutritionData2, update] = useState([]);
+    const [refreshing, setRefreshing] = React.useState(false);
+    const [finalNutritionData, update] = useState([]);
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        
+        wait(1000).then(() => setRefreshing(false), fetchData());
+    }, []);
+    console.log("memberdata: " + nutritionData) 
+    for(var i = 0; i < 6; i++){  
+        progressArray.push(nutritionData[i]/dailyRecommended);
+    }
+    // console.log("Why" + nutritionData)
+    var allData = {"Progress" : ProgressData}
+    var ProgressData = {
+        
+        labels: ["Calories", "Total Fat", "Cholesterol", "Sodium", "Total Carbs", "Protein"], // optional
+        data: progressArray 
+        
+      };
     var now = new Date();
     var startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     var timestamp = startOfDay / 1000;
-    const [refreshing, setRefreshing] = React.useState(false);
-    const onRefresh = React.useCallback(() => {
-        setRefreshing(true);
-        wait(1000).then(() => setRefreshing(false));
-        
-    }, []); 
-    // onRefresh();
+    
     const fetchData = async() =>{   
+        
         try {
             let response = await fetch (
-                CONNECTIONURL + '/nutritioninfo/get/' + MEMBERID + "/" + timestamp, {//actual is not this url 
+                CONNECTIONURL + '/nutritioninfo/get/' + MEMBERID + "/" + "1626796800",{//timestamp, {//actual is not this url 
                     method: 'GET',
                     headers:{
                         Accept: 'application/json'
@@ -299,44 +310,31 @@ const Home = () => {
             var d = data["Sodium"];
             var e = data["Total_Carbs"];
             var f = data["Protein"];
-            finalNutritionData = [a, b, c, d, e, f ]
-            update(finalNutritionData);
-            console.log(finalNutritionData)
+            update([a, b, c, d, e, f ])
+            
+            // console.log(finalNutritionData)
+            progressArray = new Array();
             for(var i = 0; i < 6; i++){  
-                progressArray.push(finalNutritionData2[i]/dailyRecommended);
+                progressArray.push(finalNutritionData[i]/dailyRecommended);
             }
             allData = {"Progress" : ProgressData}
             ProgressData = {
                 
                 labels: ["Calories", "Total Fat", "Cholesterol", "Sodium", "Total Carbs", "Protein"], // optional
                 data: progressArray 
-                
+                 
             };
-            setLoadingServices(false);
+            
                 
             return finalNutritionData
         } catch(error){
             console.error(error); 
         }
     }
-    console.log("memberdata: " + finalNutritionData2) 
     
-    console.log("RUN FETCH DATA");
     fetchData();
-    console.log("memberdata: " + finalNutritionData2);
-    for(var i = 0; i < 6; i++){  
-        progressArray.push(finalNutritionData2[i]/dailyRecommended);
-    }
-    var allData = {"Progress" : ProgressData}
-    var ProgressData = {
-        
-        labels: ["Calories", "Total Fat", "Cholesterol", "Sodium", "Total Carbs", "Protein"], // optional
-        data: progressArray 
-        
-    };
-      
     
-    
+   
     return (
         // <View>
         //     <Text>Bezier Line Chart</Text>
@@ -359,16 +357,14 @@ const Home = () => {
         //     />
         // </View>
         <ImageBackground source={image} style={styles.image} >
-            <ScrollView
+            <ScrollView 
                 refreshControl={
                     <RefreshControl
-                        refreshing={isLoadingEvents}
-                        onRefresh={() => fetchData()}
-                        
+                    refreshing={refreshing}
+                    onRefresh={onRefresh}
                     />
                 }
             >
-                
                 <SafeAreaView>
                     <View style = {styles.container}>
                         
@@ -399,21 +395,14 @@ const Home = () => {
                             width={Dimensions.get('window').width * 0.7}
                             height={220}
                             >
-
                         </ProgressChart> */}
                         {/* <View>
                             <TASCharts data={allData["Progress"]} type = {ChartType}></TASCharts>
                         </View> */}
-                        <TouchableOpacity style = {styles.Suggestions}>
-                            <RefreshControl
-                                refreshing={refreshing}
-                                onRefresh={onRefresh}
-                            
-                            />
+                        <TouchableOpacity style = {styles.Suggestions} >
                             <Text style = {styles.cleartext}>
                                 Suggestions
                             </Text>
-                            
                         </TouchableOpacity>
                         <View style = {styles.grayBox}>
                             <TouchableOpacity style = {styles.dish}>
@@ -912,4 +901,3 @@ export default Home;
 // })
 
 // export default Home;
-

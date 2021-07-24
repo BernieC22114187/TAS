@@ -53,7 +53,7 @@ const Login = () =>{
                     let json = await response.json();
                     MEMBERID = json["id"];
                     console.log(MEMBERID)
-                    navigation.navigate("router")  
+                    
                 }
                 else{
                     console.log("Network response was not ok. ")
@@ -103,7 +103,7 @@ const Login = () =>{
                 let json = await response.json();
                 MEMBERID = json["id"];
                 console.log(MEMBERID)
-                navigation.navigate("router")  
+                
         
                
             } catch(error){
@@ -119,7 +119,7 @@ const Login = () =>{
         try {
             
             let response = await fetch (
-                CONNECTIONURL + '/nutritioninfo/get/' + MEMBERID + "/" + timestamp, {//actual is not this url 
+                CONNECTIONURL + '/nutritioninfo/get/' + MEMBERID + "/" + "1626796800",{//timestamp.toString(), {//actual is not this url 
                     method: 'GET',
                     headers:{
                         Accept: 'application/json'
@@ -135,7 +135,6 @@ const Login = () =>{
             var e = data["Total_Carbs"];
             var f = data["Protein"];
             nutritionData = [a, b, c, d, e, f ]
-
             console.log(nutritionData)
             navigation.navigate("router")
                 

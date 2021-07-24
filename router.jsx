@@ -76,6 +76,7 @@ const afterLogin = () =>{
                     iconName = focused? 'settings' : 'settings-outline';
                     }
                     else if(route.name === "Home"){ 
+                    
                     // memberData = getData();
                     // console.log("member data: " + memberData.json()["Calories"]);
                     iconName = focused? 'home' : 'home-outline';
