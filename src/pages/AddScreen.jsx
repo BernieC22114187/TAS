@@ -89,23 +89,37 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     },
     container: {
-        flex: 1,
+        
         flexDirection: 'row',
         justifyContent: 'center',
         flexWrap: 'wrap',
 
     },
     text: {
+        
         marginTop: 0.02998500*totalHeight, //20,
         fontSize: 0.053333*totalWidth,//20,
         paddingHorizontal: 0.25333*totalWidth, //95,
         marginHorizontal: 0.08 * totalHeight, //30,
+       
         justifyContent: 'center',
         color: 'white',
         backgroundColor: '#6C757D',
         width: 0.8*totalWidth, //300,
         marginVertical: 0.0149925*totalHeight, //10,
+        
     },
+    // text: {
+        
+    //     fontSize: totalWidth * 0.0453,//17
+    //     paddingLeft: 0.33 * totalWidth, 
+    //     marginHorizontal: totalWidth * 0.08, // 30
+    //     justifyContent: 'center',
+    //     color: 'white',
+    //     backgroundColor: '#6C757D',
+    //     marginVertical: totalHeight * 0.014992, // 10
+    // },
+    
     button: {
         // margin: 5,
         marginHorizontal: 0.02667*totalWidth, //10,
@@ -120,6 +134,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
+    
     lastbutton:{
         margin: 5,
         marginHorizontal: 80,
@@ -138,7 +153,7 @@ const styles = StyleSheet.create({
         fontSize: 0.04533*totalWidth, //17, 
     },
     topBar: {
-        flex: 1,
+        // flex: 1,
         backgroundColor: '#264653', // # + color code 
         alignItems: 'center',
         justifyContent: 'center',

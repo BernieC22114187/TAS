@@ -18,7 +18,7 @@ var totalWidth = Dimensions.get('window').width;
 var totalHeight = Dimensions.get('window').height;
 import Login from './src/pages/Login'
 import Register from './src/pages/Login'
-export var CONNECTIONURL = "http://localhost:8080"; //https://tasnutrition-vo7pqziauq-de.a.run.app";
+export var CONNECTIONURL =    "http://localhost:8080"; // "https://backend.tasnutrition.website" https://tasnutrition-vo7pqziauq-de.a.run.app";
 const LoginStackNav = createStackNavigator();
 
 

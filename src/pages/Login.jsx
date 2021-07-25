@@ -111,15 +111,15 @@ const Login = () =>{
             }
         }
 
-    
+        
         var now = new Date();
         var startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
         var timestamp = startOfDay / 1000;
         
         try {
-            
+            console.log("!!!!")
             let response = await fetch (
-                CONNECTIONURL + '/nutritioninfo/get/' + MEMBERID + "/" + "1626796800",{//timestamp.toString(), {//actual is not this url 
+                CONNECTIONURL + '/nutritioninfo/get/' + MEMBERID + "/" + "7251",{//timestamp.toString(), {//actual is not this url 
                     method: 'GET',
                     headers:{
                         Accept: 'application/json'
@@ -127,6 +127,7 @@ const Login = () =>{
                 } 
                 
             )
+            console.log("?????")
             let data = await response.json();
             var a = data["Calories"];
             var b = data["Total_Fat"];  
@@ -135,6 +136,7 @@ const Login = () =>{
             var e = data["Total_Carbs"];
             var f = data["Protein"];
             nutritionData = [a, b, c, d, e, f ]
+            
             console.log(nutritionData)
             navigation.navigate("router")
                 

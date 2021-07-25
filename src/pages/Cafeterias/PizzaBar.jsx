@@ -237,6 +237,8 @@ const styles = StyleSheet.create({
         // flexWrap: 'wrap', 
 
     },
+    
+
     // square:{
     //     width: 24,
     //     height: 24,
@@ -247,10 +249,12 @@ const styles = StyleSheet.create({
 
     // },
     itemText: {
-        maxWidth: '80%',
+        maxWidth: '90%',
         fontSize: 0.02929*totalWidth, //30,
-        marginRight: 0.186666*totalWidth, //70, 
-        marginLeft: 0.02929*totalWidth, //30,
+        //marginRight: 0.186666*totalWidth, //70, 
+        // marginRight: 0.00329*totalWidth, 
+        marginRight:  0.01629*totalWidth,
+        alignSelf: "flex-start"
         
     },
     circular: {

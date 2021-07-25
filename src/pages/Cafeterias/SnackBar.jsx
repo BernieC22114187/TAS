@@ -129,7 +129,7 @@ const SnackBar = () => {
         try {
             let response = await fetch (
 
-                CONNECTIONURL + '/nutritioninfo/get/' + MEMBERID + "/" + timestamp, {
+                CONNECTIONURL + '/nutritioninfo/get/' + MEMBERID + "/" + "7251",{ //timestamp, {
                     method: 'POST',
                     headers:{
                         Accept: 'application/json'
@@ -163,7 +163,7 @@ const SnackBar = () => {
             >
                 <View style = {styles.itemLeft}>   
                     <Text style = {styles.itemText}> {key} </Text>
-                    <Ionicons name = {dict[key] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
+                    <Ionicons  name = {dict[key] === 1? 'checkbox': 'checkbox-outline'} ></Ionicons>
                 </View>
                 
             </TouchableOpacity>
@@ -273,6 +273,8 @@ const styles = StyleSheet.create({
         // flexWrap: 'wrap', 
 
     },
+    
+
     // square:{
     //     width: 24,
     //     height: 24,
@@ -283,10 +285,12 @@ const styles = StyleSheet.create({
 
     // },
     itemText: {
-        maxWidth: '80%',
+        maxWidth: '70%',
         fontSize: 0.02929*totalWidth, //30,
-        marginRight: 0.186666*totalWidth, //70, 
-        marginLeft: 0.02929*totalWidth, //30,
+        //marginRight: 0.186666*totalWidth, //70, 
+        // marginRight: 0.00329*totalWidth, 
+        marginRight:  0.01629*totalWidth,
+        alignSelf: "flex-start"
         
     },
     circular: {

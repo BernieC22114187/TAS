@@ -229,8 +229,7 @@
 // })
 
 // export default Home;
-
-import React from 'react';
+import React ,{useState, useEffect } from 'react';
 import { RefreshControl, ImageBackground, View, Button, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity} from 'react-native';
 import {Dimensions} from "react-native";
 import BotBar from '../components/BotBu';
@@ -239,9 +238,8 @@ import {CONNECTIONURL} from "../../App"
 import {nutritionData} from "./Login"
 const image = { uri: "https://r1.ilikewallpaper.net/iphone-11-wallpapers/download/79815/Clementines-with-leaves-iphone-11-wallpaper-ilikewallpaper_com.jpg" };
 const infographic = {uri: "https://thumbs.dreamstime.com/z/healthy-vegetables-infographics-chart-graph-healthy-vegetables-infographics-chart-graph-quality-vector-99710155.jpg"};
-var progressArray = new Array();
+
 import {MEMBERID} from "./Login"
-var dailyRecommended = 2000; // change this to the # recommended per day for each
 
 
 
@@ -266,36 +264,57 @@ const chartConfig = {
     barPercentage: 0.8,
     useShadowColorFromDataset: false // optional
   };
+var allData = {"Progress" : ProgressData}
+var ProgressData; 
+var progressArray = new Array();
+var dailyRecommended = 1000; // change this to the # recommended per day for each
 
 const Home = () => {
+    var finalNutritionData = nutritionData;
+    console.log("refresh")
     const [refreshing, setRefreshing] = React.useState(false);
-    const [finalNutritionData, update] = useState([]);
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
-        
         wait(1000).then(() => setRefreshing(false), fetchData());
     }, []);
-    console.log("memberdata: " + nutritionData) 
+
     for(var i = 0; i < 6; i++){  
-        progressArray.push(nutritionData[i]/dailyRecommended);
+        progressArray[i] = (nutritionData[i]/dailyRecommended);
     }
-    // console.log("Why" + nutritionData)
-    var allData = {"Progress" : ProgressData}
-    var ProgressData = {
-        
+    
+    ProgressData = {
         labels: ["Calories", "Total Fat", "Cholesterol", "Sodium", "Total Carbs", "Protein"], // optional
         data: progressArray 
-        
       };
+    const [progressDataFinal, SetProgressDataFinal] = useState({
+        labels: ["Calories", "Total Fat", "Cholesterol", "Sodium", "Total Carbs", "Protein"], // optional
+        data: progressArray 
+    });
     var now = new Date();
     var startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     var timestamp = startOfDay / 1000;
-    
-    const fetchData = async() =>{   
+    useEffect(() => {
+        console.log("running useEffect")
+        fetchData();
+        // ProgressData = {
         
+        //     labels: ["Calories", "Total Fat", "Cholesterol", "Sodium", "Total Carbs", "Protein"], // optional
+        //     data: progressArray 
+            
+        //   };
+      }, []);
+      useEffect(() => {
+        console.log("running useEffect22")
+        console.log("Progress" + progressDataFinal.data)
+            
+
+      }, [progressDataFinal]);
+    const fetchData = async() =>{   
+        setRefreshing(true)
+         console.log("inside fetchData")
         try {
             let response = await fetch (
-                CONNECTIONURL + '/nutritioninfo/get/' + MEMBERID + "/" + "1626796800",{//timestamp, {//actual is not this url 
+                CONNECTIONURL + '/nutritioninfo/get/' + MEMBERID + "/" + "7251",{//timestamp, {//actual is not this url 
                     method: 'GET',
                     headers:{
                         Accept: 'application/json'
@@ -310,52 +329,56 @@ const Home = () => {
             var d = data["Sodium"];
             var e = data["Total_Carbs"];
             var f = data["Protein"];
-            update([a, b, c, d, e, f ])
-            
-            // console.log(finalNutritionData)
-            progressArray = new Array();
-            for(var i = 0; i < 6; i++){  
-                progressArray.push(finalNutritionData[i]/dailyRecommended);
+            var temp = [a, b, c, d, e, f ];
+            var isSame = true;
+            for (var i = 0 ; i < temp.length; i++){
+                if (temp[i] != finalNutritionData[i]){
+                    isSame = false;
+                    break;
+                }
             }
-            allData = {"Progress" : ProgressData}
-            ProgressData = {
+            if(!isSame){
+                console.log("!isSame")
+                // console.log("finalNutrition: "+ typeof finalNutritionData)
+                // console.log("temp: "+ typeof temp)
+                //console.log("finalNutrition1: " + finalNutritionData)
+                finalNutritionData = temp
+                //console.log("finalNutrition2: " + finalNutritionData)
+                //console.log("progressArray======" + progressArray)
+                progressArray = [];
                 
-                labels: ["Calories", "Total Fat", "Cholesterol", "Sodium", "Total Carbs", "Protein"], // optional
-                data: progressArray 
-                 
-            };
+                for(var i = 0; i < 6; i++){  
+                    progressArray[i] = (finalNutritionData[i]/dailyRecommended);
+                }
+                
+                // console.log("Progress" + progressArray)
+                // allData = {"Progress" : ProgressData}
+                ProgressData = {
+                    
+                    labels: ["Calories", "Total Fat", "Cholesterol", "Sodium", "Total Carbs", "Protein"], // optional
+                    data: progressArray 
+                     
+                };
+                console.log("progressArray:     " + progressArray)
+            }
+            // console.log(finalNutritionData)
+            // console.log("before setprogressdatafinal")
             
-                
+            SetProgressDataFinal(progressDataFinal => ({  labels: ["Calories", "Total Fat", "Cholesterol", "Sodium", "Total Carbs", "Protein"], // optional
+            data: progressArray    }))
+            
             return finalNutritionData
         } catch(error){
-            console.error(error); 
+            console.error(error);  
+        } finally {
+            setRefreshing(false)
         }
     }
     
-    fetchData();
+    // fetchData();
+    // console.log("hello")
     
-   
     return (
-        // <View>
-        //     <Text>Bezier Line Chart</Text>
-        //     <LineChart
-        //         data={data}
-        //         width={Dimensions.get('window').width} 
-        //         height={220}
-        //         chartConfig={chartConfig}
-        //     />
-        //     <BarChart
-        //         // style={graphStyle}
-        //         data={data2}
-        //         width={
-        //             Dimensions.get('window').width
-        //             }
-        //         height={220}
-        //         yAxisLabel="$"
-        //         chartConfig={chartConfig}        
-        //         verticalLabelRotation={30}
-        //     />
-        // </View>
         <ImageBackground source={image} style={styles.image} >
             <ScrollView 
                 refreshControl={
@@ -374,10 +397,12 @@ const Home = () => {
                         
                         
                         <Text style = {styles.text}> Stats </Text>
+                        {console.log("Refresh Graph " + progressArray)}
+                        
                         <ProgressChart
-                            data={ProgressData}
+                            data={ progressDataFinal}
                             width={totalWidth}
-                            height={220}
+                            height={220}        
                             strokeWidth={10}
                             radius={32}
                             chartConfig={chartConfig}
@@ -386,6 +411,11 @@ const Home = () => {
                             style = {styles.progressRing}
                             
                         />
+                        {/* <View style = {styles.blackBox}>
+                        </View>
+                        <View style = {styles.blackBox}>
+                        </View>
+        
                         {/* <View style = {styles.blackBox}>
                         </View>
                         <View style = {styles.blackBox}>
@@ -399,9 +429,9 @@ const Home = () => {
                         {/* <View>
                             <TASCharts data={allData["Progress"]} type = {ChartType}></TASCharts>
                         </View> */}
-                        <TouchableOpacity style = {styles.Suggestions} >
+                        <TouchableOpacity style = {styles.Suggestions }onPress = {fetchData} >
                             <Text style = {styles.cleartext}>
-                                Suggestions
+                                Refresh
                             </Text>
                         </TouchableOpacity>
                         <View style = {styles.grayBox}>
@@ -425,6 +455,7 @@ const Home = () => {
         </ImageBackground>
         
     )
+    
 }
 
 
@@ -489,7 +520,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     Suggestions:{
-        flex: 1,
+        
         backgroundColor: '#24AA18', // # + color code 
         alignItems: 'center',
         justifyContent: 'center',
@@ -551,12 +582,16 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         fontSize: 20,
     },
+    topBarText: {
+        color: 'white',
+        fontSize: totalWidth * 0.053//20
+    },
     topBar: {
-        flex: 1,
+        
         backgroundColor: '#264653', // # + color code 
         alignItems: 'center',
         justifyContent: 'center',
-        height: 0.105 * totalHeight, // 70
+        height: 0.1035 * totalHeight, // 70
         width: totalWidth, // 375
         paddingHorizontal: 0,
         paddingVertical: totalHeight*0.032, // 23
@@ -587,10 +622,7 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 0.04267 * totalWidth, // 16
     },
-    topBarText: {
-        color: 'white',
-        fontSize: totalWidth * 0.053//20
-    }
+    
 })
 
 export default Home;
@@ -605,6 +637,26 @@ export default Home;
 
 // const image = { uri: "https://r1.ilikewallpaper.net/iphone-11-wallpapers/download/79815/Clementines-with-leaves-iphone-11-wallpaper-ilikewallpaper_com.jpg" };
 // const infographic = {uri: "https://thumbs.dreamstime.com/z/healthy-vegetables-infographics-chart-graph-healthy-vegetables-infographics-chart-graph-quality-vector-99710155.jpg"};
+      
+// import {
+//     LineChart,
+//     BarChart,
+//     PieChart,
+//     ProgressChart,
+//     ContributionGraph,
+//     StackedBarChart
+//   } from "react-native-chart-kit";
+// var width = Dimensions.get('window').width;
+// var height = Dimensions.get('window').width;
+// const chartConfig = {
+//     // backgroundGradientFrom: "#1E2923",
+//     // backgroundGradientFromOpacity: 0,
+//     // backgroundGradientTo: "#08130D",
+//     // backgroundGradientToOpacity: 0.5,
+//     color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
+//     strokeWidth: 2, // optional, default 3
+//     barPercentage: 0.8,
+
       
 // import {
 //     LineChart,

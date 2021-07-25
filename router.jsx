@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React ,{ useEffect, useState } from 'react';
-import { Dimensions, StyleSheet, Text, View, SafeAreaView, Button } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { TouchableOpacity, Dimensions, StyleSheet, Text, View, SafeAreaView, Button } from 'react-native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -60,6 +60,7 @@ export var memberData;
 const afterLogin = () =>{
   // const item = navigation.getParam('member_id');
   // console.log(item);
+  const navigation = useNavigation();
     return (
       
             <Tab.Navigator style = {styles.tabBarStyle} //add styles here
@@ -84,8 +85,13 @@ const afterLogin = () =>{
                     // else if(route.name === "HomeStackScreen"){ 
                     //   iconName = focused? 'planet' : 'planet-outline';
                     // }
-        
-                    return <Ionicons name = {iconName} size = {size} color = {color}/>
+                    
+                    return (
+                      <Ionicons name = {iconName} size = {size} color = {color}/>
+                      // <TouchableOpacity onPress = {() => navigation.navigate(route.name)}>
+                      //   <Ionicons name = {iconName} size = {size} color = {color}/>
+                      // </TouchableOpacity>
+                    )
                 },
 
                 })}

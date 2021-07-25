@@ -184,12 +184,16 @@ const styles = StyleSheet.create({
         color: 'white',
         backgroundColor: '#6C757D'
     },
+    topBarText: {
+        color: 'white',
+        fontSize: totalWidth * 0.053//20
+    },
     topBar: {
-        flex: 1,
+        
         backgroundColor: '#264653', // # + color code 
         alignItems: 'center',
         justifyContent: 'center',
-        height: 0.105 * totalHeight, // 70
+        height: 0.1035 * totalHeight, // 70
         width: totalWidth, // 375
         paddingHorizontal: 0,
         paddingVertical: totalHeight*0.032, // 23
@@ -199,10 +203,7 @@ const styles = StyleSheet.create({
         marginBottom: 0.015 * totalHeight,
     
     },
-    topBarText: {
-        color: 'white',
-        fontSize: totalWidth * 0.053//20
-    }
+    
 })
 
 export default Settings;
