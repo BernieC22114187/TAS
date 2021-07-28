@@ -102,7 +102,7 @@ const PizzaBar = () => {
         try {
             let response = await fetch (
 
-                CONNECTIONURL + '/nutritioninfo/get/' + MEMBERID + "/" +timestamp, {
+                CONNECTIONURL + '/nutritioninfo/get/' + MEMBERID + "/" +timestamp.toString(), {
                     method: 'POST',
                     headers:{
                         Accept: 'application/json'

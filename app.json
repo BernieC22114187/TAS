@@ -1,10 +1,11 @@
+
 {
   "expo": {
     "name": "TAS-Nutrition",
     "slug": "TAS-Nutrition",
     "version": "1.0.0",
+    "icon": "./src/assets/AppIcon.jpg",
     "orientation": "portrait",
-    
     "splash": {
       
       "resizeMode": "contain",
@@ -17,13 +18,10 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        
-        "backgroundColor": "#FFFFFF"
-      }
+      "supportsTablet": true,
+      "bundleIdentifier": "com.BernieChen.TAS-Nutrition",
+      "buildNumber": "1.0.0"
     }
+    
   }
 }

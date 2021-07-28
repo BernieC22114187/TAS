@@ -266,55 +266,53 @@ const chartConfig = {
   };
 var allData = {"Progress" : ProgressData}
 var ProgressData; 
-var progressArray = new Array();
-var dailyRecommended = 1000; // change this to the # recommended per day for each
+var progressArray = [];
+var dailyRecommended = [2500, 77, 300, 2300, 325, 56]; // change this to the # recommended per day for each
 
 const Home = () => {
     var finalNutritionData = nutritionData;
+    
     console.log("refresh")
-    const [refreshing, setRefreshing] = React.useState(false);
-    const onRefresh = React.useCallback(() => {
-        setRefreshing(true);
-        wait(1000).then(() => setRefreshing(false), fetchData());
-    }, []);
+    // const [refreshing, setRefreshing] = React.useState(false);
+    // const onRefresh = React.useCallback(() => {
+    //     setRefreshing(true);
+    //     wait(1000).then(() => setRefreshing(false), fetchData());
+    // }, []);
 
     for(var i = 0; i < 6; i++){  
-        progressArray[i] = (nutritionData[i]/dailyRecommended);
+        progressArray[i] = (nutritionData[i]/dailyRecommended[i]);
     }
-    
-    ProgressData = {
-        labels: ["Calories", "Total Fat", "Cholesterol", "Sodium", "Total Carbs", "Protein"], // optional
-        data: progressArray 
-      };
+     
     const [progressDataFinal, SetProgressDataFinal] = useState({
         labels: ["Calories", "Total Fat", "Cholesterol", "Sodium", "Total Carbs", "Protein"], // optional
-        data: progressArray 
+        data: progressArray ,
+        colors: [
+            "rgba(255, 0, 0,0.5)",
+            "rgba(238, 130, 238,0.6)",
+            "rgba(106, 90, 205,0.5)",
+            "rgba(60, 179, 113,0.2)",
+            "rgba(255, 172, 71 , 0.3)",
+            "rgba(106, 90, 205,0.5)"
+        ],
     });
     var now = new Date();
     var startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     var timestamp = startOfDay / 1000;
+ 
     useEffect(() => {
-        console.log("running useEffect")
-        fetchData();
-        // ProgressData = {
-        
-        //     labels: ["Calories", "Total Fat", "Cholesterol", "Sodium", "Total Carbs", "Protein"], // optional
-        //     data: progressArray 
-            
-        //   };
-      }, []);
-      useEffect(() => {
-        console.log("running useEffect22")
-        console.log("Progress" + progressDataFinal.data)
-            
+    console.log("running useEffect22")
+    console.log("Progress" + progressDataFinal.data)
+    }, [progressDataFinal]);
 
-      }, [progressDataFinal]);
+    useEffect(() => {
+        fetchData()
+    }, []);
+
     const fetchData = async() =>{   
-        setRefreshing(true)
-         console.log("inside fetchData")
+        console.log("inside fetchData")
         try {
             let response = await fetch (
-                CONNECTIONURL + '/nutritioninfo/get/' + MEMBERID + "/" + "7251",{//timestamp, {//actual is not this url 
+                CONNECTIONURL + '/nutritioninfo/get/' + MEMBERID + "/" + timestamp.toString(), {//actual is not this url 
                     method: 'GET',
                     headers:{
                         Accept: 'application/json'
@@ -323,55 +321,104 @@ const Home = () => {
                 
             )
             let data = await response.json();
-            var a = data["Calories"];
-            var b = data["Total_Fat"];  
-            var c = data["Cholesterol"];
-            var d = data["Sodium"];
-            var e = data["Total_Carbs"];
-            var f = data["Protein"];
-            var temp = [a, b, c, d, e, f ];
-            var isSame = true;
-            for (var i = 0 ; i < temp.length; i++){
-                if (temp[i] != finalNutritionData[i]){
-                    isSame = false;
-                    break;
+            if  (data["message"] == "Member has no data yet") {
+                var temp = [0, 0, 0, 0, 0, 0];
+                var isSame = true;
+                for (var i = 0 ; i < temp.length; i++){
+                    if (temp[i] != finalNutritionData[i]){
+                        isSame = false;
+                        break;
+                    }
                 }
-            }
-            if(!isSame){
-                console.log("!isSame")
-                // console.log("finalNutrition: "+ typeof finalNutritionData)
-                // console.log("temp: "+ typeof temp)
-                //console.log("finalNutrition1: " + finalNutritionData)
-                finalNutritionData = temp
-                //console.log("finalNutrition2: " + finalNutritionData)
-                //console.log("progressArray======" + progressArray)
-                progressArray = [];
-                
-                for(var i = 0; i < 6; i++){  
-                    progressArray[i] = (finalNutritionData[i]/dailyRecommended);
-                }
-                
-                // console.log("Progress" + progressArray)
-                // allData = {"Progress" : ProgressData}
-                ProgressData = {
+                if(!isSame){
+                    console.log("!isSame")
+                    // console.log("finalNutrition: "+ typeof finalNutritionData)
+                    // console.log("temp: "+ typeof temp)
+                    //console.log("finalNutrition1: " + finalNutritionData)
+                    finalNutritionData = temp
+                    //console.log("finalNutrition2: " + finalNutritionData)
+                    //console.log("progressArray======" + progressArray)
+                    progressArray = [];
                     
-                    labels: ["Calories", "Total Fat", "Cholesterol", "Sodium", "Total Carbs", "Protein"], // optional
-                    data: progressArray 
-                     
-                };
-                console.log("progressArray:     " + progressArray)
+                    for(var i = 0; i < 6; i++){  
+                        progressArray.push((finalNutritionData[i])/dailyRecommended[i]);
+                    }
+                    
+                    // console.log("Progress" + progressArray)
+                    // allData = {"Progress" : ProgressData}
+                    // ProgressData = {
+                        
+                    //     labels: ["Calories", "Total Fat", "Cholesterol", "Sodium", "Total Carbs", "Protein"], // optional
+                    //     data: progressArray 
+                        
+                    // };
+                    
+                }
+            } else {
+                var a = data["Calories"];
+                var b = data["Total_Fat"];  
+                var c = data["Cholesterol"];
+                var d = data["Sodium"];
+                var e = data["Total_Carbs"]; 
+                var f = data["Protein"];
+                var temp = [a, b, c, d, e, f ];
+                var isSame = true;
+                for (var i = 0 ; i < temp.length; i++){
+                    if (temp[i] != finalNutritionData[i]){
+                        isSame = false;
+                        break;
+                    }
+                }
+                if(!isSame){
+                    console.log("!isSame")
+                    // console.log("finalNutrition: "+ typeof finalNutritionData)
+                    // console.log("temp: "+ typeof temp)
+                    //console.log("finalNutrition1: " + finalNutritionData)
+                    finalNutritionData = temp
+                    //console.log("finalNutrition2: " + finalNutritionData)
+                    //console.log("progressArray======" + progressArray)
+                    progressArray = [];
+                    
+                    for(var i = 0; i < 6; i++){  
+                        progressArray.push((finalNutritionData[i])/dailyRecommended[i]);
+                    }
+                    
+                    // console.log("Progress" + progressArray)
+                    // allData = {"Progress" : ProgressData}
+                    // ProgressData = {
+                        
+                    //     labels: ["Calories", "Total Fat", "Cholesterol", "Sodium", "Total Carbs", "Protein"], // optional
+                    //     data: progressArray 
+                        
+                    // };
+                    
+                }
             }
+            
             // console.log(finalNutritionData)
             // console.log("before setprogressdatafinal")
+            console.log("progressArray:     " + progressArray)
+            console.log("type in Array: " + typeof progressArray[0])
+            var progressA = [0,0,0,0,0,0]
+            for(var i = 0; i < 6; i++){  
+                progressA[i] = progressArray[i] 
+            }
             
-            SetProgressDataFinal(progressDataFinal => ({  labels: ["Calories", "Total Fat", "Cholesterol", "Sodium", "Total Carbs", "Protein"], // optional
-            data: progressArray    }))
+            SetProgressDataFinal( {  labels: ["Calories", "Total Fat", "Cholesterol", "Sodium", "Total Carbs", "Protein"], // optional
+            data: progressA, colors: [
+                "rgba(255, 0, 0,0.5)",
+                "rgba(238, 130, 238,0.6)",
+                "rgba(106, 90, 205,0.5)",
+                "rgba(60, 179, 113,0.2)",
+                "rgba(255, 172, 71 , 0.3)",
+                "rgba(106, 90, 205,0.5)"
+            ],}  )
             
             return finalNutritionData
         } catch(error){
             console.error(error);  
         } finally {
-            setRefreshing(false)
+            // setRefreshing(false)
         }
     }
     
@@ -381,12 +428,12 @@ const Home = () => {
     return (
         <ImageBackground source={image} style={styles.image} >
             <ScrollView 
-                refreshControl={
-                    <RefreshControl
-                    refreshing={refreshing}
-                    onRefresh={onRefresh}
-                    />
-                }
+                // refreshControl={
+                //     <RefreshControl
+                //     refreshing={refreshing}
+                //     onRefresh={onRefresh}
+                //     />
+                // }
             >
                 <SafeAreaView>
                     <View style = {styles.container}>

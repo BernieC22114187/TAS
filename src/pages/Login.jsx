@@ -82,6 +82,50 @@ const Login = () =>{
                   );
                 
             }
+            
+            var now = new Date();
+            var startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            var timestamp = startOfDay / 1000;
+            
+            try {
+                // console.log("!!!!")
+                let response = await fetch (
+                    CONNECTIONURL + '/nutritioninfo/get/' + MEMBERID + "/" + timestamp.toString(), {//actual is not this url 
+                        method: 'GET',
+                        headers:{
+                            Accept: 'application/json'
+                        }
+                    } 
+                    
+                )
+                // console.log("?????")
+                let data = await response.json();
+                if  (data["message"] == "Member has no data yet") {
+                    console.log("special case")
+                    nutritionData = [0,0,0,0,0,0]
+                    navigation.navigate("router")
+                    return nutritionData;
+                        
+                }
+                else{
+                    var a = data["Calories"];
+                    var b = data["Total_Fat"];  
+                    var c = data["Cholesterol"];
+                    var d = data["Sodium"];
+                    var e = data["Total_Carbs"];
+                    var f = data["Protein"]; 
+                    nutritionData = [a, b, c, d, e, f ]
+                    
+                    console.log(nutritionData)
+                    navigation.navigate("router")
+                    
+                    return nutritionData
+                }
+                
+                
+            } catch(error){
+                console.error(error); 
+            }      
         }
         else{
             try {
@@ -103,47 +147,18 @@ const Login = () =>{
                 let json = await response.json();
                 MEMBERID = json["id"];
                 console.log(MEMBERID)
-                
-        
+                nutritionData = [0,0,0,0,0,0]
+                navigation.navigate("router")
+                return nutritionData;
                
             } catch(error){
                 console.error(error);  
             }
+            
         }
 
         
-        var now = new Date();
-        var startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-        var timestamp = startOfDay / 1000;
         
-        try {
-            console.log("!!!!")
-            let response = await fetch (
-                CONNECTIONURL + '/nutritioninfo/get/' + MEMBERID + "/" + "7251",{//timestamp.toString(), {//actual is not this url 
-                    method: 'GET',
-                    headers:{
-                        Accept: 'application/json'
-                    }
-                } 
-                
-            )
-            console.log("?????")
-            let data = await response.json();
-            var a = data["Calories"];
-            var b = data["Total_Fat"];  
-            var c = data["Cholesterol"];
-            var d = data["Sodium"];
-            var e = data["Total_Carbs"];
-            var f = data["Protein"];
-            nutritionData = [a, b, c, d, e, f ]
-            
-            console.log(nutritionData)
-            navigation.navigate("router")
-                
-            return nutritionData
-        } catch(error){
-            console.error(error); 
-        }      
 
     }
 
