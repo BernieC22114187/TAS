@@ -16,7 +16,6 @@ import AddScreen from './AddScreen';
 import DishSelection from './Cafeterias/DishSelection';
 import Other from './Cafeterias/Other';
 
-
 const Stack = createStackNavigator();
 const Add = ({}) => {  
 

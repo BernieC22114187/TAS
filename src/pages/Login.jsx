@@ -17,6 +17,8 @@ const image = { uri: "https://img.wallpapersafari.com/phone/640/1136/53/22/vmRdM
 
 export var nutritionData;
 export var MEMBERID = "";
+export var MEMBERHEIGHT = 0;
+export var MEMBERWEIGHT = 0;
 class Member {
     id = String
 }
@@ -52,6 +54,8 @@ const Login = () =>{
                 if(response.ok){
                     let json = await response.json();
                     MEMBERID = json["id"];
+                    MEMBERHEIGHT = json["height"]
+                    MEMBERWEIGHT = json["weight"]
                     console.log(MEMBERID)
                     
                 }
@@ -146,6 +150,8 @@ const Login = () =>{
                 )
                 let json = await response.json();
                 MEMBERID = json["id"];
+                MEMBERHEIGHT = json["height"]
+                MEMBERWEIGHT = json["weight"]
                 console.log(MEMBERID)
                 nutritionData = [0,0,0,0,0,0]
                 navigation.navigate("router")

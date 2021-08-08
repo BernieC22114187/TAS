@@ -20,7 +20,7 @@ import Login from './src/pages/Login'
 import Register from './src/pages/Login'
 export var CONNECTIONURL =    "https://tas-backend-l3rh3hlnya-de.a.run.app"; // "https://backend.tasnutrition.website" https://tasnutrition-vo7pqziauq-de.a.run.app";
 const LoginStackNav = createStackNavigator();
-
+import SamplePlate from './src/pages/SamplePlate';
 
 export default function App() { 
   
@@ -31,6 +31,7 @@ export default function App() {
         >
             <LoginStackNav.Screen name="router" component={afterLogin} />
             <LoginStackNav.Screen name="Login" component={Login} />
+            
             {/* <LoginStackNav.Screen name="Register" component={Register} /> */}
         </LoginStackNav.Navigator>
     </NavigationContainer>

@@ -1,16 +1,72 @@
-import React from 'react';
-import { Dimensions, ImageBackground, TextInput, View, VirtualizedList, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity} from 'react-native';
+import React , {useState, useEffect }from 'react';
+import { Alert, RefreshControl, Dimensions, ImageBackground, TextInput, View, VirtualizedList, Text, StyleSheet, ScrollView, SafeAreaView, TouchableOpacity} from 'react-native';
 // import Input from '../components/TextInput';
 import { Input } from 'react-native-elements';
 import BotBar from '../components/BotBu';
+import { CONNECTIONURL } from '../../App';
+import { MEMBERHEIGHT, MEMBERWEIGHT } from './Login';
+import { MEMBERID } from './Login';
 //import CustomizedTables from '../components/TableComp'
 var totalWidth = Dimensions.get('window').width;
 var totalHeight = Dimensions.get('window').height;
 const image = { uri: "https://i.pinimg.com/originals/0f/b9/c1/0fb9c122d7aa2a4e408e9b893526d1e1.jpg" };
+
 const Settings = () => {
+
+    const wait = (timeout) => {
+        return new Promise(resolve => setTimeout(resolve, timeout));
+    } 
+    const [height1, setHeight ] = useState(MEMBERHEIGHT);
+    const [weight1, setWeight] = useState(MEMBERWEIGHT);
+    const [refreshing, setRefreshing] = React.useState(false);
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        wait(1000).then(() => setRefreshing(false));
+    }, []);
+    const saveMemberData = async () => {
+        Alert.alert(
+            "Setting Change",
+            "Member Data has been updated",
+            [
+              
+              { text: "OK", onPress: () => console.log("OK Pressed") }
+            ]
+          );
+        try {
+            let response = await fetch (
+                CONNECTIONURL + '/member/' + MEMBERID, {//actual is not this url 
+                    method: 'PUT',
+                    headers:{
+                        Accept: 'application/json'
+                    },
+                    body: JSON.stringify({
+                        weight: weight1,
+                        height: height1
+                    })
+                } 
+                
+            )
+            let data = await response.json();
+            setHeight(data["height"])
+            setWeight(data["weight"])
+        }catch(error){
+            console.error(error);  
+        }
+    }    
+    useEffect(() => {
+
+    }, [height1, weight1]);
+    
     return (
         <ImageBackground source={image} style={styles.image} >
-            <ScrollView>
+            <ScrollView
+                refreshControl={
+                    <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={onRefresh}
+                    />
+                }
+            >
                 <SafeAreaView>
                     <View style = {styles.container}>
                         <View style = {styles.topBar}>
@@ -19,13 +75,14 @@ const Settings = () => {
                         <Text style = {styles.text}> Profile Name </Text>
                         <View style = {styles.grayBox}>
                             <TouchableOpacity style = {styles.setting}>
-                                <Text style = {styles.labels}>Mass: </Text>
-                                <TextInput placeholder='mass in kg ' style = {styles.inputBox}></TextInput>
+                                <Text style = {styles.labels} >Mass: </Text>
+                                <TextInput placeholder= {MEMBERWEIGHT + " kg"} style = {styles.inputBox} onChangeText = { (v)=> setWeight(v)}></TextInput>
                             </TouchableOpacity>
+                            
                             
                             <TouchableOpacity style = {styles.setting}>
                                 <Text style = {styles.labels}>Height: </Text>
-                                <TextInput placeholder='height in cm' style = {styles.inputBox}/>
+                                <TextInput placeholder= {MEMBERHEIGHT + " cm"} style = {styles.inputBox} onChangeText = { (v)=> setHeight(v)}/>
                             </TouchableOpacity>
                             <TouchableOpacity style = {styles.setting}>
                                 <Text style = {styles.labels}>Birthdate: </Text>
@@ -38,11 +95,19 @@ const Settings = () => {
                             <TouchableOpacity style = {styles.setting}>
                                 <Text style = {styles.labels}>Body Fat: </Text>
                                 <TextInput placeholder='Percentage' style = {styles.inputBox}/>
-                            </TouchableOpacity>
+                            </TouchableOpacity> 
                             
                             
                             
                         </View>
+                        <TouchableOpacity style = {styles.addToPlate} onPress = {saveMemberData 
+                            
+                        
+                        }>
+                                <Text style = {styles.cleartext}>
+                                    Save
+                                </Text>
+                        </TouchableOpacity>
                         {/* <View style = {styles.blackBox}>
                         </View> */}
                         {/* <TouchableOpacity style = {styles.save}>
@@ -126,21 +191,22 @@ const styles = StyleSheet.create({
         marginVertical: 0.00749625* totalHeight, //5,
         
     },
+    cleartext: {
+        color: 'white',
+        fontSize: 0.042666*totalWidth, //16,
+    },
     
     addToPlate:{
-        flex: 1,
-        backgroundColor: '#3AE041', // # + color code 
-        alignItems: 'center',
+        margin: 5,
+        marginHorizontal: 37,
+        padding: 10,
+        paddingTop: 10,
+        height: 70,
+        borderRadius: 9,
+        backgroundColor: '#3AE041',
         justifyContent: 'center',
-        height:300,
-        width: 250,
-        paddingLeft: 5,
-        paddingVertical: 30,
-        
-        marginHorizontal: 85,
-         
-        marginTop: 10,
-        marginBottom: 10,
+        alignItems: 'center',
+        width: 300,
     },
     grayBox:{
         flex: 1,

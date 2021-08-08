@@ -14,7 +14,7 @@ import Home from './src/pages/Home';
 import index from './src/pages/index';
 import { getData } from './src/api/member_api';
 
-
+import HomeNavigate from './src/pages/HomeNavigate'
 var totalWidth = Dimensions.get('window').width;
 var totalHeight = Dimensions.get('window').height;
 
@@ -101,7 +101,7 @@ const afterLogin = () =>{
                 }}
 
             >
-                <Tab.Screen name = "Home" component = {Home}/>
+                <Tab.Screen name = "Home" component = {HomeNavigate}/>
                 <Tab.Screen name = "Add" component = {Add}/>
                 <Tab.Screen name = "Settings" component = {Settings}/>
                 {/* <Tab.Screen name = "HomeStackScreen" component = {HomeStackScreen}/> */}
